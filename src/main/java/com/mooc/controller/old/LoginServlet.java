@@ -16,6 +16,9 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+        
         request.setCharacterEncoding("utf-8");   // 设置编码方式,处理POST请求中文乱码问题
 
 
