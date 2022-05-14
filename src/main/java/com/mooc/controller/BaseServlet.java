@@ -7,9 +7,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-@WebServlet(name = "BaseServlet", value = "/BaseServlet")
+@WebServlet("/baseServlet")
 public class BaseServlet extends HttpServlet {
-
 
     /**
      * 根据请求路径进行方法分发
@@ -18,6 +17,7 @@ public class BaseServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1. 获取请求路径

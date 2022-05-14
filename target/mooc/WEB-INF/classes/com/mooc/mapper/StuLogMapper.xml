@@ -17,4 +17,36 @@
         <result column="sl_exam_num" property="examNum"></result>
     </resultMap>
 
+
+    <insert id="addStuLog" useGeneratedKeys="true" keyProperty="id">
+        insert into stu_log
+        values (null, #{stuId},
+                #{studyNum}, #{classNum}, #{studyTime},
+                #{likeNum}, #{collectNum}, #{scoreNum}, #{examNum})
+    </insert>
+
+    <delete id="deleteBySId">
+        delete from stu_log
+        where sl_stu_id = #{sId}
+    </delete>
+
+    <select id="selectBySId" resultMap="stuLogResultMap">
+        select *
+        from stu_log
+        where sl_stu_id = #{sId}
+    </select>
+
+    <update id="updateStudyTimeBySId">
+        update stu_log
+        set sl_study_time = #{newStudyTime}
+        where sl_stu_id = #{sId}
+    </update>
+
+    <update id="increaseOneBySIdAndColumnName">
+        update stu_log
+        set ${columnName} = ${columnName} + 1
+        where sl_stu_id = #{sId}
+    </update>
+
+
 </mapper>

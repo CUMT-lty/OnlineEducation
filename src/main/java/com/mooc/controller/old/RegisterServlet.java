@@ -38,24 +38,24 @@ public class RegisterServlet extends HttpServlet {
         // 3. 将json字符串封装为一个Stu对象
         Stu stu = JSON.parseObject(jsonStr, Stu.class);
         // 4. 调用stuService中的register方法完成注册操作（和业务逻辑层交互）
-        boolean registerFlag = stuService.register(stu);
+//        boolean registerFlag = stuService.register(stu);
         // 如果注册成功，则直接跳转到登录页面，否则给原注册页面返回失败信息
-        if (registerFlag==true) {  // 注册成果，直接跳转到登录页面
-            response.sendRedirect("/login.html");   // 重定向
-        } else {  // 注册失败，给原注册页面响应失败信息
-            // 5. 封装json对象
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("registerRes", false);  // false说明用户名重复
-            // 6. 将json对象转为json字符串
-            String s = JSON.toJSONString(jsonObject);
-            // 7. 响应回前端
-            response.setContentType("text/json;charset=utf-8");  // 处理响应头和中文编码问题
-            response.getWriter().write(s);
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doGet(request, response);
+//        if (registerFlag==true) {  // 注册成果，直接跳转到登录页面
+//            response.sendRedirect("/login.html");   // 重定向
+//        } else {  // 注册失败，给原注册页面响应失败信息
+//            // 5. 封装json对象
+//            JSONObject jsonObject = new JSONObject();
+//            jsonObject.put("registerRes", false);  // false说明用户名重复
+//            // 6. 将json对象转为json字符串
+//            String s = JSON.toJSONString(jsonObject);
+//            // 7. 响应回前端
+//            response.setContentType("text/json;charset=utf-8");  // 处理响应头和中文编码问题
+//            response.getWriter().write(s);
+//        }
+//    }
+//
+//    @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        this.doGet(request, response);
     }
 }

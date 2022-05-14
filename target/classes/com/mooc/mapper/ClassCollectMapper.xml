@@ -22,6 +22,14 @@
         delete from class_collect
         where cc_c_id = #{cId} and cc_s_id = #{sId}
     </delete>
+    
+    <delete id="deleteRowsBySIdAndCIds">
+        delete from class_collect 
+        where cc_s_id = #{sId} and cc_c_id in
+            <foreach collection="cIds" item="cId" separator="," open="(" close=")">
+                #{cId}
+            </foreach>
+    </delete>
 
     <select id="totalRowsByCId" resultType="java.lang.Integer">
         select count(*) from class_collect

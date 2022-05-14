@@ -1,101 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mooc.mapper.ClassCollectMapper" >
-  <resultMap id="BaseResultMap" type="com.mooc.pojo.ClassLike" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="userid" property="userid" jdbcType="VARCHAR" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="VARCHAR" />
-    <result column="ip" property="ip" jdbcType="VARCHAR" />
-    <result column="time" property="time" jdbcType="TIMESTAMP" />
-    <result column="executor" property="executor" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id,userid, username,type,ip,time,executor
-  </sql>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<select id="select" resultMap="BaseResultMap">
-    select *
-    from log where executor is null
-    ORDER BY time desc
-  </select>
-   <select id="selectadminlogbyusername" resultMap="BaseResultMap">
-    select *
-    from log
-    where executor is not null and username = #{username} ORDER BY time desc
-  </select>
-  <select id="selectadminlog" resultMap="BaseResultMap">
-    select *
-    from log
-    where executor is not null ORDER BY time desc
-  </select>
-  <select id="selectbyusername" resultMap="BaseResultMap" parameterType="String" >
-    select *
-    from log
-    where username = #{username} ORDER BY time asc
-  </select>
-  <delete id="delete" parameterType="com.mooc.pojo.ClassLike" >
-    delete from log
-    where id = #{id,jdbcType=INTEGER} 
-  </delete>
-  <insert id="insert" parameterType="com.mooc.pojo.ClassLike" >
-      insert into log
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userid != null" >
-        userid,
-      </if>
-      <if test="username != null" >
-        username,
-      </if>
-      <if test="type != null" >
-        type,
-      </if>
-      <if test="ip != null" >
-        ip,
-      </if>
-        time,
-        <if test="executor != null" >
-        executor,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userid != null" >
-        #{userid,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="ip != null" >
-        #{ip,jdbcType=VARCHAR},
-      </if>
-       now(),
-       <if test="executor != null" >
-        #{executor,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.mooc.pojo.ClassLike" >
-    update log
-    <set >
-      <if test="username != null" >
-       username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-       type =  #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="ip != null" >
-       ip = #{ip,jdbcType=VARCHAR},
-      </if>
-       <if test="time != null" >
-       time = #{time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="executor != null" >
-       executor = #{executor,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.mooc.mapper.ClassCollectMapper" >
+
+    <resultMap id="classCollectResultMap" type="com.mooc.pojo.ClassCollect" >
+        <id column="cc_id" property="id"></id>
+        <result column="cc_c_id" property="cId"></result>
+        <result column="cc_s_id" property="sId"></result>
+    </resultMap>
+
+
+    <!-- 添加主键返回 -->
+    <insert id="addClassCollect" useGeneratedKeys="true" keyProperty="id">
+        insert into class_collect
+        values(null, #{cId}, #{sId})
+    </insert>
+
+    <delete id="deleteByCIdAndSId">
+        delete from class_collect
+        where cc_c_id = #{cId} and cc_s_id = #{sId}
+    </delete>
+    
+    <delete id="deleteRowsBySIdAndCIds">
+        delete from class_collect 
+        where cc_s_id = #{sId} and cc_c_id in
+            <foreach collection="cIds" item="cId" separator="," open="(" close=")">
+                #{cId}
+            </foreach>
+    </delete>
+
+    <select id="totalRowsByCId" resultType="java.lang.Integer">
+        select count(*) from class_collect
+        where cc_c_id = #{cId}
+    </select>
+
+    <select id="totalRowsBySId" resultType="java.lang.Integer">
+        select count(*) from class_collect
+        where cc_s_id = #{sId}
+    </select>
+
+    <select id="selectByCIdAndSId" resultMap="classCollectResultMap">
+        select *
+        from class_collect
+        where cc_c_id = #{cId} and cc_s_id = #{sId}
+    </select>
+
 </mapper>

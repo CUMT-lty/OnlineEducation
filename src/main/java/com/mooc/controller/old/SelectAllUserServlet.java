@@ -20,7 +20,7 @@ public class SelectAllUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 2. 调用UserService中的selectAllUser方法完成查询操作（和业务逻辑层交互）
-        List<Stu> users = userService.selectAllUser();
+//        List<Stu> users = userService.selectAllUser();
 
         // 3. 将结果响应或转发到另一个资源中
 
@@ -31,9 +31,9 @@ public class SelectAllUserServlet extends HttpServlet {
         request.getRequestDispatcher("a.html").forward(request, response);*/
 
         // 3.2 将结果以json格式响应到前端
-        String usersJSONString = JSON.toJSONString(users);
+//        String usersJSONString = JSON.toJSONString(users);
         response.setContentType("text/json;charset=utf-8");  // 处理响应头和中文编码问题
-        response.getWriter().write(usersJSONString);   // 响应到前端
+//        response.getWriter().write(usersJSONString);   // 响应到前端
 
     }
 

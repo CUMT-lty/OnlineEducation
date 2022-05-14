@@ -34,6 +34,48 @@
     </insert>
 
 
+    <delete id="deleteById">
+        delete from stu
+        where s_id = #{id}
+    </delete>
+
+    <select id="selectAllStu" resultMap="stuResultMap">
+        select * from stu
+    </select>
+
+    <select id="selectByUsername" resultType="com.mooc.pojo.Stu">
+        select *
+        from stu
+        where s_username = #{username}
+    </select>
+
+    <select id="selectByUsernameAndPsw" resultMap="stuResultMap">
+        select *
+        from stu
+        where s_username = #{username}
+          and s_password = #{password}
+    </select>
+
+    <!--<select id="selectByMap" resultMap="stuResultMap">
+        select *
+        from stu
+        where s_username = #{username}
+          and s_password = #{password}
+    </select>-->
+
+
+    <update id="updatePasswordById">
+        update stu
+        set s_password = #{newPsw}
+        where s_id = #{id}
+    </update>
+
+    <update id="updatePasswordByUsername">
+        update stu
+        set s_password = #{newPsw}
+        where s_username = #{username}
+    </update>
+
     <!--动态修改学生表任意字段-->
     <update id="updateAnyColumn">
         update stu
@@ -47,58 +89,13 @@
         where s_id = #{id}
     </update>
 
-    <!-- 动态删除学生用户 -->
-    <delete id="deleteByIds">
-        delete from stu
-        where t_id in
-        <foreach collection="ids" item="id" separator="," open="(" close=")">
-            #{id}
-        </foreach>
-    </delete>
 
-
-    <!--查询所有用户-->
-    <select id="selectAllStu" resultMap="stuResultMap">
-        select * from stu
-    </select>
-
-
-    <!--通过用户名和密码查询用户-->
-    <select id="selectByUsernameAndPsw" resultMap="stuResultMap">
-        select *
-        from stu
-        where s_username = #{username}
-          and s_password = #{password}
-    </select>
-
-    <!-- 根据用户名查询用户 -->
-    <select id="selectByUsername" resultType="com.mooc.pojo.Stu">
-        select *
-        from stu
-        where s_username = #{username}
-    </select>
-
-
-    <!--<select id="selectAllByPassword" resultMap="stuResultMap">
-        select *
-        from stu
-        where s_password = #{password}
-    </select>-->
-
-
-    <!--<select id="selectByObj" resultMap="stuResultMap">
-        select *
-        from stu
-        where s_password = #{password}
-    </select>-->
-
-    <!--<select id="selectByMap" resultMap="stuResultMap">
-        select *
-        from stu
-        where s_username = #{username}
-          and s_password = #{password}
-    </select>-->
-
+    <!-- 修改任意字段 -->
+    <update id="updateBySIdAndColumnName">
+        update stu
+        set ${columnName} = #{columnValue}
+        where s_id = #{sId}
+    </update>
 
 
 </mapper>

@@ -11,4 +11,51 @@
         <result column="k_order" property="order"></result>
     </resultMap>
 
+
+    <!-- 添加主键返回 -->
+    <insert id="addKnowledge" useGeneratedKeys="true" keyProperty="id">
+        insert into knowledge
+        values (null, #{name}, #{order})
+    </insert>
+
+    <delete id="deleteById">
+        delete from knowledge
+        where k_id = #{id}
+    </delete>
+
+    <delete id="deleteByName">
+        delete from knowledge
+        where k_name = #{name}
+    </delete>
+
+    <delete id="deleteRowsByIds">
+        delete from knowledge
+        where k_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectOrderByName" resultType="java.lang.Integer">
+        select k_order
+        from Knowledge
+        where k_name = #{name}
+    </select>
+
+    <select id="selectOrderById" resultType="java.lang.Integer">
+        select k_order
+        from Knowledge
+        where k_id = #{id}
+    </select>
+
+    <update id="updateOrderByName">
+        update knowledge set k_order = #{newOrder}
+        where k_name = #{name}
+    </update>
+
+    <update id="updateOrderById">
+        update knowledge set k_order = #{newOrder}
+        where k_id = #{id}
+    </update>
+
 </mapper>

@@ -2,7 +2,6 @@ package com.mooc.mapper;
 
 import com.mooc.pojo.Teacher;
 import org.apache.ibatis.annotations.Param;
-import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 
 public interface TeacherMapper {
 
@@ -10,10 +9,9 @@ public interface TeacherMapper {
 
     /**
      * 添加新的教师用户
-     * @param name 教师用户名名字（不重名情况下使用教师名字）
-     * @param password 密码
+     * @param teacher 一个Teacher对象
      */
-    void addNewTeacher(@Param("name")String name, @Param("password")String password);
+    void addNewTeacher(Teacher teacher);
 
 
     /**

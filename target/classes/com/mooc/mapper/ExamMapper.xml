@@ -67,5 +67,12 @@
         limit #{num}
     </select>
 
+    <update id="updateAnswerById">
+        update exam
+        set e_answer = #{newAnswer}
+        where e_id = #{id}
+    </update>
+
+
 
 </mapper>

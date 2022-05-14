@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.mooc.mapper.ClassExamMapper" >
+
+
+    <resultMap id="classExamResultMap" type="com.mooc.pojo.ClassExam" >
+        <id column="ce_id" property="id"></id>
+        <result column="ce_c_id" property="cId"></result>
+        <result column="ce_s_id" property="sId"></result>
+        <result column="ce_score" property="score"></result>
+    </resultMap>
+
+
+    <!-- 添加主键返回 -->
+    <insert id="addClassExam" useGeneratedKeys="true" keyProperty="id">
+        insert into class_exam
+        values(null, #{cId}, #{sId}, #{score})
+    </insert>
+
+    <delete id="deleteBySId">
+        delete from class_exam
+        where ce_s_id = #{sId}
+    </delete>
+
+    <delete id="deleteByCId">
+        delete from class_exam
+        where ce_c_id = #{cId}
+    </delete>
+
+    <select id="selectBySId" resultMap="classExamResultMap">
+        select *
+        from class_exam
+        where ce_s_id = #{sId}
+    </select>
+
+    <select id="selectBySIdAndCId" resultType="java.lang.Integer">
+        select ce_score
+        from class_exam
+        where ce_s_id = #{sId}
+          and ce_c_id = #{cId}
+    </select>
+
+    <update id="updateScoreBySIdAndCId">
+        update class_exam
+        set ce_score = #{newScore}
+        where ce_s_id = #{sId}
+          and ce_c_id = #{cId}
+    </update>
+
+
+
+</mapper>

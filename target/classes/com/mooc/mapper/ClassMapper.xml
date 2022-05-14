@@ -61,6 +61,11 @@
             limit #{startIndex}, #{size}
     </select>
 
+    <select id="selectClassesByKId" resultMap="classResultMap">
+        select * from class
+        where c_k_id = #{kId}
+    </select>
+
     <select id="selectClassesByTId" resultMap="classResultMap">
         select * from class
         where c_t_id = #{tId}

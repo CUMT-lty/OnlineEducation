@@ -13,10 +13,62 @@
         <result column="c_level" property="level"></result>
     </resultMap>
 
-    <!-- 根据开始索引和查询的条目数，查询指定区间的记录 -->
-    <select id="selectClassByLimit" resultMap="classResultMap">
+
+    <insert id="addClass" useGeneratedKeys="true" keyProperty="id">
+        insert into class
+        values(null, #{tId}, #{name}, #{kId}, #{level})
+    </insert>
+
+    <delete id="deleteById">
+        delete from class
+        where c_id = #{id}
+    </delete>
+
+    <delete id="deleteByName">
+        delete from class
+        where c_name = #{name}
+    </delete>
+
+    <delete id="deleteClassesByIds">
+        delete from class
+        where c_id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+    </delete>
+
+    <delete id="deleteClassesByNames">
+        delete from class
+        where c_name in
+            <foreach collection="names" item="name" separator="," open="(" close=")">
+                #{name}
+            </foreach>
+    </delete>
+
+    <select id="selectById" resultMap="classResultMap">
         select * from class
-            limit #{startIndex}, #{num}
+        where c_id = #{id}
+    </select>
+
+    <select id="selectByName" resultMap="classResultMap">
+        select * from class
+        where c_name = #{name}
+    </select>
+
+    <!-- 根据开始索引和查询的条目数，查询指定区间的记录 -->
+    <select id="selectClassesByLimit" resultMap="classResultMap">
+        select * from class
+            limit #{startIndex}, #{size}
+    </select>
+
+    <select id="selectClassesByKId" resultMap="classResultMap">
+        select * from class
+        where c_k_id = #{kId}
+    </select>
+
+    <select id="selectClassesByTId" resultMap="classResultMap">
+        select * from class
+        where c_t_id = #{tId}
     </select>
 
     <!-- 根据索引字符串模糊检索 -->

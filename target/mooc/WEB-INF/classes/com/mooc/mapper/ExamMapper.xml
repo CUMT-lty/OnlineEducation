@@ -18,9 +18,61 @@
         <result column="e_level" property="level"></result>
     </resultMap>
 
-    <!-- 根据课程id检索对应的课程 -->
+
+    <!-- 添加主键返回 -->
+    <insert id="addExam" useGeneratedKeys="true" keyProperty="id">
+        insert into exam values (null, #{cId}, #{tId},
+                                 #{description}, #{a}, #{b}, #{c}, #{d},
+                                 #{answer}, #{level})
+    </insert>
+
+    <delete id="deleteById">
+        delete from exam where e_id = #{id}
+    </delete>
+
+    <delete id="deleteExamsByIds">
+        delete from exam
+        where e_id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+    </delete>
+
     <select id="selectByCId" resultMap="examResultMap">
         select * from exam where e_c_id = #{cId}
     </select>
+
+    <select id="selectByTId" resultMap="examResultMap">
+        select * from exam where e_t_id = #{tId}
+    </select>
+
+    <select id="selectAnswerById" resultType="java.lang.Integer">
+        select e_answer
+        from exam
+        where e_id = #{id}
+    </select>
+
+    <select id="selectAnswersByIds" resultType="java.lang.Integer">
+        select e_answer
+        from exam
+        where e_id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+    </select>
+
+    <select id="randomSelectByNum" resultMap="examResultMap">
+        select * from exam
+        order by rand()
+        limit #{num}
+    </select>
+
+    <update id="updateAnswerById">
+        update exam
+        set e_answer = #{newAnswer}
+        where e_id = #{id}
+    </update>
+
+
 
 </mapper>
