@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.mooc.mapper.StuLogMapper" >
+
+    <resultMap id="stuLogResultMap" type="com.mooc.pojo.StuLog">
+        <id column="sl_id" property="id"></id>
+        <result column="sl_stu_id" property="stuId"></result>
+        <result column="sl_study_num" property="studyNum"></result>
+        <result column="sl_class_num" property="classNum"></result>
+        <result column="sl_study_time" property="studyTime"></result>
+        <result column="sl_like_num" property="likeNum"></result>
+        <result column="sl_collect_num" property="collectNum"></result>
+        <result column="sl_score_num" property="scoreNum"></result>
+        <result column="sl_exam_num" property="examNum"></result>
+    </resultMap>
+
+</mapper>

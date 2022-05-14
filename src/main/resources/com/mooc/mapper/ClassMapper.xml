@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.mooc.mapper.ClassMapper" >
+
+    <resultMap id="classResultMap" type="com.mooc.pojo.Class" >
+        <id column="c_id" property="id"></id>
+        <result column="c_t_id" property="tId"></result>
+        <result column="c_name" property="name"></result>
+        <result column="c_k_id" property="kId"></result>
+        <result column="c_level" property="level"></result>
+    </resultMap>
+
+
+    <insert id="addClass" useGeneratedKeys="true" keyProperty="id">
+        insert into class
+        values(null, #{tId}, #{name}, #{kId}, #{level})
+    </insert>
+
+    <delete id="deleteById">
+        delete from class
+        where c_id = #{id}
+    </delete>
+
+    <delete id="deleteByName">
+        delete from class
+        where c_name = #{name}
+    </delete>
+
+    <delete id="deleteClassesByIds">
+        delete from class
+        where c_id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+    </delete>
+
+    <delete id="deleteClassesByNames">
+        delete from class
+        where c_name in
+            <foreach collection="names" item="name" separator="," open="(" close=")">
+                #{name}
+            </foreach>
+    </delete>
+
+    <select id="selectById" resultMap="classResultMap">
+        select * from class
+        where c_id = #{id}
+    </select>
+
+    <select id="selectByName" resultMap="classResultMap">
+        select * from class
+        where c_name = #{name}
+    </select>
+
+    <!-- 根据开始索引和查询的条目数，查询指定区间的记录 -->
+    <select id="selectClassesByLimit" resultMap="classResultMap">
+        select * from class
+            limit #{startIndex}, #{size}
+    </select>
+
+    <select id="selectClassesByKId" resultMap="classResultMap">
+        select * from class
+        where c_k_id = #{kId}
+    </select>
+
+    <select id="selectClassesByTId" resultMap="classResultMap">
+        select * from class
+        where c_t_id = #{tId}
+    </select>
+
+    <!-- 根据索引字符串模糊检索 -->
+    <select id="selectByNameLike" resultMap="classResultMap">
+        select * from class
+        where c_name like
+              concat("%", #{name}, "%")
+    </select>
+
+
+</mapper>

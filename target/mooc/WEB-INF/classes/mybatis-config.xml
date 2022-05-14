@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--<typeAliases>
+        &lt;!&ndash;通过包扫描方式给com.mooc.pojo包下的所有类起了别名&ndash;&gt;
+        &lt;!&ndash;这样在Mapper映射文件中就可以直接用类名，不用再加包限定了&ndash;&gt;
+        &lt;!&ndash;<package name="com.mooc.pojo"/>&ndash;&gt;
+        &lt;!&ndash;或给每一个类单独配置别名&ndash;&gt;
+        <typeAlias type="com.mooc.pojo.Stu" alias="stu"/>
+    </typeAliases>-->
+    <!--配置数据库的连接环境信息，通过default属性来切换不同的environment-->
+    <environments default="mooc">
+        <environment id="mooc">
+            <!--事务管理方式-->
+            <transactionManager type="JDBC"/>
+            <!--数据库连接池-->
+            <dataSource type="POOLED">
+                <!--数据库连接信息-->
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <!--设置编码方式为utf-8，关闭安全连接，并使用预编译-->
+                <!--如果不设置编码方式，在在操作中文字符时会出错-->
+                <property name="url" value="jdbc:mysql:///mooc?characterEncoding=utf-8&amp;useSSL=false&amp;useServerPrepStmts=true"/>
+                <property name="username" value="root"/>
+                <property name="password" value="3306"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--加载mysql映射文件-->
+        <!--<mapper resource="com/mooc/mapper/StuMapper.xml"></mapper>-->
+        <!--扫描 Mapper-->
+        <package name="com.mooc.mapper"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.mooc.mapper.ClassLikeMapper" >
+
+
+    <resultMap id="classLikeResultMap" type="com.mooc.pojo.ClassLike" >
+        <id column="cli_id" property="id"></id>
+        <result column="cli_c_id" property="cId"></result>
+        <result column="cli_s_id" property="sId"></result>
+    </resultMap>
+
+
+    <insert id="addClassLike" useGeneratedKeys="true" keyProperty="id">
+        insert into class_like
+        values(null, #{cId}, #{sId})
+    </insert>
+
+    <delete id="deleteByCIdAndSId">
+        delete from class_like
+        where cli_c_id = #{cId} and cli_s_id = #{sId}
+    </delete>
+
+    <delete id="deleteRowsBySIdAndCIds">
+        delete from class_like
+        where cli_s_id = #{sId} and cli_c_id in
+            <foreach collection="cIds" item="cId" separator="," open="(" close=")">
+                #{cId}
+            </foreach>
+    </delete>
+
+    <select id="totalRowsByCId" resultType="java.lang.Integer">
+        select count(*)
+        from class_like
+        where cli_c_id = #{cId}
+    </select>
+
+    <select id="totalRowsBySId" resultType="java.lang.Integer">
+        select count(*)
+        from class_like
+        where cli_s_id = #{sId}
+    </select>
+
+    <select id="selectByCIdAndSId" resultMap="classLikeResultMap">
+        select * from class_like
+        where cli_c_id = #{cId} and cli_s_id = #{sId}
+    </select>
+
+</mapper>

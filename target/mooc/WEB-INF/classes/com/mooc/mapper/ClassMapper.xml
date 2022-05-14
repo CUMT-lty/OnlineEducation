@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.mooc.mapper.ClassMapper" >
+
+    <resultMap id="classResultMap" type="com.mooc.pojo.Class" >
+        <id column="c_id" property="id"></id>
+        <result column="c_t_id" property="tId"></result>
+        <result column="c_name" property="name"></result>
+        <result column="c_k_id" property="kId"></result>
+        <result column="c_level" property="level"></result>
+    </resultMap>
+
+    <!-- 根据开始索引和查询的条目数，查询指定区间的记录 -->
+    <select id="selectClassByLimit" resultMap="classResultMap">
+        select * from class
+            limit #{startIndex}, #{num}
+    </select>
+
+    <!-- 根据索引字符串模糊检索 -->
+    <select id="selectByNameLike" resultMap="classResultMap">
+        select * from class
+        where c_name like
+              concat("%", #{name}, "%")
+    </select>
+
+
+</mapper>

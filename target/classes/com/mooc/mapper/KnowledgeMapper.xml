@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.mooc.mapper.KnowledgeMapper" >
+
+    <resultMap id="knowledgeResultMap" type="com.mooc.pojo.Knowledge" >
+        <id column="k_id" property="id"></id>
+        <result column="k_name" property="name"></result>
+        <result column="k_order" property="order"></result>
+    </resultMap>
+
+</mapper>

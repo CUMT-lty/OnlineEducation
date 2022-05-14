@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--namespace属性应设置为Mapper接口的全限定名-->
+<mapper namespace="com.mooc.mapper.StuMapper" >
+
+    <!-- 设置 实体类属性名称 和 mql表字段名称 之间的映射 -->
+    <!-- type属性值是映射的实体类 -->
+    <resultMap id="stuResultMap" type="com.mooc.pojo.Stu">
+        <!-- column属性是mysql表的字段名，property属性是对应的实体类的属性名 -->
+        <id column="s_id" property="id"></id>
+        <result column="s_username" property="username"></result>
+        <result column="s_password" property="password"></result>
+        <result column="s_name" property="name"></result>
+        <result column="s_school" property="school"></result>
+        <result column="s_profession" property="profession"></result>
+    </resultMap>
+
+
+    <!-- 参数占位符：
+     1. ${} : 直接将参数值替换，在字符串替换时使用，例如动态查询不同的表
+     2. #{} : 会将其替换为 ? ，防止sql注入，在传参时使用
+     -->
+
+
+    <!--添加新用户-->
+    <!--对象参数，占位符名称设置为对应的对象属性名-->
+    <!--添加主键返回，返回用户id，封装在对象中-->
+    <insert id="addStu" useGeneratedKeys="true" keyProperty="id">
+        insert into stu
+        values(NULL, #{username}, #{password}, #{name}, #{school}, #profession)
+    </insert>
+
+
+    <delete id="deleteById">
+        delete from stu
+        where s_id = #{id}
+    </delete>
+
+    <select id="selectAllStu" resultMap="stuResultMap">
+        select * from stu
+    </select>
+
+    <select id="selectByUsername" resultType="com.mooc.pojo.Stu">
+        select *
+        from stu
+        where s_username = #{username}
+    </select>
+
+    <select id="selectByUsernameAndPsw" resultMap="stuResultMap">
+        select *
+        from stu
+        where s_username = #{username}
+          and s_password = #{password}
+    </select>
+
+    <!--<select id="selectByMap" resultMap="stuResultMap">
+        select *
+        from stu
+        where s_username = #{username}
+          and s_password = #{password}
+    </select>-->
+
+
+    <update id="updatePasswordById">
+        update stu
+        set s_password = #{newPsw}
+        where s_id = #{id}
+    </update>
+
+    <update id="updatePasswordByUsername">
+        update stu
+        set s_password = #{newPsw}
+        where s_username = #{username}
+    </update>
+
+    <!--动态修改学生表任意字段-->
+    <update id="updateAnyColumn">
+        update stu
+        <set>
+            <if test="username!=null and username!=''"> s_username = #{username}, </if>
+            <if test="password!=null and password!=''"> s_password = #{password}, </if>
+            <if test="name!=null and name!=''"> s_name = #{name}, </if>
+            <if test="school!=null and school!=''"> s_school = #{school}, </if>
+            <if test="profession!=null and profession!=''"> s_profession = #{profession} </if>
+        </set>
+        where s_id = #{id}
+    </update>
+
+
+    <!-- 修改任意字段 -->
+    <update id="updateBySIdAndColumnName">
+        update stu
+        set ${columnName} = #{columnValue}
+        where s_id = #{sId}
+    </update>
+
+
+</mapper>
