@@ -1,4 +1,4 @@
-package com.mooc.controller.old;
+package com.mooc.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.mooc.bean.ExamIdBean;
