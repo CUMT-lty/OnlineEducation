@@ -77,6 +77,23 @@ public interface ClassMapper {
 
 
     /**
+     * 检索某一课程所属的知识点
+     * @param cId 课程id
+     * @return 知识点id
+     */
+    int selectKnowledgeByCId(@Param("cId") int cId);
+
+
+    /**
+     * 批量检索课程所在的知识点
+     * @param cIds 课程id数组
+     * @return 检索到的知识点id数组
+     */
+    int[] selectKnowledgesByCIds(int[] cIds);
+
+
+
+    /**
      * 通过教师 id 检索该教师上传的所有课程
      * @param tId
      * @return

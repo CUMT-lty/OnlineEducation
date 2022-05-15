@@ -1,27 +1,11 @@
 package com.mooc.service;
 
 import com.mooc.pojo.Class;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface ClassService {
-
-
-    /*
-    * 点赞、收藏课程
-    * 对课程评分
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * */
-
 
     /**
      * 添加一条新的课程记录
@@ -89,6 +73,21 @@ public interface ClassService {
      * @return 检索到的所有课程记录
      */
     List<Class> selectClassesByKId(int kId);
+
+    /**
+     * 检索某一课程所属的知识点
+     * @param cId 课程id
+     * @return 知识点id
+     */
+    int selectKnowledgeByCId(int cId);
+
+
+    /**
+     * 批量检索课程所在的知识点
+     * @param cIds 课程id数组
+     * @return 检索到的知识点id数组
+     */
+    int[] selectKnowledgesByCIds(int[] cIds);
 
 
     /**

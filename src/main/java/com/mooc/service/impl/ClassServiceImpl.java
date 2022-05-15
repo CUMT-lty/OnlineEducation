@@ -95,6 +95,24 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
+    public int selectKnowledgeByCId(int cId) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        int kId = mapper.selectKnowledgeByCId(cId);
+        sqlSession.close();
+        return kId;
+    }
+
+    @Override
+    public int[] selectKnowledgesByCIds(int[] cIds) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        int[] kIds = mapper.selectKnowledgesByCIds(cIds);
+        sqlSession.close();
+        return kIds;
+    }
+
+    @Override
     public List<Class> selectClassesByTId(int tId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);

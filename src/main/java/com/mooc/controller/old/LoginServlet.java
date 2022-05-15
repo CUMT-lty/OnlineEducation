@@ -18,19 +18,19 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-
-        request.setCharacterEncoding("utf-8");   // 设置编码方式,处理POST请求中文乱码问题
-
-
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        System.out.println(123);
+//        request.setCharacterEncoding("utf-8");   // 设置编码方式,处理POST请求中文乱码问题
+//
+//
+//        String username = request.getParameter("username");
+//        String password = request.getParameter("password");
 //        Stu stu = stuService.login(username, password);
 
         // 处理查询结果逻辑
 
 
         // 封装json对象返回登录结果信息
-        JSONObject jsonObject = new JSONObject();
+//        JSONObject jsonObject = new JSONObject();
 //        jsonObject.put("")
     }
 

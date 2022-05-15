@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-@WebServlet("/baseServlet")
+@WebServlet("/base")
 public class BaseServlet extends HttpServlet {
 
     /**

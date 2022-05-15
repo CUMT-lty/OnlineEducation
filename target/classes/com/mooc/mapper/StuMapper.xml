@@ -30,7 +30,7 @@
     <!--添加主键返回，返回用户id，封装在对象中-->
     <insert id="addStu" useGeneratedKeys="true" keyProperty="id">
         insert into stu
-        values(NULL, #{username}, #{password}, #{name}, #{school}, #profession)
+        values(NULL, #{username}, #{password}, #{name}, #{school}, #{profession})
     </insert>
 
 
