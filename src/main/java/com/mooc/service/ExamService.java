@@ -74,4 +74,11 @@ public interface ExamService {
      */
     void updateAnswerById(int id, int newAnswer);
 
+    /**
+     * 根据试题对象列表获取这一批试题的id
+     * @param exams Exam对象列表
+     * @return 返回试题id数组
+     */
+    int[] getEIdsByExams(List<Exam> exams);
+
 }

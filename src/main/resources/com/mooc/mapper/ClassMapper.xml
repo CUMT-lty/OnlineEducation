@@ -9,6 +9,7 @@
         <id column="c_id" property="id"></id>
         <result column="c_t_id" property="tId"></result>
         <result column="c_name" property="name"></result>
+        <result column="c_description" property="description"></result>
         <result column="c_k_id" property="kId"></result>
         <result column="c_level" property="level"></result>
     </resultMap>
@@ -16,7 +17,7 @@
 
     <insert id="addClass" useGeneratedKeys="true" keyProperty="id">
         insert into class
-        values(null, #{tId}, #{name}, #{kId}, #{level})
+        values(null, #{tId}, #{name}, #{description}, #{kId}, #{level})
     </insert>
 
     <delete id="deleteById">

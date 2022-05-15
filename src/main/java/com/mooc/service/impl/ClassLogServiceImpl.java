@@ -65,4 +65,9 @@ public class ClassLogServiceImpl implements ClassLogService {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    @Override
+    public int reAveScore(int oldNum, int oldScore, int newScore) {
+        return (int) Math.ceil(((oldNum * oldScore) + newScore) / (oldNum+1));
+    }
 }

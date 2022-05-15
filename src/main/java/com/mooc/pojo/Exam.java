@@ -20,7 +20,6 @@ public class Exam {
 
     private int answer;
 
-    private int level;
 
     // get & set
 
@@ -97,13 +96,6 @@ public class Exam {
         this.answer = answer;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
 
     // toString
 
@@ -120,7 +112,6 @@ public class Exam {
                 ", c='" + c + '\'' +
                 ", d='" + d + '\'' +
                 ", answer=" + answer +
-                ", level=" + level +
                 '}';
     }
 }

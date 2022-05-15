@@ -455,7 +455,7 @@
     let id = "";
 
     $.ajax({
-      url: "/exam/test",
+      url: "/demo_war/exam/takeExam",
       method: "GET",
       success(data) {
         console.log(data)
@@ -463,7 +463,7 @@
 
 
         $.ajax({
-          url: "/exam/ans",
+          url: "/demo_war/exam/ans",
           method: "POST",
           data: {
             id:id,

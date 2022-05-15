@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.mooc.mapper.StuCognitionMapper" >
+
+
+    <resultMap id="stuCognitionResultMap" type="com.mooc.pojo.StuCognition" >
+        <id column="sc_id" property="id"></id>
+        <result column="sc_s_id" property="sId"></result>
+        <result column="sc_k_id" property="kId"></result>
+    </resultMap>
+
+
+    <insert id="addStuCognition" useGeneratedKeys="true" keyProperty="id">
+        insert into stu_cognition
+        values(null , #{sId}, #{kId})
+    </insert>
+
+    <delete id="deleteBySIdAndKId">
+        delete from stu_cognition
+        where sc_s_id = #{sId}
+          and sc_k_id = #{kId}
+    </delete>
+
+    <delete id="deleteStuCognitionsBySId">
+        delete from stu_cognition
+        where sc_s_id = #{sId}
+    </delete>
+
+    <delete id="deleteStuCognitionsByKId">
+        delete from stu_cognition
+        where sc_k_id = #{kId}
+    </delete>
+
+    <select id="selectStuCognitionsBySId" resultMap="stuCognitionResultMap">
+        select *
+        from stu_cognition
+        where sc_s_id = #{sId}
+    </select>
+
+
+</mapper>

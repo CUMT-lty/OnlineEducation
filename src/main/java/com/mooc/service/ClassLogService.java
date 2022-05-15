@@ -50,4 +50,14 @@ public interface ClassLogService {
     void increaseOneByCIdAndColumn(int cId, String columnName);
 
 
+    /**
+     * 重新计算课程平均分（默认增加了一个人）
+     * @param oldNum 原有参加评分人数
+     * @param oldScore 原平均分
+     * @param newScore 新增加的一个分数
+     * @return 重新打分后的平均分
+     */
+    int reAveScore(int oldNum, int oldScore, int newScore);
+
+
 }

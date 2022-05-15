@@ -9,17 +9,15 @@ import static org.neo4j.driver.Values.parameters;
  */
 public class Neo4jDataAccess {
 
-
     /*
     * 待完成功能：
-    * 1. 获取结点
-    * 2. 获取某结点所有前驱
-    * 3. 获取某节点所有后继
+    * 1. 获取结点，并映射为Knoledge对象
+    * 2. 获取某结点一定范围内的前驱
+    * 3. 获取某节点一定范围内的后继
+    *
+    *
     *
     * */
-
-
-    /* 下面是一个例子 */
 
     // Driver objects are thread-safe and are typically made available application-wide.
     Driver driver;
@@ -28,7 +26,12 @@ public class Neo4jDataAccess {
         driver = GraphDatabase.driver(uri, AuthTokens.basic(user, password));
     }
 
-    /*private void addPerson(String name)
+
+    /**
+     * 添加知识结点
+     * @param kname 结点的 kname 属性值
+     */
+    private void addKpoint(String kname)
     {
         // Sessions are lightweight and disposable connection wrappers.
         try (Session session = driver.session())
@@ -37,9 +40,9 @@ public class Neo4jDataAccess {
             // and makes handling errors much easier.
             // Use `session.writeTransaction` for writes and `session.readTransaction` for reading data.
             // These methods are also able to handle connection problems and transient errors using an automatic retry mechanism.
-            session.writeTransaction(tx -> tx.run("MERGE (a:Person {name: $x})", parameters("x", name)));
+            session.writeTransaction(tx -> tx.run("MERGE (n:kpoint {kname: $x})", parameters("x", kname)));
         }
-    }*/
+    }
 
     /*private void printPeople(String initial)
     {
@@ -61,7 +64,7 @@ public class Neo4jDataAccess {
         }
     }*/
 
-    private void printNodeName(String name)
+    private void getNodeByKname(String kname)
     {
         try (Session session = driver.session())
         {
@@ -70,7 +73,7 @@ public class Neo4jDataAccess {
             // This simpler method does not use any automatic retry mechanism.
             Result result = session.run(
                     "MATCH (n:kpoint) WHERE n.kname=$x RETURN n.kname AS name",
-                    parameters("x", name));
+                    parameters("x", kname));
             // Each Cypher execution returns a stream of records.
             while (result.hasNext())
             {
@@ -93,10 +96,7 @@ public class Neo4jDataAccess {
         String user = "neo4j";
         String password = "7474";
         Neo4jDataAccess example = new Neo4jDataAccess(url, user, password);
-//        example.addPerson("Ada");
-//        example.addPerson("Alice");
-//        example.addPerson("Bob");
-        example.printNodeName("数据库");
+        example.getNodeByKname("数据库");
         example.close();
     }
 

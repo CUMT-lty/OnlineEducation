@@ -15,15 +15,13 @@
         <result column="e_c" property="c"></result>
         <result column="e_d" property="d"></result>
         <result column="e_answer" property="answer"></result>
-        <result column="e_level" property="level"></result>
     </resultMap>
 
 
     <!-- 添加主键返回 -->
     <insert id="addExam" useGeneratedKeys="true" keyProperty="id">
         insert into exam values (null, #{cId}, #{tId},
-                                 #{description}, #{a}, #{b}, #{c}, #{d},
-                                 #{answer}, #{level})
+                                 #{description}, #{a}, #{b}, #{c}, #{d},#{answer})
     </insert>
 
     <delete id="deleteById">

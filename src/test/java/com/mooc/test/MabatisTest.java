@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
+import org.neo4j.register.Register;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,23 +21,8 @@ public class MabatisTest {
 
     @Test
     public void testMethods() throws IOException{
-        String resource = "mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-
-        ExamMapper mapper = sqlSession.getMapper(ExamMapper.class);
-
-        int[] ids = {1,3};
-
-        List<Integer> list = mapper.selectAnswersByIds(ids);
-
-        System.out.println(list);
-
-
-//        sqlSession.commit();  // 插入要提交事务
-        sqlSession.close();   // 关闭会话
-
+        int[] a = {1,2,3,4,5};
+        System.out.println(String.valueOf(a));
     }
 
 }

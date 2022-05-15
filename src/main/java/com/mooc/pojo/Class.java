@@ -8,6 +8,8 @@ public class Class {
 
     private String name;
 
+    private String description;   // 课程介绍
+
     private int kId;   // 对应知识点的ID
 
     private int level;
@@ -38,6 +40,14 @@ public class Class {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getkId() {
         return kId;
     }
@@ -55,11 +65,14 @@ public class Class {
     }
 
     // toString方法
+
     @Override
     public String toString() {
         return "Class{" +
                 "id=" + id +
+                ", tId=" + tId +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", kId=" + kId +
                 ", level=" + level +
                 '}';

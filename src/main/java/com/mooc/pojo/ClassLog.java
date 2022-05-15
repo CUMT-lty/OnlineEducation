@@ -14,6 +14,8 @@ public class ClassLog {
 
     private int collectNum;    // 获收藏数
 
+    private int scoreNum;     // 被评分次数
+
 
     // set & get
 
@@ -65,9 +67,16 @@ public class ClassLog {
         this.collectNum = collectNum;
     }
 
+    public int getScoreNum() {
+        return scoreNum;
+    }
 
+    public void setScoreNum(int scoreNum) {
+        this.scoreNum = scoreNum;
+    }
 
-    // toString
+// toString
+
 
     @Override
     public String toString() {
@@ -78,6 +87,7 @@ public class ClassLog {
                 ", score=" + score +
                 ", likeNum=" + likeNum +
                 ", collectNum=" + collectNum +
+                ", scoreNum=" + scoreNum +
                 '}';
     }
 }

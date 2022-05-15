@@ -16,12 +16,10 @@ public class StuServlet extends BaseServlet {
     StuServiceImpl stuService = new StuServiceImpl();   // 提到成员位置
 
     public void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("123");
         request.setCharacterEncoding("utf-8");   // 设置编码方式,处理POST请求中文乱码问题
         String jsonStr = request.getReader().readLine();
         System.out.println(jsonStr);
         Stu stu = JSON.parseObject(jsonStr, Stu.class);
-        System.out.println(stu);
         stuService.addStu(stu);  // 注册
         response.setStatus(200);
         response.setContentType("text/plaintext;charset=utf-8");

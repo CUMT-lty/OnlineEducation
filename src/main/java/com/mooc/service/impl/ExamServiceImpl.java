@@ -93,4 +93,15 @@ public class ExamServiceImpl implements ExamService {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    @Override
+    public int[] getEIdsByExams(List<Exam> exams) {
+        Exam[] es = (Exam[]) exams.toArray();
+        int num = es.length;
+        int[] eIds = new int[num];
+        for (int i = 0; i<num; i++) {
+            eIds[i] = es[i].getId();
+        }
+        return eIds;
+    }
 }
