@@ -450,6 +450,35 @@
     <!-- jQuery if you need it
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   -->
+
+  <script>
+    let id = "";
+
+    $.ajax({
+      url: "/exam/test",
+      method: "GET",
+      success(data) {
+        console.log(data)
+        id = data.id;
+
+
+        $.ajax({
+          url: "/exam/ans",
+          method: "POST",
+          data: {
+            id:id,
+          },
+          success(data) {
+            console.log(data);
+          }
+        })
+      }
+    })
+
+
+
+
+  </script>
     <script>
       var scrollpos = window.scrollY;
       var header = document.getElementById("header");
