@@ -41,6 +41,12 @@
         limit #{num}
     </select>
 
+    <select id="selectByNameLike" resultMap="classLogResultMap">
+        select * from class_log
+        where cl_c_name like
+              concat("%", #{cName}, "%")
+    </select>
+
     <update id="updateRow">
         update class_log
         set cl_c_id = #{cId},

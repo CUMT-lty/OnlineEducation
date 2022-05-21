@@ -2,6 +2,7 @@ package com.mooc.mapper;
 
 import java.util.List;
 
+import com.mooc.pojo.Class;
 import com.mooc.pojo.ClassLog;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,6 +29,14 @@ public interface ClassLogMapper {
      * @return 一条课程动态记录ClassLog
      */
     ClassLog selectByCId(@Param("cId") int cId);
+
+
+    /**
+     * 根据索引字符串模糊检索课程 (用于课程检索)
+     * @param cName 索引字符串 (输入原字符串即可)
+     * @return 匹配的课程记录集合
+     */
+    List<ClassLog> selectByNameLike(@Param("cName") String cName);
 
 
     /**

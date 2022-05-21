@@ -4,6 +4,7 @@ import com.mooc.mapper.ClassLogMapper;
 import com.mooc.pojo.ClassLog;
 import com.mooc.service.ClassLogService;
 import com.mooc.util.SqlSessionFactoryUtils;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -33,6 +34,17 @@ public class ClassLogServiceImpl implements ClassLogService {
         sqlSession.close();
 
     }
+
+
+    @Override
+    public ClassLog[] selectByNameLike(String cName){
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        ClassLogMapper mapper = sqlSession.getMapper(ClassLogMapper.class);
+        List<ClassLog> classLogs = mapper.selectByNameLike(cName);
+        sqlSession.close();
+        return classLogs.toArray(new ClassLog[classLogs.size()]);
+    }
+
 
     @Override
     public ClassLog selectByCId(int cId) {

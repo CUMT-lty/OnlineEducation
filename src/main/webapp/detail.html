@@ -47,16 +47,13 @@
             >
               <p class="w-full text-gray-600 text-xs md:text-sm py-6"></p>
               <div class="w-full font-bold text-xl text-gray-800 px-6">
-                Lorem ipsum dolor sit amet.
+                  {cDescription}
               </div>
-              <p class="text-gray-800 text-base px-6">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
-              </p>
+
             </a>
             <div class="mb-24 mt-4 px-6 text-black">
               <p class="text-black">浏览次数: 12</p>
-              <p>当前课程评分: 13</p>
+              <p>当前课程评分: {score}</p>
             </div>
           </div>
           <div
@@ -519,13 +516,13 @@
       $.ajax({
         url: `/demo_war/class/log?cId=${getQueryVariable("cId")}`,
         method: "GET",
-        success() {
+        success(data) {
           console.info(getQueryVariable("cId"));
 
           const html = template
-            .replace("{cName}", data.cName)
-            .replace("{cDescription}", data.cDescription)
-            .replace("{cId}", data.cId);
+            .replace("{cName}", data.name)
+            .replace("{cDescription}", data.description)
+            .replace("{score}", data.score);
           container.innerHTML = html;
         },
       });

@@ -1,6 +1,7 @@
 package com.mooc.test;
 
 import com.alibaba.fastjson.JSON;
+import com.mooc.mapper.ClassLogMapper;
 import com.mooc.pojo.ClassLog;
 import com.mooc.pojo.Exam;
 import com.mooc.service.impl.ClassLogServiceImpl;
@@ -98,6 +99,32 @@ public class TryTest {
 
     }
 
+    @Test
+    public void classLogTest(){
 
+        ClassLogServiceImpl classLogService = new ClassLogServiceImpl();
+
+
+        // get : score & cId
+        int score = 7;
+        int cId = 1;
+        // class_log 中评分人数加一
+        classLogService.increaseOneByCIdAndColumn(cId, "cl_score_num");
+        // class_log 中的新的平均分更新
+        ClassLog classLog = classLogService.selectByCId(cId);
+        int newScore = classLogService.reAveScore(classLog.getScoreNum(), classLog.getScore(), score);
+        System.out.println(newScore);
+        classLogService.updateByCIdAndColumn(cId, "cl_score", newScore);
+    }
+
+
+    @Test
+    public void searchTest(){
+        String nameLike = "java";
+        ClassLogServiceImpl classLogService = new ClassLogServiceImpl();
+        ClassLog[] classLogs = classLogService.selectByNameLike(nameLike);
+        String classLogsJsonStr = JSON.toJSONString(classLogs);
+        System.out.println(classLogsJsonStr);
+    }
 
 }

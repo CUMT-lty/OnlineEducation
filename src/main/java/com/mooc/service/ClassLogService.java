@@ -30,6 +30,14 @@ public interface ClassLogService {
 
 
     /**
+     * 根据索引字符串模糊检索课程 (用于课程检索)
+     * @param cName 索引字符串 (输入原字符串即可)
+     * @return 匹配的课程记录集合
+     */
+    ClassLog[] selectByNameLike(String cName);
+
+
+    /**
      * 根据课程的得分排名获取指定数量的记录
      * @param num 需要的记录数
      * @return 获取到的记录集合
