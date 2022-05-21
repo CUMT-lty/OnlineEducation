@@ -26,9 +26,11 @@ public class ExamServlet extends BaseServlet {
 
         String cIdStr = request.getParameter("cId");
         int cId = Integer.valueOf(cIdStr);         // 获取课程id
+        System.out.println(cId);
 
         Exam[] exams = examService.randomSelectByCIdAndNum(cId, 9);  // 获取九道试题
         String examsJsonStr = JSON.toJSONString(exams);   // 将试题列表转为json字符串
+        System.out.println(examsJsonStr);
 
         response.setContentType("text/json;charset=utf-8");
         response.setStatus(200);

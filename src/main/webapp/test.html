@@ -22,17 +22,6 @@
     </style>
   </head>
 
-  <script id="data-template" type="template">
-        [{"a":"1","answer":3,"b":"2","c":"4","cId":1,"d":"8","description":"在java中，一个int类型的变量所占的字节数","id":1,"tId":1},
-    {"a":"31","answer":4,"b":"0","c":"1","cId":1,"d":"2","description":"表达式(11+3*8)/4%3的值是","id":7,"tId":1},
-    {"a":"static","answer":2,"b":"var","c":"class","cId":1,"d":"interface","description":"在下列选项中，哪一个不是java中的关键字","id":2,"tId":1},
-    {"a":"对象","answer":2,"b":"属性","c":"方法","cId":1,"d":"数据类型","description":"对象的特征在类中表示为变量，称为类的","id":11,"tId":1},
-    {"a":"for循环体语句中，可以包含多条语句，但要用大括号括起来","answer":1,"b":"for循环只能用于循环次数已经确定的情况","c":"在for循环中，不能使用break语句跳出循环","cId":1,"d":"for循环是先执行循环体语句，后进行条件判断","description":"下面有关for循环的描述正确的是","id":9,"tId":1},
-    {"a":"基本数据类型和String相加结果一定是字符串型","answer":1,"b":"char类型和int类型相加结果一定是字符","c":"double类型可以自动转换为int","cId":1,"d":"char+int+double+\"\" 结果一定是double","description":"在java中下列关于自动类型转换说法正确的是","id":12,"tId":1},
-    {"a":" STRING","answer":3,"b":"x3x","c":"void","cId":1,"d":"de$f","description":"以下哪一项不是合法的标识符","id":6,"tId":1},
-    {"a":"子类对父类的成员变量是隐藏","answer":1,"b":"子类对父类的成员方法是隐藏","c":"子类对父类的成员变量是覆盖","cId":1,"d":"子类对父类的成员变量和成员方法都是覆盖","description":"下列关于java多态的表述中，哪一个是正确的","id":3,"tId":1},
-    {"a":"构造方法的名称必须与类名相同","answer":3,"b":"构造方法可以带参数","c":"构造方法不可以重载","cId":1,"d":"构造方法绝对不能有返回值","description":"在Java中,关于构造方法，下列说法错误的是","id":15,"tId":1}]
-  </script>
   <script id="exam-template" type="template">
     <div class="xl:w-1/3 md:w-1/2 p-4" id="exam-checkbox" data-id="{id}">
                 <div class="border border-gray-200 p-6 rounded-lg">
@@ -383,12 +372,11 @@
     </footer>
     <script>
       $.ajax({
-        url: "exam/takeExam",
+        url: `exam/takeExam?cId=${1}`,
         method: "GET",
         success(data) {
-          console.log(data);
 
-          const examArr = JSON.parse(data);
+          const examArr = data;
           const examHTML = $("#exam-template")[0].innerHTML;
           examArr.forEach((exam) => (exam.checked = ""));
 
@@ -432,7 +420,7 @@
                 }),
               }),
               success(data) {
-                $("#exam-container")[0].innerHTML = `获得 ${data.score} 分`;
+                $("#exam-container")[0].innerHTML = `<h2 style="text-align:center; width: 100%; font-size: xxx-large; font-weight: 700;">获得 ${data.score} 分</h2>`;
               },
             });
           });
