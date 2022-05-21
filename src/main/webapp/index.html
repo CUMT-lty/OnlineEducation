@@ -40,6 +40,7 @@
       >
         <div class="flex items-center justify-end">
           <button
+            data-id={cId}
             class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
           >
             学习
@@ -432,12 +433,19 @@
         url: 'class/recommend',
         method: 'GET',
         success(data) {
-          console.log(data);
           const lessons = data.slice(0, 3);
           lessons.forEach((lesson) => {
             let html = template;
-            html = html.replace("{cName}", lesson.cName)
-              .replace("{cDescription}", lesson.cDescription);
+            html = html
+              .replace("{cId}", lessons.cId)
+              .replace("{cName}", lesson.cName)
+              .replace("{cDescription}", lesson.cDescription)
+
+            const dom = $(html)
+            dom.click((e) => {
+              const { cId } = e.target.dataset;
+              window.location.href = `detail.html?cId=${cId}`;
+            })
             const ele =  $(html)[0]
             container.append(ele)
           })

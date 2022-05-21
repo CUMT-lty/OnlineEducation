@@ -4,9 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>
-     课程详情
-    </title>
+    <title>课程详情</title>
     <meta name="description" content="Simple landind page" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
@@ -20,6 +18,172 @@
       }
     </style>
   </head>
+
+  <script type="template" id="template">
+    <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+      <h1
+        class="w-full my-2 text-5xl font-bold leading-tight text-left text-gray-800"
+      >
+      {cName}
+      </h1>
+      <div class="w-full mb-4">
+        <div class="h-1 gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+      </div>
+
+      <!-- 课程模板 -->
+      <div class="flex items-center">
+        <video
+          src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+        ></video>
+        <div
+          class="w-full mt-auto md:w-1/3 p-6 flex flex-col flex-grow flex-shrink"
+        >
+          <div
+            class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow"
+          >
+            <a
+              href="#"
+              class="flex flex-wrap no-underline hover:no-underline"
+            >
+              <p class="w-full text-gray-600 text-xs md:text-sm py-6"></p>
+              <div class="w-full font-bold text-xl text-gray-800 px-6">
+                Lorem ipsum dolor sit amet.
+              </div>
+              <p class="text-gray-800 text-base px-6">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
+              </p>
+            </a>
+            <div class="mb-24 mt-4 px-6 text-black">
+              <p class="text-black">浏览次数: 12</p>
+              <p>当前课程评分: 13</p>
+            </div>
+          </div>
+          <div
+            class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
+          >
+            <div class="flex items-center">
+              <!-- 播放 -->
+              <button
+                class="mr-2 lg:mx-4 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+              >
+                参加考试
+              </button>
+
+              <!-- 点赞 -->
+              <button
+                class="mx-2 lg:mx-4 hover:underline text-black font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+              >
+                点赞
+              </button>
+
+              <!-- 收藏 -->
+              <button
+                class="mx-2 lg:mx-4 hover:underline text-black font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+              >
+                收藏
+              </button>
+
+              <!-- 评分 -->
+              <button
+                class="mx-2 lg:mx-4 hover:underline text-black font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+              >
+                <!-- 评分列表 -->
+                <ul class="flex justify-center items-center">
+                  <li class="mr-4">评分</li>
+                  <li>
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      data-prefix="far"
+                      data-icon="star"
+                      class="w-4 text-yellow-500 mr-1"
+                      role="img"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 576 512"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"
+                      ></path>
+                    </svg>
+                  </li>
+                  <li>
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      data-prefix="far"
+                      data-icon="star"
+                      class="w-4 text-yellow-500 mr-1"
+                      role="img"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 576 512"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"
+                      ></path>
+                    </svg>
+                  </li>
+                  <li>
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      data-prefix="far"
+                      data-icon="star"
+                      class="w-4 text-yellow-500 mr-1"
+                      role="img"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 576 512"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"
+                      ></path>
+                    </svg>
+                  </li>
+                  <li>
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      data-prefix="far"
+                      data-icon="star"
+                      class="w-4 text-yellow-500 mr-1"
+                      role="img"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 576 512"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"
+                      ></path>
+                    </svg>
+                  </li>
+                  <li>
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      data-prefix="far"
+                      data-icon="star"
+                      class="w-4 text-yellow-500"
+                      role="img"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 576 512"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"
+                      ></path>
+                    </svg>
+                  </li>
+                </ul>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
 
   <body
     class="leading-normal tracking-normal text-white gradient"
@@ -143,171 +307,7 @@
         </g>
       </svg>
     </div>
-    <section class="bg-white border-b py-8">
-      <div class="container mx-auto flex flex-wrap pt-4 pb-12">
-        <h1
-          class="w-full my-2 text-5xl font-bold leading-tight text-left text-gray-800"
-        >
-          高等数学（下）
-        </h1>
-        <div class="w-full mb-4">
-          <div class="h-1 gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-        </div>
-
-        <!-- 课程模板 -->
-        <div class="flex items-center">
-          <video
-            src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
-          ></video>
-          <div
-            class="w-full mt-auto md:w-1/3 p-6 flex flex-col flex-grow flex-shrink"
-          >
-            <div
-              class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow"
-            >
-              <a
-                href="#"
-                class="flex flex-wrap no-underline hover:no-underline"
-              >
-                <p class="w-full text-gray-600 text-xs md:text-sm py-6"></p>
-                <div class="w-full font-bold text-xl text-gray-800 px-6">
-                  Lorem ipsum dolor sit amet.
-                </div>
-                <p class="text-gray-800 text-base px-6">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
-                </p>
-              </a>
-              <div class="mb-24 mt-4 px-6 text-black">
-                <p class="text-black">浏览次数: 12</p>
-                <p>当前课程评分: 13</p>
-              </div>
-            </div>
-            <div
-              class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
-            >
-              <div class="flex items-center">
-                <!-- 播放 -->
-                <button
-                  class="mr-2 lg:mx-4 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-                >
-                  参加考试
-                </button>
-
-                <!-- 点赞 -->
-                <button
-                  class="mx-2 lg:mx-4 hover:underline text-black font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-                >
-                  点赞
-                </button>
-
-                <!-- 收藏 -->
-                <button
-                  class="mx-2 lg:mx-4 hover:underline text-black font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-                >
-                  收藏
-                </button>
-
-                <!-- 评分 -->
-                <button
-                  class="mx-2 lg:mx-4 hover:underline text-black font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-                >
-                  <!-- 评分列表 -->
-                  <ul class="flex justify-center items-center">
-                    <li class="mr-4">评分</li>
-                    <li>
-                      <svg
-                        aria-hidden="true"
-                        focusable="false"
-                        data-prefix="far"
-                        data-icon="star"
-                        class="w-4 text-yellow-500 mr-1"
-                        role="img"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 576 512"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"
-                        ></path>
-                      </svg>
-                    </li>
-                    <li>
-                      <svg
-                        aria-hidden="true"
-                        focusable="false"
-                        data-prefix="far"
-                        data-icon="star"
-                        class="w-4 text-yellow-500 mr-1"
-                        role="img"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 576 512"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"
-                        ></path>
-                      </svg>
-                    </li>
-                    <li>
-                      <svg
-                        aria-hidden="true"
-                        focusable="false"
-                        data-prefix="far"
-                        data-icon="star"
-                        class="w-4 text-yellow-500 mr-1"
-                        role="img"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 576 512"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"
-                        ></path>
-                      </svg>
-                    </li>
-                    <li>
-                      <svg
-                        aria-hidden="true"
-                        focusable="false"
-                        data-prefix="far"
-                        data-icon="star"
-                        class="w-4 text-yellow-500 mr-1"
-                        role="img"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 576 512"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"
-                        ></path>
-                      </svg>
-                    </li>
-                    <li>
-                      <svg
-                        aria-hidden="true"
-                        focusable="false"
-                        data-prefix="far"
-                        data-icon="star"
-                        class="w-4 text-yellow-500"
-                        role="img"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 576 512"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"
-                        ></path>
-                      </svg>
-                    </li>
-                  </ul>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section class="bg-white border-b py-8" id="container"></section>
 
     <!-- Change the colour #f8fafc to match the previous section colour -->
     <svg
@@ -501,14 +501,34 @@
         >Background vector created by freepik - www.freepik.com</a
       >
     </footer>
+    <script src="./js/jquery.js"></script>
     <script>
-      $.ajax({
-        url: "/demo_war/class/log",
-        method: "GET",
-        success(data) {
-          console.info(data)
+      function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+          var pair = vars[i].split("=");
+          if (pair[0] == variable) {
+            return pair[1];
+          }
         }
-      })
+        return false;
+      }
+      const template = $("#template")[0].innerHTML;
+      const container = $("#container")[0];
+      $.ajax({
+        url: `/demo_war/class/log?cId=${getQueryVariable("cId")}`,
+        method: "GET",
+        success() {
+          console.info(getQueryVariable("cId"));
+
+          const html = template
+            .replace("{cName}", data.cName)
+            .replace("{cDescription}", data.cDescription)
+            .replace("{cId}", data.cId);
+          container.innerHTML = html;
+        },
+      });
     </script>
     <script>
       /*Toggle dropdown list*/
