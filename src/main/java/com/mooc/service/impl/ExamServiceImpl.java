@@ -96,7 +96,7 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public int[] getEIdsByExams(List<Exam> exams) {
-        Exam[] es = (Exam[]) exams.toArray();
+        Exam[] es = exams.toArray(new Exam[exams.size()]);
         int num = es.length;
         int[] eIds = new int[num];
         for (int i = 0; i<num; i++) {

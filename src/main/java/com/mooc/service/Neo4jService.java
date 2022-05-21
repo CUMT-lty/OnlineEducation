@@ -26,5 +26,13 @@ public interface Neo4jService {
     String[] getLastByKname(String kname);
 
 
+    /**
+     * 给知识结点排序
+     * @param knames 结点数组
+     * @return 一个String字符串 返回排好序的结点集合
+     */
+    String[] kpointOrder(String[] knames);
+
+
 
 }

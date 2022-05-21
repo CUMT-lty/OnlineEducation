@@ -2,7 +2,6 @@ package com.mooc.service;
 
 import com.mooc.pojo.StuCognition;
 
-import java.util.List;
 
 public interface StuCognitionService {
 
@@ -40,6 +39,6 @@ public interface StuCognitionService {
      * @param sId
      * @return 查找到的所有认知信息
      */
-    List<StuCognition> selectStuCognitionsBySId(int sId);
+    int[] selectStuCognitionsBySId(int sId);
 
 }

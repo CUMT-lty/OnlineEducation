@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+
 public interface StuCognitionMapper {
 
 
@@ -40,9 +41,9 @@ public interface StuCognitionMapper {
     /**
      * 根据学生id查找一个学生的所有认知信息
      * @param sId
-     * @return 查找到的所有认知信息
+     * @return 查找到的所有认知信息，一个整型数据，是一个学生掌握的所有知识点的id
      */
-    List<StuCognition> selectStuCognitionsBySId(@Param("sId") int sId);
+    List<Integer> selectStuCognitionsBySId(@Param("sId") int sId);
 
 
     /* 不需要修改操作，如果有认知信息改动直接删除或添加记录 */

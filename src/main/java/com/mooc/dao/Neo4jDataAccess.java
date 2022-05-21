@@ -61,7 +61,8 @@ public class Neo4jDataAccess {
                 nextNodes.add(pointName);  // 加入结果集合
             }
         }
-        return (String[]) nextNodes.toArray();
+        int size = nextNodes.size();
+        return nextNodes.toArray(new String[size]);
     }
 
 
@@ -87,7 +88,8 @@ public class Neo4jDataAccess {
                 lastNodes.add(pointName);
             }
         }
-        return (String[]) lastNodes.toArray();
+        int size = lastNodes.size();
+        return lastNodes.toArray(new String[size]);
     }
 
 

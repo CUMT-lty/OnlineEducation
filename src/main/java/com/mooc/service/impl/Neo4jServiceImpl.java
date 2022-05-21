@@ -4,6 +4,8 @@ import com.mooc.dao.Neo4jDataAccess;
 
 import com.mooc.service.Neo4jService;
 
+import java.util.Arrays;
+
 public class Neo4jServiceImpl implements Neo4jService {
 
     // 数据库连接信息
@@ -32,5 +34,10 @@ public class Neo4jServiceImpl implements Neo4jService {
         String[] lastNodes = access.getLastByKname(kname);
         access.close();
         return lastNodes;
+    }
+
+    @Override
+    public String[] kpointOrder(String[] knames) {
+        return new String[0];
     }
 }

@@ -34,8 +34,8 @@
         where sc_k_id = #{kId}
     </delete>
 
-    <select id="selectStuCognitionsBySId" resultMap="stuCognitionResultMap">
-        select *
+    <select id="selectStuCognitionsBySId" resultType="java.lang.Integer">
+        select sc_k_id
         from stu_cognition
         where sc_s_id = #{sId}
     </select>

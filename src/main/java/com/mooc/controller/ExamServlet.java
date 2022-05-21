@@ -23,17 +23,21 @@ public class ExamServlet extends BaseServlet {
      */
     public void takeExam(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");   // 设置编码方式,处理POST请求中文乱码问题
+
         List<Exam> exams = examService.randomSelectByNum(9);  // 获取九道试题
+
         int[] eIds = examService.getEIdsByExams(exams);     // 获取九道试题的id
+
         ExamIdBean examIdBean = new ExamIdBean();
         examIdBean.seteIds(eIds);    // 将试题id数组存入examIdBean的eIds属性中
-        String s = JSON.toJSONString(examIdBean);   // 将examIdBean转为字符串
-        Cookie eIdsCookie = new Cookie("eIds", s);
+        String examBeanJsonStr = JSON.toJSONString(examIdBean);   // 将examIdBean转为字符串
+        Cookie eIdsCookie = new Cookie("eIds", examBeanJsonStr);   // 设为一条cookie
+
         String examsJsonStr = JSON.toJSONString(exams);   // 将试题列表转为json字符串
 
+        response.setContentType("text/json;charset=utf-8");
         response.addCookie(eIdsCookie);    // 将试题id存入cookie，（cookie值是一个json类型的字符串）
         response.setStatus(200);
-        response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(examsJsonStr);
     }
 
@@ -52,6 +56,7 @@ public class ExamServlet extends BaseServlet {
             if (cookie.getName().equals("eIds"));
             examIdBeanJson = cookie.getValue();
         }
+
         // 将examIdBean类型的json字符串转为对应的ExamIdBean对象
         ExamIdBean examIdBean = JSON.parseObject(examIdBeanJson, ExamIdBean.class);
         int[] eIds = examIdBean.geteIds();  // 获取到ExamIdBean对象的eIds属性
