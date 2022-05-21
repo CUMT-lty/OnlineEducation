@@ -381,66 +381,62 @@
         >Background vector created by freepik - www.freepik.com</a
       >
     </footer>
-    <!-- jQuery if you need it
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  -->
-
     <script>
-      const data = $("#data-template")[0].innerHTML;
-      const examHTML = $("#exam-template")[0].innerHTML;
-      const examArr = JSON.parse(data);
-      examArr.forEach((exam) => (exam.checked = ""));
+      $.ajax({
+        url: "exam/takeExam",
+        method: "GET",
+        success(data) {
+          console.log(data);
 
-      // init
-      const htmls = examArr.map((exam, index) => {
-        return examHTML
-          .replace(/\{a\}/g, exam.a)
-          .replace(/\{b\}/g, exam.b)
-          .replace(/\{c\}/g, exam.c)
-          .replace(/\{d\}/g, exam.d)
-          .replace(/\{id\}/g, exam.id)
-          .replace("{description}", exam.description);
-      });
-      $("#exam-container").append(htmls);
-      $("input").click((e) => {
-        const { id, answer } = e.target.dataset;
-        const exam = examArr.find((exam) => String(exam.id) === String(id));
-        exam.checkedAnswers = answer;
-      });
+          const examArr = JSON.parse(data);
+          const examHTML = $("#exam-template")[0].innerHTML;
+          examArr.forEach((exam) => (exam.checked = ""));
 
-      $("#submit").click(() => {
-        const uncompleted = examArr.some((exam) => !exam.checkedAnswers);
-        if (uncompleted) {
-          alert("Please answer all questions");
-          return;
-        }
+          // init
+          const htmls = examArr.map((exam, index) => {
+            return examHTML
+              .replace(/\{a\}/g, exam.a)
+              .replace(/\{b\}/g, exam.b)
+              .replace(/\{c\}/g, exam.c)
+              .replace(/\{d\}/g, exam.d)
+              .replace(/\{id\}/g, exam.id)
+              .replace("{description}", exam.description);
+          });
+          $("#exam-container").append(htmls);
+          $("input").click((e) => {
+            const { id, answer } = e.target.dataset;
+            const exam = examArr.find((exam) => String(exam.id) === String(id));
+            exam.checkedAnswers = answer;
+          });
 
-        const result = examArr.map(({ checkedAnswers, id }) => {
-          return {
-            checkedAnswers,
-            id,
-          };
-        });
+          $("#submit").click(() => {
+            const uncompleted = examArr.some((exam) => !exam.checkedAnswers);
+            if (uncompleted) {
+              alert("Please answer all questions");
+              return;
+            }
 
-        $.ajax({
-            url: "/demo_war/exam/ans",
-            method: "POST",
-            data: JSON.stringify({
+            $.ajax({
+              url: "/demo_war/exam/ans",
+              method: "POST",
+              data: JSON.stringify({
                 ids: examArr.map(({ id }) => id),
                 checkedAnswers: examArr.map((exam) => {
-                    return exam.a === exam.checkedAnswers
-                        ? 1
-                        : exam.b === exam.checkedAnswers
-                            ? 2
-                            : exam.c === exam.checkedAnswers
-                                ? 3
-                                : exam.d === exam.checkedAnswers;
+                  return exam.a === exam.checkedAnswers
+                    ? 1
+                    : exam.b === exam.checkedAnswers
+                    ? 2
+                    : exam.c === exam.checkedAnswers
+                    ? 3
+                    : 4;
                 }),
-            }),
-            success(data) {
-              $('#exam-container')[0].innerHTML = `获得 ${data.score} 分`
-            },
+              }),
+              success(data) {
+                $("#exam-container")[0].innerHTML = `获得 ${data.score} 分`;
+              },
+            });
           });
+        },
       });
     </script>
 
