@@ -8,6 +8,8 @@
     <resultMap id="classLogResultMap" type="com.mooc.pojo.ClassLog" >
         <id column="cl_id" property="id"></id>
         <result column="cl_c_id" property="cId"></result>
+        <result column="cl_c_name" property="cName"></result>
+        <result column="cl_c_description" property="cDescription"></result>
         <result column="cl_view_num" property="viewNum"></result>
         <result column="cl_score" property="score"></result>
         <result column="cl_like_num" property="likeNum"></result>
@@ -19,7 +21,7 @@
     <!-- 添加主键返回 -->
     <insert id="addClassLog" useGeneratedKeys="true" keyProperty="id">
         insert into class_log
-        values (null, #{cId}, #{viewNum}, #{score}, #{likeNum}, #{collectNum}, #{scoreNum})
+        values (null, #{cId}, #{cName}, #{cDescription}, #{viewNum}, #{score}, #{likeNum}, #{collectNum}, #{scoreNum})
     </insert>
 
     <delete id="deleteByCId">
@@ -42,6 +44,8 @@
     <update id="updateRow">
         update class_log
         set cl_c_id = #{cId},
+            cl_c_name = #{cName},
+            cl_c_description = #{cDescription},
             cl_view_num = #{viewNum},
             cl_score = #{score},
             cl_like_num = #{likeNum},

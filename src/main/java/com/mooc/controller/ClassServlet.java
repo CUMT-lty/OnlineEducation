@@ -25,18 +25,23 @@ public class ClassServlet extends BaseServlet {
     public void recommend(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Cookie[] cookies = request.getCookies();
-        boolean flag = false;  // true标识用户登陆过，false表示用户没有登陆过
+        int stuId = -1;
         for (Cookie cookie: cookies){
-            if ("loginFlag".equals(cookie.getName())) flag = true;
+            if ("stuId".equals(cookie.getName())) stuId = Integer.valueOf(cookie.getValue());
             break;
         }
 
+        ClassLog[] classLogs = null;
 
-        String classLogsJsonStr;  // 转为json字符串
+        // 如果stuId为-1说明没有登录，否则说明登录了
+        if (stuId == -1) classLogs = classLogService.selectByScoreOrderLimNum(6);
+        else classLogs = classLogService.recommendClassByStuId(stuId);
+
+        String classLogsJsonStr = JSON.toJSONString(classLogs);
 
         response.setContentType("text/json;charset=utf-8");
         response.setStatus(200);
-//        response.getWriter().write(classLogsJsonStr);
+        response.getWriter().write(classLogsJsonStr);
     }
 
     /**

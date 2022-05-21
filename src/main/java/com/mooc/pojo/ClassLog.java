@@ -6,6 +6,10 @@ public class ClassLog {
 
 	private int cId;           // 课程编号
 
+    private String cName;
+
+    private String cDescription;
+
     private int viewNum;       // 课程被观看次数
 
     private int score;         // 课程资源得分
@@ -33,6 +37,22 @@ public class ClassLog {
 
     public void setcId(int cId) {
         this.cId = cId;
+    }
+
+    public String getcName() {
+        return cName;
+    }
+
+    public void setcName(String cName) {
+        this.cName = cName;
+    }
+
+    public String getcDescription() {
+        return cDescription;
+    }
+
+    public void setcDescription(String cDescription) {
+        this.cDescription = cDescription;
     }
 
     public int getViewNum() {

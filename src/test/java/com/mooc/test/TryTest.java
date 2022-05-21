@@ -88,5 +88,16 @@ public class TryTest {
     }
 
 
+    @Test
+    public void recommendTest(){
+        ClassLogServiceImpl classLogService = new ClassLogServiceImpl();
+        ClassLog[] classLogs = classLogService.selectByScoreOrderLimNum(6);
+
+        String s = JSON.toJSONString(classLogs);
+        System.out.println(s);
+
+    }
+
+
 
 }
