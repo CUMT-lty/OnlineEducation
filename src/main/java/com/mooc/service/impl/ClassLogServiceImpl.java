@@ -7,6 +7,9 @@ import com.mooc.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ClassLogServiceImpl implements ClassLogService {
 
     SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
@@ -19,6 +22,7 @@ public class ClassLogServiceImpl implements ClassLogService {
         sqlSession.commit();
         sqlSession.close();
     }
+
 
     @Override
     public void deleteByCId(int cId) {
@@ -37,6 +41,15 @@ public class ClassLogServiceImpl implements ClassLogService {
         ClassLog classLog = mapper.selectByCId(cId);
         sqlSession.close();
         return classLog;
+    }
+
+    @Override
+    public ClassLog[] selectByScoreOrderLimNum(int num) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        ClassLogMapper mapper = sqlSession.getMapper(ClassLogMapper.class);
+        List<ClassLog> classLogs = mapper.selectByScoreOrderLimNum(num);
+        sqlSession.close();
+        return classLogs.toArray(new ClassLog[num]);
     }
 
     @Override
@@ -70,4 +83,18 @@ public class ClassLogServiceImpl implements ClassLogService {
     public int reAveScore(int oldNum, int oldScore, int newScore) {
         return (int) Math.ceil(((oldNum * oldScore) + newScore) / (oldNum+1));
     }
+
+    @Override
+    public ClassLog[] recommendClassByStuId(int sId) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        ClassLogMapper mapper = sqlSession.getMapper(ClassLogMapper.class);
+
+        // 个性化课程推荐
+        List<ClassLog> classLogs = mapper.selectByScoreOrderLimNum(9);
+
+
+        sqlSession.close();
+        return classLogs.toArray(new ClassLog[9]);
+    }
+
 }

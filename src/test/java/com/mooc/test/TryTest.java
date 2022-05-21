@@ -1,49 +1,20 @@
 package com.mooc.test;
 
 import com.alibaba.fastjson.JSON;
-import com.mooc.bean.AnsBean;
-import com.mooc.bean.ExamIdBean;
-import com.mooc.mapper.StuMapper;
+import com.mooc.pojo.ClassLog;
 import com.mooc.pojo.Exam;
-import com.mooc.pojo.Stu;
+import com.mooc.service.impl.ClassLogServiceImpl;
 import com.mooc.service.impl.ExamServiceImpl;
 import com.mooc.service.impl.Neo4jServiceImpl;
 import com.mooc.service.impl.StuCognitionServiceImpl;
 import com.mooc.util.ExamUtils;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
-import javax.servlet.http.Cookie;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class TryTest {
-
-
-
-    @Test
-    public void demoTest1() throws IOException {
-        String s = "{\"username\":\"uniq\",\"password\":\"admin\",\"name\":\"admin\",\"school\":\"admin\",\"profession\":\"admin\"}";
-        Stu stu = JSON.parseObject(s, Stu.class);
-//        System.out.println(stu);
-        String resource = "mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        StuMapper mapper = sqlSession.getMapper(StuMapper.class);
-        mapper.addStu(stu);
-        sqlSession.commit();
-
-        Stu uniq = mapper.selectByUsername("uniq");
-        System.out.println(uniq);
-        sqlSession.close();
-
-    }
 
     @Test
     public void demoTest2(){
@@ -62,26 +33,17 @@ public class TryTest {
     }
 
     @Test
-    public void ExamTest(){
+    public void ExamTest() {
         ExamServiceImpl examService = new ExamServiceImpl();
 
-        List<Exam> exams = examService.randomSelectByNum(9);  // 获取九道试题
-        int[] eIds = examService.getEIdsByExams(exams);     // 获取九道试题的id
+        int cId = 1;
 
-        ExamIdBean examIdBean = new ExamIdBean();
-        examIdBean.seteIds(eIds);    // 将试题id数组存入examIdBean的eIds属性中
-
-        String  examIdBeanJsonStr = JSON.toJSONString(examIdBean);   // 将examIdBean转为字符串
-
-//        System.out.println(examIdBeanJsonStr);
-
-        Cookie eIdsCookie = new Cookie("eIds", examIdBeanJsonStr);   // 存为cookie
-
+        Exam[] exams = examService.randomSelectByCIdAndNum(cId, 9);  // 获取九道试题
         String examsJsonStr = JSON.toJSONString(exams);   // 将试题列表转为json字符串
 
         System.out.println(examsJsonStr);
-    }
 
+    }
 
     @Test
     public void AnsTest(){
@@ -104,16 +66,27 @@ public class TryTest {
 
     }
 
+    @Test
+    public void intListDemoTest(){
+
+        List<Integer> intList  = new ArrayList<>();
+        intList.add(1);
+        intList.add(2);
+
+        int[] ints = intList.stream().mapToInt(Integer::valueOf).toArray();
+
+        System.out.println(Arrays.toString(ints));
+    }
+
 
     @Test
-    public void demoTest(){
-
-        AnsBean ansBean = new AnsBean();
-        ansBean.setCheckedAnswer(1);
-        ansBean.setId(1);
-
-        System.out.println(ansBean);
-
+    public void recClaByScoreTest(){
+        ClassLogServiceImpl classLogService = new ClassLogServiceImpl();
+        ClassLog[] classLogs = classLogService.selectByScoreOrderLimNum(2);
+        String s = JSON.toJSONString(classLogs);
+        System.out.println(s);
     }
+
+
 
 }

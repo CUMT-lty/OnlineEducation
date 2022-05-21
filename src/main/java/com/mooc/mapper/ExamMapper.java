@@ -71,6 +71,15 @@ public interface ExamMapper {
 
 
     /**
+     * 随机抽取指定数目的不重复试题记录，这些题目属于指定课程
+     * @param cId 课程id
+     * @param num 需要抽取的试题数目
+     * @return 抽取到的试题记录
+     */
+    List<Exam> randomSelectByCIdAndNum(@Param("cId") int cId, @Param("num") int num);
+
+
+    /**
      * 根据试题id修改试题的答案
      * @param id 试题id
      * @param newAnswer 新答案

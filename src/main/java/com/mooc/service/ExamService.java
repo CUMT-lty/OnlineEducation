@@ -1,6 +1,7 @@
 package com.mooc.service;
 
 import com.mooc.pojo.Exam;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -64,7 +65,16 @@ public interface ExamService {
      * @param num 需要抽取的试题数目
      * @return 抽取到的试题记录
      */
-    List<Exam> randomSelectByNum(int num);
+    Exam[] randomSelectByNum(int num);
+
+
+    /**
+     * 随机抽取指定数目的不重复试题记录，这些题目属于指定课程
+     * @param cId 课程id
+     * @param num 需要抽取的试题数目
+     * @return 抽取到的试题记录
+     */
+    Exam[] randomSelectByCIdAndNum(int cId, int num);
 
 
     /**

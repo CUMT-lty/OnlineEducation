@@ -31,6 +31,14 @@ public interface ClassLogMapper {
 
 
     /**
+     * 根据课程的得分排名获取指定数量的记录
+     * @param num 需要的记录数
+     * @return 获取到的记录集合
+     */
+    List<ClassLog> selectByScoreOrderLimNum(@Param("num") int num);
+
+
+    /**
      * 修改一条课程动态信息记录
      * @param classLog 一个ClassLog对象
      */

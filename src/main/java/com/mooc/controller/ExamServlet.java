@@ -1,18 +1,15 @@
 package com.mooc.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.mooc.bean.AnsBean;
-import com.mooc.bean.ExamIdBean;
-import com.mooc.controller.BaseServlet;
 import com.mooc.pojo.Exam;
 import com.mooc.service.impl.ExamServiceImpl;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import com.mooc.util.ExamUtils;
 
@@ -27,19 +24,13 @@ public class ExamServlet extends BaseServlet {
     public void takeExam(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");   // 设置编码方式,处理POST请求中文乱码问题
 
-        List<Exam> exams = examService.randomSelectByNum(9);  // 获取九道试题
+        String cIdStr = request.getParameter("cId");
+        int cId = Integer.valueOf(cIdStr);         // 获取课程id
 
-        int[] eIds = examService.getEIdsByExams(exams);     // 获取九道试题的id
-
-        ExamIdBean examIdBean = new ExamIdBean();
-        examIdBean.seteIds(eIds);    // 将试题id数组存入examIdBean的eIds属性中
-        String examBeanJsonStr = JSON.toJSONString(examIdBean);   // 将examIdBean转为字符串
-//        Cookie eIdsCookie = new Cookie("eIds", examBeanJsonStr);   // 设为一条cookie
-
+        Exam[] exams = examService.randomSelectByCIdAndNum(cId, 9);  // 获取九道试题
         String examsJsonStr = JSON.toJSONString(exams);   // 将试题列表转为json字符串
 
         response.setContentType("text/json;charset=utf-8");
-//        response.addCookie(eIdsCookie);    // 将试题id存入cookie，（cookie值是一个json类型的字符串）
         response.setStatus(200);
         response.getWriter().write(examsJsonStr);
     }
@@ -51,36 +42,28 @@ public class ExamServlet extends BaseServlet {
     public void ans(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("utf-8");   // 设置编码方式,处理POST请求中文乱码问题
-
         String s = request.getReader().readLine();
+//        System.out.println("json:" + "   "+s);
+        AnsBean ansBean = JSON.parseObject(s, AnsBean.class);  // 转成java对象
+//        System.out.println(ansBean);
 
-//        System.out.println(s);
+        int[] ids = ansBean.getIds();
+        int[] checkedAnswers = ansBean.getCheckedAnswers();
 
-        AnsBean ansBean = JSON.parseObject(s, AnsBean.class);
-        System.out.println(ansBean);
+        List<Integer> ansList = examService.selectAnswersByIds(ids);
+        int[] ansInts = ansList.stream().mapToInt(Integer::valueOf).toArray();  // 转为整形数组
 
+        int score = ExamUtils.examScoreResult(checkedAnswers, ansInts);   // 计算分数
 
-//        String stuAnswersAndIds = request.getReader().readLine();   // 拿到答案集合
-//        System.out.println(stuAnswersAndIds);
+        System.out.println(score);
 
+        JSONObject json = new JSONObject();
+        json.put("score", score);
+        String jsonStr = json.toJSONString();
 
+        response.setStatus(200);
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonStr);   // 返回分数
 
-        // 将examIdBean类型的json字符串转为对应的ExamIdBean对象
-//        ExamIdBean examIdBean = JSON.parseObject(examIdBeanJson, ExamIdBean.class);
-//        int[] eIds = examIdBean.geteIds();  // 获取到ExamIdBean对象的eIds属性
-//
-//        List<Integer> ansList = examService.selectAnswersByIds(eIds);
-//        int[] answers = new int[ansList.size()];
-//        for(int i = 0;i<ansList.size();i++){
-//            answers[i] = ansList.get(i);      // 根据提交的eIds，获取正确答案的数组
-//        }
-//
-//        int[] stuAns = {0};   // 将stuAnswers答案字符串转为答案数组
-//
-//        int score = ExamUtils.examScoreResult(stuAns, answers);
-//
-//        response.setStatus(200);
-//        response.setContentType("text/plaintext;charset=utf-8");
-//        response.getWriter().write(score);   // 把最后分数返回
     }
 }

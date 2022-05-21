@@ -3,6 +3,8 @@ package com.mooc.service;
 import com.mooc.pojo.ClassLog;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface ClassLogService {
 
     /**
@@ -25,6 +27,14 @@ public interface ClassLogService {
      * @return 一条课程动态记录ClassLog
      */
     ClassLog selectByCId(int cId);
+
+
+    /**
+     * 根据课程的得分排名获取指定数量的记录
+     * @param num 需要的记录数
+     * @return 获取到的记录集合
+     */
+    ClassLog[] selectByScoreOrderLimNum(int num);
 
 
     /**
@@ -58,6 +68,14 @@ public interface ClassLogService {
      * @return 重新打分后的平均分
      */
     int reAveScore(int oldNum, int oldScore, int newScore);
+
+
+    /**
+     * 根据学生用户id获取个性化的课程推荐
+     * @param sId 学生用户ID
+     * @return 要推荐的 ClassLog 数组
+     */
+    ClassLog[] recommendClassByStuId(int sId);
 
 
 }

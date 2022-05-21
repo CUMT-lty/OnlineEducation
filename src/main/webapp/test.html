@@ -405,19 +405,19 @@
       $("input").click((e) => {
         const { id, answer } = e.target.dataset;
         const exam = examArr.find((exam) => String(exam.id) === String(id));
-        exam.checkedAnswer = answer;
+        exam.checkedAnswers = answer;
       });
 
       $("#submit").click(() => {
-        const uncompleted = examArr.some((exam) => !exam.checkedAnswer);
+        const uncompleted = examArr.some((exam) => !exam.checkedAnswers);
         if (uncompleted) {
           alert("Please answer all questions");
           return;
         }
 
-        const result = examArr.map(({ checkedAnswer, id }) => {
+        const result = examArr.map(({ checkedAnswers, id }) => {
           return {
-            checkedAnswer,
+            checkedAnswers,
             id,
           };
         });
@@ -425,11 +425,18 @@
         $.ajax({
             url: "/demo_war/exam/ans",
             method: "POST",
-            data:JSON.stringify({
-              ids: examArr.map(({id}) => id),
-              checkedAnswer: examArr.map(({checkedAnswer}) => checkedAnswer),
-            })
-          ,
+            data: JSON.stringify({
+                ids: examArr.map(({ id }) => id),
+                checkedAnswers: examArr.map((exam) => {
+                    return exam.a === exam.checkedAnswers
+                        ? 1
+                        : exam.b === exam.checkedAnswers
+                            ? 2
+                            : exam.c === exam.checkedAnswers
+                                ? 3
+                                : exam.d === exam.checkedAnswers;
+                }),
+            }),
             success(data) {
               $('#exam-container')[0].innerHTML = `获得 ${data.score} 分`
             },

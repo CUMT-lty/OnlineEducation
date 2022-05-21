@@ -65,6 +65,13 @@
         limit #{num}
     </select>
 
+    <select id="randomSelectByCIdAndNum" resultMap="examResultMap">
+        select * from exam
+        where e_c_id = #{cId}
+        order by rand()
+            limit #{num}
+    </select>
+
     <update id="updateAnswerById">
         update exam
         set e_answer = #{newAnswer}

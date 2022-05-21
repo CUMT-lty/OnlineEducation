@@ -32,6 +32,13 @@
         where cl_c_id = #{cId}
     </select>
 
+    <select id="selectByScoreOrderLimNum" resultMap="classLogResultMap">
+        select *
+        from class_log
+        order by cl_score desc
+        limit #{num}
+    </select>
+
     <update id="updateRow">
         update class_log
         set cl_c_id = #{cId},

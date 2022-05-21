@@ -77,12 +77,21 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public List<Exam> randomSelectByNum(int num) {
+    public Exam[] randomSelectByNum(int num) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         ExamMapper mapper = sqlSession.getMapper(ExamMapper.class);
         List<Exam> exams = mapper.randomSelectByNum(num);
         sqlSession.close();
-        return exams;
+        return exams.toArray(new Exam[num]);
+    }
+
+    @Override
+    public Exam[] randomSelectByCIdAndNum(int cId, int num) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        ExamMapper mapper = sqlSession.getMapper(ExamMapper.class);
+        List<Exam> exams = mapper.randomSelectByCIdAndNum(cId, num);
+        sqlSession.close();
+        return exams.toArray(new Exam[num]);
     }
 
     @Override
