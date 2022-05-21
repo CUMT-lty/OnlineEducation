@@ -415,21 +415,20 @@
           return;
         }
 
-        const result = examArr.map(({ checkedAnswer, id, cid, tid }) => {
+        const result = examArr.map(({ checkedAnswer, id }) => {
           return {
             checkedAnswer,
             id,
-            cid,
-            tid,
           };
         });
 
         $.ajax({
             url: "/demo_war/exam/ans",
             method: "POST",
-            data: {
-              result,
-            },
+            data:JSON.stringify(
+                    result
+            )
+          ,
             success(data) {
               $('#exam-container')[0].innerHTML = `获得 ${data.score} 分`
             },

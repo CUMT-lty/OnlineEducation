@@ -1,6 +1,7 @@
 package com.mooc.test;
 
 import com.alibaba.fastjson.JSON;
+import com.mooc.bean.AnsBean;
 import com.mooc.bean.ExamIdBean;
 import com.mooc.mapper.StuMapper;
 import com.mooc.pojo.Exam;
@@ -72,9 +73,13 @@ public class TryTest {
 
         String  examIdBeanJsonStr = JSON.toJSONString(examIdBean);   // 将examIdBean转为字符串
 
+//        System.out.println(examIdBeanJsonStr);
+
         Cookie eIdsCookie = new Cookie("eIds", examIdBeanJsonStr);   // 存为cookie
 
         String examsJsonStr = JSON.toJSONString(exams);   // 将试题列表转为json字符串
+
+        System.out.println(examsJsonStr);
     }
 
 
@@ -96,6 +101,18 @@ public class TryTest {
         int score = ExamUtils.examScoreResult(stuAns, answers);  // 评分
 
         System.out.println(score);
+
+    }
+
+
+    @Test
+    public void demoTest(){
+
+        AnsBean ansBean = new AnsBean();
+        ansBean.setCheckedAnswer(1);
+        ansBean.setId(1);
+
+        System.out.println(ansBean);
 
     }
 
