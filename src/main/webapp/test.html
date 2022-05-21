@@ -425,9 +425,10 @@
         $.ajax({
             url: "/demo_war/exam/ans",
             method: "POST",
-            data:JSON.stringify(
-                    result
-            )
+            data:JSON.stringify({
+              ids: examArr.map(({id}) => id),
+              checkedAnswer: examArr.map(({checkedAnswer}) => checkedAnswer),
+            })
           ,
             success(data) {
               $('#exam-container')[0].innerHTML = `获得 ${data.score} 分`
