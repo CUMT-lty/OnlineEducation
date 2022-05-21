@@ -14,12 +14,92 @@
     <!--Replace with your tailwind.css once created-->
     <link href="./fonts.css" rel="stylesheet" />
     <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+    <script src="./js/jquery.js"></script>
     <style>
       .gradient {
         background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
       }
     </style>
   </head>
+
+  <script id="data-template" type="template">
+        [{"a":"1","answer":3,"b":"2","c":"4","cId":1,"d":"8","description":"在java中，一个int类型的变量所占的字节数","id":1,"tId":1},
+    {"a":"31","answer":4,"b":"0","c":"1","cId":1,"d":"2","description":"表达式(11+3*8)/4%3的值是","id":7,"tId":1},
+    {"a":"static","answer":2,"b":"var","c":"class","cId":1,"d":"interface","description":"在下列选项中，哪一个不是java中的关键字","id":2,"tId":1},
+    {"a":"对象","answer":2,"b":"属性","c":"方法","cId":1,"d":"数据类型","description":"对象的特征在类中表示为变量，称为类的","id":11,"tId":1},
+    {"a":"for循环体语句中，可以包含多条语句，但要用大括号括起来","answer":1,"b":"for循环只能用于循环次数已经确定的情况","c":"在for循环中，不能使用break语句跳出循环","cId":1,"d":"for循环是先执行循环体语句，后进行条件判断","description":"下面有关for循环的描述正确的是","id":9,"tId":1},
+    {"a":"基本数据类型和String相加结果一定是字符串型","answer":1,"b":"char类型和int类型相加结果一定是字符","c":"double类型可以自动转换为int","cId":1,"d":"char+int+double+\"\" 结果一定是double","description":"在java中下列关于自动类型转换说法正确的是","id":12,"tId":1},
+    {"a":" STRING","answer":3,"b":"x3x","c":"void","cId":1,"d":"de$f","description":"以下哪一项不是合法的标识符","id":6,"tId":1},
+    {"a":"子类对父类的成员变量是隐藏","answer":1,"b":"子类对父类的成员方法是隐藏","c":"子类对父类的成员变量是覆盖","cId":1,"d":"子类对父类的成员变量和成员方法都是覆盖","description":"下列关于java多态的表述中，哪一个是正确的","id":3,"tId":1},
+    {"a":"构造方法的名称必须与类名相同","answer":3,"b":"构造方法可以带参数","c":"构造方法不可以重载","cId":1,"d":"构造方法绝对不能有返回值","description":"在Java中,关于构造方法，下列说法错误的是","id":15,"tId":1}]
+  </script>
+  <script id="exam-template" type="template">
+    <div class="xl:w-1/3 md:w-1/2 p-4" id="exam-checkbox" data-id="{id}">
+                <div class="border border-gray-200 p-6 rounded-lg">
+                  <h2 class="text-lg text-gray-900 font-medium title-font mb-2">
+                    {description}
+                  </h2>
+                  <div class="flex justify-start">
+                    <div>
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          data-id="{id}"
+                          data-answer="{a}"
+                       />
+                        <label
+                          class="form-check-label inline-block text-gray-800 inline pl-4"
+                        >
+                          {a}
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                        type="checkbox"
+                        data-id="{id}"
+                        data-answer="{b}"
+                        data-index="{index}"
+                     />
+                        <label
+                          class="form-check-label inline-block text-gray-800 inline pl-4"
+                          for="flexCheckChecked"
+                        >
+                          {b}
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                        type="checkbox"
+                        data-id="{id}"
+                        data-answer="{c}"
+                        data-index="{index}"
+                     />
+                        <label
+                          class="form-check-label inline-block text-gray-800 inline pl-4"
+                          for="flexCheckChecked"
+                        >
+                          {c}
+                        </label>
+                      </div>
+                        <div class="form-check">
+                          <input
+                          type="checkbox"
+                          data-id="{id}"
+                          data-answer="{d}"
+                          data-index="{index}"
+                      />
+                        <label
+                          class="form-check-label inline-block text-gray-800 inline pl-4"
+                          for="flexCheckChecked"
+                        >
+                          {d}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  </script>
 
   <body
     class="leading-normal tracking-normal text-white gradient"
@@ -154,157 +234,11 @@
             gentrify, subway tile poke farm-to-table.
           </p>
         </div>
-        <div class="flex flex-wrap -m-4">
+        <div class="flex flex-wrap -m-4" id="exam-container">
           <!-- 试题1 -->
-          <div class="xl:w-1/3 md:w-1/2 p-4">
-            <div class="border border-gray-200 p-6 rounded-lg">
-              <h2 class="text-lg text-gray-900 font-medium title-font mb-2">
-                Shooting Stars
-              </h2>
-              <div class="flex justify-start">
-                <div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-                      Default checkbox
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                      Checked checkbox
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                      Checked checkbox
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                      Checked checkbox
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="xl:w-1/3 md:w-1/2 p-4">
-            <div class="border border-gray-200 p-6 rounded-lg">
-              <h2 class="text-lg text-gray-900 font-medium title-font mb-2">
-                Shooting Stars
-              </h2>
-              <div class="flex justify-start">
-                <div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-                      Default checkbox
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                      Checked checkbox
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                      Checked checkbox
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                      Checked checkbox
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 试题2 -->
-          <div class="xl:w-1/3 md:w-1/2 p-4">
-            <div class="border border-gray-200 p-6 rounded-lg">
-              <h2 class="text-lg text-gray-900 font-medium title-font mb-2">
-                Shooting Stars
-              </h2>
-              <div class="flex justify-start">
-                <div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-                      Default checkbox
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                      Checked checkbox
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                      Checked checkbox
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                      Checked checkbox
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="xl:w-1/3 md:w-1/2 p-4">
-            <div class="border border-gray-200 p-6 rounded-lg">
-              <h2 class="text-lg text-gray-900 font-medium title-font mb-2">
-                Shooting Stars
-              </h2>
-              <div class="flex justify-start">
-                <div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-                      Default checkbox
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                      Checked checkbox
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                      Checked checkbox
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                      Checked checkbox
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
         </div>
         <button
+          id="submit"
           class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
         >
           交卷
@@ -451,34 +385,58 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   -->
 
-  <script>
-    let id = "";
+    <script>
+      const data = $("#data-template")[0].innerHTML;
+      const examHTML = $("#exam-template")[0].innerHTML;
+      const examArr = JSON.parse(data);
+      examArr.forEach((exam) => (exam.checked = ""));
 
-    $.ajax({
-      url: "/demo_war/exam/takeExam",
-      method: "GET",
-      success(data) {
-        console.log(data)
-        id = data.id;
+      // init
+      const htmls = examArr.map((exam, index) => {
+        return examHTML
+          .replace(/\{a\}/g, exam.a)
+          .replace(/\{b\}/g, exam.b)
+          .replace(/\{c\}/g, exam.c)
+          .replace(/\{d\}/g, exam.d)
+          .replace(/\{id\}/g, exam.id)
+          .replace("{description}", exam.description);
+      });
+      $("#exam-container").append(htmls);
+      $("input").click((e) => {
+        const { id, answer } = e.target.dataset;
+        const exam = examArr.find((exam) => String(exam.id) === String(id));
+        exam.checkedAnswer = answer;
+      });
 
+      $("#submit").click(() => {
+        const uncompleted = examArr.some((exam) => !exam.checkedAnswer);
+        if (uncompleted) {
+          alert("Please answer all questions");
+          return;
+        }
+
+        const result = examArr.map(({ checkedAnswer, id, cid, tid }) => {
+          return {
+            checkedAnswer,
+            id,
+            cid,
+            tid,
+          };
+        });
 
         $.ajax({
-          url: "/demo_war/exam/ans",
-          method: "POST",
-          data: {
-            id:id,
-          },
-          success(data) {
-            console.log(data);
-          }
-        })
-      }
-    })
+            url: "/demo_war/exam/ans",
+            method: "POST",
+            data: {
+              result,
+            },
+            success(data) {
+              $('#exam-container')[0].innerHTML = `获得 ${data.score} 分`
+            },
+          });
+      });
+    </script>
 
-
-
-
-  </script>
     <script>
       var scrollpos = window.scrollY;
       var header = document.getElementById("header");
