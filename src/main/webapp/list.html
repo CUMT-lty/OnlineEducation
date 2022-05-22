@@ -21,6 +21,35 @@
     }
   </style>
 </head>
+<script type="template" id="lesson-template">
+  <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+    <div
+      class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow"
+    >
+      <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+        <p class="w-full text-gray-600 text-xs md:text-sm px-6 mb-6"></p>
+        <div class="w-full font-bold text-xl text-gray-800 px-6">
+          {cName}
+        </div>
+        <p class="text-gray-800 text-base px-6 mb-5">
+          {cDescription}
+        </p>
+      </a>
+    </div>
+    <div
+      class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
+    >
+      <div class="flex items-center justify-end">
+        <button
+          data-id={cId}
+          class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+        >
+          学习
+        </button>
+      </div>
+    </div>
+  </div>
+</script>
 
 <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
   <!--Nav-->
@@ -177,7 +206,7 @@
     </div>
   </section>
   <section class="bg-white border-b py-8">
-    <div class="container max-w-5xl mx-auto m-8">
+    <div class="container max-w-5xl mx-auto m-8" id="lesson-container">
       <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
         课程列表
       </h1>
@@ -185,109 +214,7 @@
         <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
       </div>
 
-      <div class="flex flex-wrap">
-
-      <!-- 课程列表模板  item 1 start-->
-      <div class="flex justify-between w-full">
-        <div class="w-5/6 sm:w-1/2 p-6 flex-1">
-          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-            高等数学
-          </h3>
-          <p class="text-gray-600 mb-8">
-            搞笑名师讲座，每周一次，每次1小时，每个人只能参加一次。
-            <br />
-            <br />
-
-            Images from:
-
-            <a class="text-pink-500 underline" href="https://undraw.co/">undraw.co</a>
-          </p>
-
-        </div>
-        <div class="inline-block mt-4" style="border:#d53369 1px solid; width: 200px; height: 120px;"></div>
-      </div>
-      <!-- 课程列表模板  item 1 end -->
-
-      <!-- 课程列表模板  item 2 start-->
-      <div class="flex justify-between w-full">
-        <div class="w-5/6 sm:w-1/2 p-6 flex-1">
-          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-            高等数学
-          </h3>
-          <p class="text-gray-600 mb-8">
-            搞笑名师讲座，每周一次，每次1小时，每个人只能参加一次。
-            <br />
-            <br />
-
-            Images from:
-
-            <a class="text-pink-500 underline" href="https://undraw.co/">undraw.co</a>
-          </p>
-
-        </div>
-        <div class="inline-block mt-4" style="border:#d53369 1px solid; width: 200px; height: 120px;"></div>
-      </div>
-      <!-- 课程列表模板  item 2 end -->
-
-       <!-- 课程列表模板  item 2 start-->
-       <div class="flex justify-between w-full">
-        <div class="w-5/6 sm:w-1/2 p-6 flex-1">
-          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-            高等数学
-          </h3>
-          <p class="text-gray-600 mb-8">
-            搞笑名师讲座，每周一次，每次1小时，每个人只能参加一次。
-            <br />
-            <br />
-
-            Images from:
-
-            <a class="text-pink-500 underline" href="https://undraw.co/">undraw.co</a>
-          </p>
-
-        </div>
-        <div class="inline-block mt-4" style="border:#d53369 1px solid; width: 200px; height: 120px;"></div>
-      </div>
-      <!-- 课程列表模板  item 2 end --> <!-- 课程列表模板  item 2 start-->
-      <div class="flex justify-between w-full">
-        <div class="w-5/6 sm:w-1/2 p-6 flex-1">
-          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-            高等数学
-          </h3>
-          <p class="text-gray-600 mb-8">
-            搞笑名师讲座，每周一次，每次1小时，每个人只能参加一次。
-            <br />
-            <br />
-
-            Images from:
-
-            <a class="text-pink-500 underline" href="https://undraw.co/">undraw.co</a>
-          </p>
-
-        </div>
-        <div class="inline-block mt-4" style="border:#d53369 1px solid; width: 200px; height: 120px;"></div>
-      </div>
-      <!-- 课程列表模板  item 2 end --> <!-- 课程列表模板  item 2 start-->
-      <div class="flex justify-between w-full">
-        <div class="w-5/6 sm:w-1/2 p-6 flex-1">
-          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-            高等数学
-          </h3>
-          <p class="text-gray-600 mb-8">
-            搞笑名师讲座，每周一次，每次1小时，每个人只能参加一次。
-            <br />
-            <br />
-
-            Images from:
-
-            <a class="text-pink-500 underline" href="https://undraw.co/">undraw.co</a>
-          </p>
-
-        </div>
-        <div class="inline-block mt-4" style="border:#d53369 1px solid; width: 200px; height: 120px;"></div>
-      </div>
-      <!-- 课程列表模板  item 2 end -->
-
+      <!-- lesson template -->
 
     </div>
   </section>
@@ -411,6 +338,35 @@
   <!-- jQuery if you need it
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   -->
+  <script src="./js/jquery.js"></script>
+  <script>
+    const template = $('#lesson-template')[0].innerHTML;
+    const container = $('#lesson-container')[0];
+
+    $.ajax({
+        url: 'class/recommend',
+        method: 'GET',
+        success(data) {
+          const lessons = data.slice(0, 3);
+          lessons.forEach((lesson) => {
+            let html = template;
+            html = html
+              .replace("{cId}", lessons.cId)
+              .replace("{cName}", lesson.cName)
+              .replace("{cDescription}", lesson.cDescription)
+
+            const dom = $(html)
+            dom.find('button').click((e) => {
+              const { cId } = e.target.dataset;
+              window.location.href = `detail.html?cId=${cId}`;
+            })
+            const ele =  $(html)[0]
+            container.append(ele)
+          })
+        }
+      })
+  </script>
+
   <script>
     var scrollpos = window.scrollY;
     var header = document.getElementById("header");
