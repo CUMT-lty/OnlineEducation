@@ -434,14 +434,14 @@
           lessons.forEach((lesson) => {
             let html = template;
             html = html
-              .replace("{cId}", lessons.cId)
+              .replace("{cId}", lesson.cId)
               .replace("{cName}", lesson.cName)
               .replace("{cDescription}", lesson.cDescription);
 
             const dom = $(html);
             dom.find("button").click((e) => {
-              const { cId } = e.target.dataset;
-              window.location.href = `detail.html?cId=${cId}`;
+              const { id } = e.target.dataset;
+              window.location.href = `detail.html?cId=${id}`;
             });
             const ele = $(html)[0];
             container.append(ele);
@@ -451,27 +451,30 @@
     </script>
 
     <script>
-
       $.ajax({
-        url: "class/search",
+        url: "class/search?" + window.location.search.match(/(^|&)(nameLike)=(\w+)(&|$)/),
         method: "GET",
         success(data) {
           const container = $("#search-container")[0];
           const template = $("#lesson-template")[0].innerHTML;
           const lessons = data;
 
+
           lessons.forEach((lesson) => {
             let html = template;
             html = html
-              .replace("{cId}", lessons.cId)
+              .replace("{cId}", lesson.cId)
               .replace("{cName}", lesson.cName)
               .replace("{cDescription}", lesson.cDescription);
             const dom = $(html);
-            dom.find("button").click((e) => {
-              const { cId } = e.target.dataset;
-              window.location.href = `detail.html?cId=${cId}`;
-            });
-            const ele = $(html)[0];
+            const button = dom.find('button')[0]
+            button.addEventListener('click',e => {
+              const { id } = e.target.dataset;
+              window.location.href = `detail.html?cId=${id}`;
+
+            })
+
+            const ele = dom[0];
             container.append(ele);
           });
 
