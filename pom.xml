@@ -70,11 +70,11 @@
         </dependency>
 
         <!--neo4j相关依赖-->
-        <dependency>
-            <groupId>org.neo4j</groupId>
-            <artifactId>neo4j</artifactId>
-            <version>3.5.30</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.neo4j</groupId>-->
+<!--            <artifactId>neo4j</artifactId>-->
+<!--            <version>3.5.30</version>-->
+<!--        </dependency>-->
 
         <!--导入单元测试依赖-->
         <dependency>
