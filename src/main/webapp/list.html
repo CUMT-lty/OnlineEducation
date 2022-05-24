@@ -466,6 +466,11 @@
               .replace("{cId}", lessons.cId)
               .replace("{cName}", lesson.cName)
               .replace("{cDescription}", lesson.cDescription);
+            const dom = $(html);
+            dom.find("button").click((e) => {
+              const { cId } = e.target.dataset;
+              window.location.href = `detail.html?cId=${cId}`;
+            });
             const ele = $(html)[0];
             container.append(ele);
           });
