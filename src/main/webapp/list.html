@@ -452,7 +452,7 @@
 
     <script>
       $.ajax({
-        url: "class/search?" + window.location.search.match(/(^|&)(nameLike)=(\w+)(&|$)/),
+        url: "class/search?" + window.location.search.match(/(\?|&|^)nameLike=(\w+)(&|$)/),
         method: "GET",
         success(data) {
           const container = $("#search-container")[0];
