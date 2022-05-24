@@ -189,17 +189,8 @@
       </svg>
     </div>
     <section class="bg-white border-b py-8">
-      <div class="container mx-auto flex flex-col flex-wrap pt-4 pb-12" id="recommend-container">
-        <h1
-          class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800"
-        >
-          个性化推荐
-        </h1>
-        <div class="w-full mb-4">
-          <div
-            class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
-          ></div>
-        </div>
+      <div class="container mx-auto flex flex-wrap pt-4 pb-12" id="search-container">
+
 
         <!-- 模板列表 -->
 
@@ -207,12 +198,8 @@
     </section>
 
     <section class="bg-white border-b py-8">
-      <div class="container mx-auto flex flex-wrap pt-4 pb-12" id="search-container">
-        <h1
-          class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800"
-        >
-          课程列表
-        </h1>
+      <div class="container mx-auto flex flex-col flex-wrap pt-4 pb-12" id="recommend-container">
+
         <div class="w-full mb-4">
           <div
             class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
@@ -223,6 +210,7 @@
 
       </div>
     </section>
+
 
     <!-- Change the colour #f8fafc to match the previous section colour -->
     <svg
@@ -416,20 +404,19 @@
         >Background vector created by freepik - www.freepik.com</a
       >
     </footer>
-    <!-- jQuery if you need it
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  -->
-    <script src="./js/jquery.js"></script>
 
+    <script src="./js/jquery.js"></script>
     <!-- mount fetch recommend -->
     <script>
       const template = $("#lesson-template")[0].innerHTML;
       const container = $("#recommend-container")[0];
-
-      $.ajax({
+      if (!window.location.search.includes('nameLike')) {
+        $.ajax({
         url: "class/recommend",
         method: "GET",
         success(data) {
+          container.append($(`<h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">课程列表</h1>`)[0])
+
           const lessons = data.slice(0, 3);
           lessons.forEach((lesson) => {
             let html = template;
@@ -448,6 +435,7 @@
           });
         },
       });
+      }
     </script>
 
     <script>
@@ -458,7 +446,7 @@
           const container = $("#search-container")[0];
           const template = $("#lesson-template")[0].innerHTML;
           const lessons = data;
-
+          container.append($(`<h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">课程推荐</h1>`)[0])
 
           lessons.forEach((lesson) => {
             let html = template;
