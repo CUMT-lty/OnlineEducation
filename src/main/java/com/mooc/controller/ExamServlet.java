@@ -42,27 +42,19 @@ public class ExamServlet extends BaseServlet {
      * 参加课后测试页，获取本次测试的得分
      */
     public void ans(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         request.setCharacterEncoding("utf-8");   // 设置编码方式,处理POST请求中文乱码问题
         String s = request.getReader().readLine();
-//        System.out.println("json:" + "   "+s);
+        System.out.println("json:" + "   "+s);
         AnsBean ansBean = JSON.parseObject(s, AnsBean.class);  // 转成java对象
-//        System.out.println(ansBean);
-
+        System.out.println(ansBean);
         int[] ids = ansBean.getIds();
         int[] checkedAnswers = ansBean.getCheckedAnswers();
-
-        List<Integer> ansList = examService.selectAnswersByIds(ids);
-        int[] ansInts = ansList.stream().mapToInt(Integer::valueOf).toArray();  // 转为整形数组
-
-        int score = ExamUtils.examScoreResult(checkedAnswers, ansInts);   // 计算分数
-
+        int[] ansList = examService.selectAnswersByIds(ids);
+        int score = ExamUtils.examScoreResult(checkedAnswers, ansList);   // 计算分数
         System.out.println(score);
-
         JSONObject json = new JSONObject();
         json.put("score", score);
         String jsonStr = json.toJSONString();
-
         response.setStatus(200);
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonStr);   // 返回分数

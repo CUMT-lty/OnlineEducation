@@ -41,22 +41,18 @@ public class ClassServlet extends BaseServlet {
      * 获取推荐课程
      */
     public void recommend(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         Cookie[] cookies = request.getCookies();
         int stuId = -1;
         for (Cookie cookie: cookies){
             if ("stuId".equals(cookie.getName())) stuId = Integer.valueOf(cookie.getValue());
             break;
         }
-
-        ClassLog[] classLogs = null;
-
-        // 如果stuId为-1说明没有登录，否则说明登录了
-        if (stuId == -1) classLogs = classLogService.selectByScoreOrderLimNum(6);
+        ClassLog[] classLogs;
+        // stuId都为正数，如果stuId为负，说没没获取到cookie，此时只为用户推荐高分课程
+        if (stuId == -1) classLogs = classLogService.selectByScoreOrderLimNum(9);
+        // 如果获取到了stuId说明用户状态为已登录，此时进行个性化课程推荐
         else classLogs = classLogService.recommendClassByStuId(stuId);
-
         String classLogsJsonStr = JSON.toJSONString(classLogs);
-
         response.setContentType("text/json;charset=utf-8");
         response.setStatus(200);
         response.getWriter().write(classLogsJsonStr);
@@ -66,23 +62,37 @@ public class ClassServlet extends BaseServlet {
      * 课程详情页，获取课程详细信息
      */
     public void log(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         int cId = Integer.valueOf(request.getParameter("cId"));   // 获取课程id
-
-        Class aClass = classService.selectById(cId);
-
-        ClassLog classLog = classLogService.selectByCId(aClass.getId());   // 获取课程动态信息
+        int sId = -1;     // 用户登录状态前端也会检查，避免冗余请求
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie: cookies) {    // 从cookie中或缺stuId同时检查登陆状态
+            if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
+            break;
+        }
+        // 获取课程相关信息
+        ClassLog classLog = classLogService.selectByCId(cId);   // 获取课程动态信息
         String name = classLog.getcName();
         String description = classLog.getcDescription();
         int viewNum = classLog.getViewNum();   // 课程被观看次数
-        int score = classLog.getScore();     // 课程得分
-
+        int score = classLog.getScore();       // 课程得分
+        // 将课程信息封装进json
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", name);
         jsonObject.put("description", description);
         jsonObject.put("viewNum", viewNum);
         jsonObject.put("score", score);
-
+        // 获取学生相关信息，并封装进json
+        if (classLikeService.selectByCIdAndSId(cId, sId) != null ){ // 是否点过赞
+            jsonObject.put("like", true);
+        } else {
+            jsonObject.put("like", false);
+        }
+        if (classCollectService.selectByCIdAndSId(cId, sId) != null ){ // 是否收藏过
+            jsonObject.put("like", true);
+        } else {
+            jsonObject.put("like", false);
+        }
+        // 将结果响应给前端
         response.setStatus(200);
         response.setContentType("text/json;charset=utf-8");  // 处理响应头和中文编码问题
         response.getWriter().write(jsonObject.toJSONString());
@@ -92,20 +102,27 @@ public class ClassServlet extends BaseServlet {
      * 点赞
      */
     public void like(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int cId = Integer.valueOf(request.getParameter("cId"));
-        int sId = -1;
+        int cId = Integer.valueOf(request.getParameter("cId"));      // 获取cId
+        int sId = -1;     // 用户登录状态前端也会检查，避免冗余请求
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie: cookies) {
+        for (Cookie cookie: cookies) {    // 从cookie中或缺stuId同时检查登陆状态
             if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
             break;
         }
-        // class_log 中点赞人数加一
-        classLogService.increaseOneByCIdAndColumn(cId, "cl_like_num");
-        // class_like 中增加一条记录
-        ClassLike classLike = new ClassLike();
-        classLike.setsId(sId);
-        classLike.setcId(cId);
-        classLikeService.addClassLike(classLike);
+        // 查询class_like中是否已有点赞记录
+        ClassLike cl1 = classLikeService.selectByCIdAndSId(cId, sId);
+        if (cl1!=null) {   // 如果已有该点赞记录，则删除该记录
+            classLikeService.deleteByCIdAndSId(cId, sId);
+            response.getWriter().write(String.valueOf(false)); // 响应
+        } else {          // 如果没有相应点赞记录，则添加该记录
+            ClassLike classLike = new ClassLike();
+            classLike.setsId(sId);
+            classLike.setcId(cId);
+            classLikeService.addClassLike(classLike);
+            // 并且class_log 中点赞人数加一
+            classLogService.increaseOneByCIdAndColumn(cId, "cl_like_num");
+            response.getWriter().write(String.valueOf(true));  // 响应
+        }
     }
 
     /**
@@ -119,13 +136,19 @@ public class ClassServlet extends BaseServlet {
             if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
             break;
         }
-        // class_log 中收藏人数加一
-        classLogService.increaseOneByCIdAndColumn(cId, "cl_collect_num");
-        // class_collect 中增加一条记录
-        ClassCollect classCollect = new ClassCollect();
-        classCollect.setsId(sId);
-        classCollect.setcId(cId);
-        classCollectService.addClassCollect(classCollect);
+        // 查询class_collect中是否已有收藏记录
+        ClassCollect cc1 = classCollectService.selectByCIdAndSId(cId, sId);
+        if (cc1 != null) {  // 如果已有收藏记录，删除该记录
+            classCollectService.deleteByCIdAndSId(cId, sId);
+            response.getWriter().write(String.valueOf(false));  // 响应
+        } else {  // 如果没有该收藏记录，添加一条记录
+            ClassCollect classCollect = new ClassCollect();
+            classCollect.setcId(cId);
+            classCollect.setsId(sId);
+            classCollectService.addClassCollect(classCollect);
+            // 并且class_log 中收藏人数加一
+            classLogService.increaseOneByCIdAndColumn(cId, "cl_collect_num");
+        }
     }
 
     /**
@@ -142,5 +165,4 @@ public class ClassServlet extends BaseServlet {
         int newScore = classLogService.reAveScore(classLog.getScoreNum(), classLog.getScore(), score);
         classLogService.updateByCIdAndColumn(cId, "cl_score", newScore);
     }
-
 }

@@ -10,7 +10,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet("/stu/*")  // 使用目录式的路径映射
+@WebServlet("/stu/*")  // 使用目录式路由管理
 public class StuServlet extends BaseServlet {
 
     StuServiceImpl stuService = new StuServiceImpl();   // service层访问接口

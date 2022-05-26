@@ -33,7 +33,7 @@ public interface ExamService {
      * @param cId 课程的id
      * @return 检索到的所有试题记录
      */
-    List<Exam> selectByCId(int cId);
+    Exam[] selectByCId(int cId);
 
 
     /**
@@ -57,7 +57,7 @@ public interface ExamService {
      * @param ids 试题id数组
      * @return 对应的试题答案序号数组
      */
-    List<Integer> selectAnswersByIds(int[] ids);
+    int[] selectAnswersByIds(int[] ids);
 
 
     /**

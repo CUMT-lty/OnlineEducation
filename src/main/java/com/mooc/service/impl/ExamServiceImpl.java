@@ -41,12 +41,12 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public List<Exam> selectByCId(int cId) {
+    public Exam[] selectByCId(int cId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         ExamMapper mapper = sqlSession.getMapper(ExamMapper.class);
         List<Exam> exams = mapper.selectByCId(cId);
         sqlSession.close();
-        return exams;
+        return exams.toArray(new Exam[exams.size()]);
     }
 
     @Override
@@ -68,12 +68,12 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public List<Integer> selectAnswersByIds(int[] ids) {
+    public int[] selectAnswersByIds(int[] ids) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         ExamMapper mapper = sqlSession.getMapper(ExamMapper.class);
         List<Integer> answers = mapper.selectAnswersByIds(ids);
         sqlSession.close();
-        return answers;
+        return answers.stream().mapToInt(Integer::valueOf).toArray();
     }
 
     @Override
