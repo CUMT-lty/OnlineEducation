@@ -47,27 +47,6 @@ public class TryTest {
     }
 
     @Test
-    public void AnsTest(){
-        ExamServiceImpl examService = new ExamServiceImpl();
-        int[] eIds = {1,3,4,5,6,7,8,9,13};
-
-        List<Integer> ansList = examService.selectAnswersByIds(eIds);
-
-        int[] answers = new int[ansList.size()];
-
-        for(int i = 0;i<ansList.size();i++){
-            answers[i] = ansList.get(i);      // 根据提交的eIds，获取正确答案的数组
-        }
-
-        int[] stuAns = {3,1,3,2,1,4,1,1,4};   // 将stuAnswers答案字符串转为答案数组
-
-        int score = ExamUtils.examScoreResult(stuAns, answers);  // 评分
-
-        System.out.println(score);
-
-    }
-
-    @Test
     public void intListDemoTest(){
 
         List<Integer> intList  = new ArrayList<>();

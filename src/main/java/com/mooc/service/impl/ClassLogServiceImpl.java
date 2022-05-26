@@ -98,6 +98,15 @@ public class ClassLogServiceImpl implements ClassLogService {
 
     @Override
     public ClassLog[] recommendClassByStuId(int sId) {
+        // 获取该学生当前的认知知识点
+
+        // 在stucognition中加入认知等级这一选项
+        StuCognitionServiceImpl stuCognitionService = new StuCognitionServiceImpl();
+        int[] kIds = stuCognitionService.selectStuCognitionsBySId(sId);
+
+
+
+        // 下面代码是临时的
         SqlSession sqlSession = sqlSessionFactory.openSession();
         ClassLogMapper mapper = sqlSession.getMapper(ClassLogMapper.class);
 
@@ -105,7 +114,7 @@ public class ClassLogServiceImpl implements ClassLogService {
         List<ClassLog> classLogs = mapper.selectByScoreOrderLimNum(9);
 
 
-        sqlSession.close();
+//        sqlSession.close();
         return classLogs.toArray(new ClassLog[9]);
     }
 

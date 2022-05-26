@@ -46,6 +46,15 @@ public interface StuCognitionMapper {
     List<Integer> selectStuCognitionsBySId(@Param("sId") int sId);
 
 
+    /**
+     * 根据学上id和知识点id查询学生认知等级
+     * @param sId 学生id
+     * @param kId 知识点id
+     * @return 该学生对该知识点的认知等级
+     */
+    int selectCognitionLevelBySIdAndKId(@Param("sId") int sId, @Param("kId") int kId);
+
+
     /* 不需要修改操作，如果有认知信息改动直接删除或添加记录 */
 
 

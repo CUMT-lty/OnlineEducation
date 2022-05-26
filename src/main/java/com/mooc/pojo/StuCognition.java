@@ -8,6 +8,8 @@ public class StuCognition {
 
     private int kId;
 
+    private int congitionLevel;   // 该学生对该知识点的认知等级
+
 
     // get & set
 
@@ -35,6 +37,13 @@ public class StuCognition {
         this.kId = kId;
     }
 
+    public int getCongitionLevel() {
+        return congitionLevel;
+    }
+
+    public void setCongitionLevel(int congitionLevel) {
+        this.congitionLevel = congitionLevel;
+    }
 
     // toString
 
@@ -44,6 +53,7 @@ public class StuCognition {
                 "id=" + id +
                 ", sId=" + sId +
                 ", kId=" + kId +
+                ", congitionLevel=" + congitionLevel +
                 '}';
     }
 }

@@ -10,6 +10,7 @@
         <id column="sc_id" property="id"></id>
         <result column="sc_s_id" property="sId"></result>
         <result column="sc_k_id" property="kId"></result>
+        <result column="sc_cognition_level" property="congitionLevel"></result>
     </resultMap>
 
 
@@ -38,6 +39,13 @@
         select sc_k_id
         from stu_cognition
         where sc_s_id = #{sId}
+    </select>
+
+    <select id="selectCognitionLevelBySIdAndKId" resultType="java.lang.Integer">
+        select sc_cognition_level
+        from stu_cognition
+        where sc_s_id = #{sId}
+          and sc_k_id = #{kId}
     </select>
 
 
