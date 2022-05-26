@@ -17,7 +17,8 @@ public class MabatisTest {
         SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
         StuCognitionMapper mapper = sqlSession.getMapper(StuCognitionMapper.class);
-
+        int level = mapper.selectCognitionLevelBySIdAndKId(1, 18);
+        System.out.println(level);
     }
 
 }

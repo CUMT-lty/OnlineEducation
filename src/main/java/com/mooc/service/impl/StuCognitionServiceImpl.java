@@ -57,4 +57,13 @@ public class StuCognitionServiceImpl implements StuCognitionService {
         sqlSession.close();
         return stuCognitions.stream().mapToInt(Integer::valueOf).toArray();
     }
+
+    @Override
+    public int selectCognitionLevelBySIdAndKId(int sId, int kId) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        StuCognitionMapper mapper = sqlSession.getMapper(StuCognitionMapper.class);
+        int level = mapper.selectCognitionLevelBySIdAndKId(sId, kId);
+        sqlSession.close();
+        return level;
+    }
 }

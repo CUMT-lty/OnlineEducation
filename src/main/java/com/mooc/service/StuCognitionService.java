@@ -1,6 +1,7 @@
 package com.mooc.service;
 
 import com.mooc.pojo.StuCognition;
+import org.apache.ibatis.annotations.Param;
 
 
 public interface StuCognitionService {
@@ -40,5 +41,14 @@ public interface StuCognitionService {
      * @return 查找到的所有认知信息
      */
     int[] selectStuCognitionsBySId(int sId);
+
+
+    /**
+     * 根据学上id和知识点id查询学生认知等级
+     * @param sId 学生id
+     * @param kId 知识点id
+     * @return 该学生对该知识点的认知等级
+     */
+    int selectCognitionLevelBySIdAndKId(@Param("sId") int sId, @Param("kId") int kId);
 
 }
