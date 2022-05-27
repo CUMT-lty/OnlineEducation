@@ -36,8 +36,8 @@
         where ce_s_id = #{sId}
     </select>
 
-    <select id="selectBySIdAndCId" resultType="java.lang.Integer">
-        select ce_score
+    <select id="selectBySIdAndCId" resultMap="classExamResultMap">
+        select *
         from class_exam
         where ce_s_id = #{sId}
           and ce_c_id = #{cId}

@@ -58,6 +58,16 @@ public class StuCognitionServiceImpl implements StuCognitionService {
         return stuCognitions.toArray(new StuCognition[stuCognitions.size()]);
     }
 
+
+    @Override
+    public StuCognition selectBySIdAndKId(int sId, int kId) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        StuCognitionMapper mapper = sqlSession.getMapper(StuCognitionMapper.class);
+        StuCognition stuCognition = mapper.selectBySIdAndKId(sId, kId);
+        sqlSession.close();
+        return stuCognition;
+    }
+
     @Override
     public int selectCognitionLevelBySIdAndKId(int sId, int kId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -66,4 +76,14 @@ public class StuCognitionServiceImpl implements StuCognitionService {
         sqlSession.close();
         return level;
     }
+
+    @Override
+    public void updateBySIdAndKId(int sId, int kId, int newLevel) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        StuCognitionMapper mapper = sqlSession.getMapper(StuCognitionMapper.class);
+        mapper.updateBySIdAndKId(sId, kId, newLevel);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
 }

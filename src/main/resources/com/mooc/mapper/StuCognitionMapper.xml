@@ -54,5 +54,20 @@
           and sc_k_id = #{kId}
     </select>
 
+    <select id="selectBySIdAndKId" resultMap="stuCognitionResultMap">
+        select *
+        from stu_cognition
+        where sc_s_id = #{sId}
+          and sc_k_id = #{kId}
+    </select>
+
+    <update id="updateBySIdAndKId">
+        update stu_cognition
+        set sc_cognition_level = #{newLevel}
+        where sc_s_id = #{sId}
+          and sc_k_id = #{kId}
+    </update>
+
+
 
 </mapper>

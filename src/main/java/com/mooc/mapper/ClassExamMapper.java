@@ -43,7 +43,7 @@ public interface ClassExamMapper {
      * @param cId 课程id
      * @return 该学生的该课程成绩
      */
-    int selectBySIdAndCId(@Param("sId") int sId, @Param("cId") int cId);
+    ClassExam selectBySIdAndCId(@Param("sId") int sId, @Param("cId") int cId);
 
 
     /**

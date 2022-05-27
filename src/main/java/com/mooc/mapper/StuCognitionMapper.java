@@ -63,7 +63,25 @@ public interface StuCognitionMapper {
     int selectCognitionLevelBySIdAndKId(@Param("sId") int sId, @Param("kId") int kId);
 
 
-    /* 不需要修改操作，如果有认知信息改动直接删除或添加记录 */
+    /**
+     * 根据学生id和知识点id查询一条认知记录
+     * @param sId 学生id
+     * @param kId 知识点id
+     * @return 查询到的认知记录
+     */
+    StuCognition selectBySIdAndKId(@Param("sId") int sId, @Param("kId") int kId);
+
+
+    /**
+     * 更新一条认知信息
+     * @param sId 学生id
+     * @param kId 知识点id
+     * @param newLevel 新的认知水平
+     */
+    void updateBySIdAndKId(@Param("sId") int sId,
+                           @Param("kId") int kId,
+                           @Param("newLevel") int newLevel);
+
 
 
 }

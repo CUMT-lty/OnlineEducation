@@ -38,7 +38,7 @@ public interface ClassExamService {
      * 根据学生id和课程id查询学生参加某门课程的成绩
      * @param sId 学生id
      * @param cId 课程id
-     * @return 该学生的该课程成绩
+     * @return 如果是正数，表示该学生的成绩，否则表示没有这条记录
      */
     int selectBySIdAndCId(int sId, int cId);
 

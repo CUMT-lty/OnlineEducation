@@ -53,9 +53,10 @@ public class ClassExamServiceImpl implements ClassExamService {
     public int selectBySIdAndCId(int sId, int cId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         ClassExamMapper mapper = sqlSession.getMapper(ClassExamMapper.class);
-        int score = mapper.selectBySIdAndCId(sId, cId);
+        ClassExam classExam = mapper.selectBySIdAndCId(sId, cId);
         sqlSession.close();
-        return score;
+        if (classExam!=null) return classExam.getScore();
+        else return -1;
     }
 
     @Override
