@@ -67,6 +67,13 @@
         where c_k_id = #{kId}
     </select>
 
+    <select id="selectByKIdAndLevel" resultMap="classResultMap">
+        select *
+        from class
+        where c_k_id = #{kId}
+          and c_level = #{level}
+    </select>
+
     <select id="selectKnowledgeByCId" resultType="java.lang.Integer">
         select c_k_id
         from class

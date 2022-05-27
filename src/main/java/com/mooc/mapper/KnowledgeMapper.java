@@ -3,6 +3,8 @@ package com.mooc.mapper;
 import com.mooc.pojo.Knowledge;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface KnowledgeMapper {
 
 
@@ -32,6 +34,22 @@ public interface KnowledgeMapper {
      * @param ids id数组
      */
     void deleteRowsByIds(@Param("ids") int[] ids);
+
+
+    /**
+     * 根据id获取知识点名称
+     * @param id 知识点id
+     * @return 知识点名称
+     */
+    String selectKnameById(@Param("id") int id);
+
+
+    /**
+     * 根据知识点名称批量检索知识点记录
+     * @param knames 知识点名称数组
+     * @return 检索到的所有记录
+     */
+    List<Knowledge> selectKnowledgesByKnames(@Param("knames") String[] knames);
 
 
     /**

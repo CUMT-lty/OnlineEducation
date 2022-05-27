@@ -47,6 +47,13 @@
               concat("%", #{cName}, "%")
     </select>
 
+    <select id="selectClassLogByCIds" resultMap="classLogResultMap">
+        select * from class_log where cl_c_id in
+        <foreach collection="cIds" item="cId" separator="," open="(" close=")">
+            #{cId}
+        </foreach>
+    </select>
+
     <update id="updateRow">
         update class_log
         set cl_c_id = #{cId},

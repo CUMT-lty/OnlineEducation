@@ -44,8 +44,23 @@
 
     <select id="selectOrderById" resultType="java.lang.Integer">
         select k_order
-        from Knowledge
+        from knowledge
         where k_id = #{id}
+    </select>
+
+    <select id="selectKnameById" resultType="java.lang.String">
+        select k_name
+        from knowledge
+        where k_id = #{id}
+    </select>
+
+    <select id="selectKnowledgesByKnames" resultMap="knowledgeResultMap">
+        select *
+        from knowledge
+        where k_name in
+        <foreach collection="knames" item="kname" separator="," open="(" close=")">
+            #{kname}
+        </foreach>
     </select>
 
     <update id="updateOrderByName">

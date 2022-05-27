@@ -43,7 +43,15 @@ public interface StuCognitionMapper {
      * @param sId
      * @return 查找到的所有认知信息，一个整型数据，是一个学生掌握的所有知识点的id
      */
-    List<Integer> selectStuCognitionsBySId(@Param("sId") int sId);
+    List<Integer> selectKIdsBySId(@Param("sId") int sId);
+
+
+    /**
+     * 根据学生id查找所有认知信息
+     * @param sId 学生id
+     * @return StuCognition的List
+     */
+    List<StuCognition> selectStuCognitionsBySId(@Param("sId") int sId);
 
 
     /**

@@ -77,6 +77,15 @@ public interface ClassMapper {
 
 
     /**
+     * 根据知识点和课程难度等级检索课程
+     * @param kId 知识点id
+     * @param level 课程难度等级
+     * @return 检索到的所有课程记录
+     */
+    List<Class> selectByKIdAndLevel(@Param("kId") int kId, @Param("level") int level);
+
+
+    /**
      * 检索某一课程所属的知识点
      * @param cId 课程id
      * @return 知识点id

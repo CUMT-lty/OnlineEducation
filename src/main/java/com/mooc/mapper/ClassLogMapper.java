@@ -48,6 +48,14 @@ public interface ClassLogMapper {
 
 
     /**
+     * 根据课程id批量查询class_log记录
+     * @param cIds
+     * @return
+     */
+    List<ClassLog> selectClassLogByCIds(@Param("cIds") int[] cIds);
+
+
+    /**
      * 修改一条课程动态信息记录
      * @param classLog 一个ClassLog对象
      */

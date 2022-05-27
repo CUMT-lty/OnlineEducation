@@ -1,6 +1,7 @@
 package com.mooc.service;
 
 import com.mooc.pojo.Class;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -71,7 +72,17 @@ public interface ClassService {
      * @param kId 知识点id
      * @return 检索到的所有课程记录
      */
-    List<Class> selectClassesByKId(int kId);
+    Class[] selectClassesByKId(int kId);
+
+
+    /**
+     * 根据知识点和课程难度等级检索课程
+     * @param kId 知识点id
+     * @param level 课程难度等级
+     * @return 检索到的所有课程记录
+     */
+    Class[] selectByKIdAndLevel(int kId, int level);
+
 
     /**
      * 检索某一课程所属的知识点

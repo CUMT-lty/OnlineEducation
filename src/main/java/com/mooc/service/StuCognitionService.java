@@ -40,7 +40,7 @@ public interface StuCognitionService {
      * @param sId
      * @return 查找到的所有认知信息
      */
-    int[] selectStuCognitionsBySId(int sId);
+    StuCognition[] selectStuCognitionsBySId(int sId);
 
 
     /**

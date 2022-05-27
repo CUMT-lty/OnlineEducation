@@ -7,6 +7,8 @@ import com.mooc.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.util.List;
+
 public class KnowledgeServiceImpl implements KnowledgeService {
 
     SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
@@ -45,6 +47,24 @@ public class KnowledgeServiceImpl implements KnowledgeService {
         mapper.deleteRowsByIds(ids);
         sqlSession.commit();
         sqlSession.close();
+    }
+
+    @Override
+    public String selectKnameById(int id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        KnowledgeMapper mapper = sqlSession.getMapper(KnowledgeMapper.class);
+        String kname = mapper.selectKnameById(id);
+        sqlSession.close();
+        return kname;
+    }
+
+    @Override
+    public Knowledge[] selectKnowledgesByKnames(String[] knames) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        KnowledgeMapper mapper = sqlSession.getMapper(KnowledgeMapper.class);
+        List<Knowledge> knowledges = mapper.selectKnowledgesByKnames(knames);
+        sqlSession.close();
+        return knowledges.toArray(new Knowledge[knowledges.size()]);
     }
 
     @Override

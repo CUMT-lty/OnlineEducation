@@ -86,13 +86,23 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public List<Class> selectClassesByKId(int kId) {
+    public Class[] selectClassesByKId(int kId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
         List<Class> classes = mapper.selectClassesByKId(kId);
         sqlSession.close();
-        return classes;
+        return classes.toArray(new Class[classes.size()]);
     }
+
+    @Override
+    public Class[] selectByKIdAndLevel(int kId, int level) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        List<Class> classes = mapper.selectByKIdAndLevel(kId, level);
+        sqlSession.close();
+        return classes.toArray(new Class[classes.size()]);
+    }
+
 
     @Override
     public int selectKnowledgeByCId(int cId) {

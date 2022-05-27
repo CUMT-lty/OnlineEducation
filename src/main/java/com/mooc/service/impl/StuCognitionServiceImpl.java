@@ -50,12 +50,12 @@ public class StuCognitionServiceImpl implements StuCognitionService {
     }
 
     @Override
-    public int[] selectStuCognitionsBySId(int sId) {
+    public StuCognition[] selectStuCognitionsBySId(int sId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         StuCognitionMapper mapper = sqlSession.getMapper(StuCognitionMapper.class);
-        List<Integer> stuCognitions = mapper.selectStuCognitionsBySId(sId);
+        List<StuCognition> stuCognitions = mapper.selectStuCognitionsBySId(sId);
         sqlSession.close();
-        return stuCognitions.stream().mapToInt(Integer::valueOf).toArray();
+        return stuCognitions.toArray(new StuCognition[stuCognitions.size()]);
     }
 
     @Override
