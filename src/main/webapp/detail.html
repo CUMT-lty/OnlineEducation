@@ -51,7 +51,7 @@
               </div>
             </a>
             <div class="mb-24 mt-4 px-6 text-black">
-              <p class="text-black">浏览次数: 12</p>
+              <p class="text-black">浏览次数: {viewNum}</p>
               <p>当前课程评分: {score}</p>
             </div>
           </div>
@@ -61,6 +61,7 @@
             <div class="flex items-center">
               <!-- 播放 -->
               <button
+                onclick="window.location.href='./test.html' + window.location.search"
                 class="mr-2 lg:mx-4 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
               >
                 参加考试
@@ -373,7 +374,8 @@
           .replace("{cDescription}", data.description)
           .replace("{score}", data.score)
           .replace("{like}", data.like ? "已点赞" : "点赞")
-          .replace("{collect}", data.collect ? "已收藏" : "收藏");
+          .replace("{collect}", data.collect ? "已收藏" : "收藏")
+          .replace("{viewNum}", data.viewNum);
 
         for (let i = 1; i <= 5; i++) {
           if (i <= data.score) {
@@ -393,54 +395,57 @@
         const btn = (id) => container.find(`button#${id}`);
 
         const loginFirst = (callback) => (e) => {
-            cookieStore.get('stuId').then(res => {
-                if (!res) {
-                    alert("请先登录");
-                    window.location.href =
-                        "./login.html?enter_from=detail" + window.location.search;
-                } else {
-                    callback(e)
-                }
-            })
-
+          cookieStore.get("stuId").then((res) => {
+            if (!res) {
+              alert("请先登录");
+              window.location.href =
+                "./login.html?enter_from=detail" + window.location.search;
+            } else {
+              callback(e);
+            }
+          });
         };
 
-        btn("like").click(loginFirst(() => {
-          const cId = getQueryVariable("cId");
-          $.ajax({
-            url: `/demo_war/class/like`,
-            method: "POST",
-            data: JSON.stringify({ cId }),
+        btn("like").click(
+          loginFirst(() => {
+            const cId = getQueryVariable("cId");
+            $.ajax({
+              url: `/demo_war/class/like`,
+              method: "POST",
+              data: JSON.stringify({ cId }),
+            })
+              .then(fetchDataSource)
+              .done(updateView);
           })
-            .then(fetchDataSource)
-            .done(updateView)
-        }));
+        );
 
-        btn("collect").click(loginFirst(() => {
-          const cId = getQueryVariable("cId");
-          $.ajax({
-            url: `/demo_war/class/collect`,
-            method: "POST",
-            data: JSON.stringify({ cId }),
+        btn("collect").click(
+          loginFirst(() => {
+            const cId = getQueryVariable("cId");
+            $.ajax({
+              url: `/demo_war/class/collect`,
+              method: "POST",
+              data: JSON.stringify({ cId }),
+            })
+              .then(fetchDataSource)
+              .done(updateView);
           })
-            .then(fetchDataSource)
-            .done(updateView)
+        );
 
-        }));
-
-        $(".score-star").click(loginFirst((e) => {
-          const { index } = e.target.dataset;
-          console.log(index)
-          const cId = getQueryVariable("cId");
-          $.ajax({
-            url: `/demo_war/class/score`,
-            method: "POST",
-            data: JSON.stringify({ cId, score: index }),
+        $(".score-star").click(
+          loginFirst((e) => {
+            const { index } = e.target.dataset;
+            console.log(index);
+            const cId = getQueryVariable("cId");
+            $.ajax({
+              url: `/demo_war/class/score`,
+              method: "POST",
+              data: JSON.stringify({ cId, score: index }),
+            })
+              .then(fetchDataSource)
+              .done(updateView);
           })
-            .then(fetchDataSource)
-            .done(updateView)
-
-        }));
+        );
       };
 
       const fetchDataSource = () => {
