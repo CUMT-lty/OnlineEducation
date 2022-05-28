@@ -63,7 +63,7 @@ public class ClassServlet extends BaseServlet {
      */
     public void log(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int cId = Integer.valueOf(request.getParameter("cId"));   // 获取课程id
-        int sId = -1;     // 用户登录状态前端也会检查，避免冗余请求
+        int sId = -1;     // 用户登录状态前端也会检查
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie: cookies) {    // 从cookie中或缺stuId同时检查登陆状态
             if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
@@ -82,15 +82,17 @@ public class ClassServlet extends BaseServlet {
         jsonObject.put("viewNum", viewNum);
         jsonObject.put("score", score);
         // 获取学生相关信息，并封装进json
-        if (classLikeService.selectByCIdAndSId(cId, sId) != null ){ // 是否点过赞
+        if (sId != -1 && classLikeService.selectByCIdAndSId(cId, sId) != null ){
+            // 已登录且点过赞
             jsonObject.put("like", true);
         } else {
             jsonObject.put("like", false);
         }
-        if (classCollectService.selectByCIdAndSId(cId, sId) != null ){ // 是否收藏过
-            jsonObject.put("like", true);
+        if (sId != -1 && classCollectService.selectByCIdAndSId(cId, sId) != null ){
+            // 已登陆且收藏过
+            jsonObject.put("collect", true);
         } else {
-            jsonObject.put("like", false);
+            jsonObject.put("collect", false);
         }
         // 将结果响应给前端
         response.setStatus(200);
@@ -113,6 +115,8 @@ public class ClassServlet extends BaseServlet {
         ClassLike cl1 = classLikeService.selectByCIdAndSId(cId, sId);
         if (cl1!=null) {   // 如果已有该点赞记录，则删除该记录
             classLikeService.deleteByCIdAndSId(cId, sId);
+            response.setStatus(200);
+            response.setContentType("text/plaintext;charset=utf-8");  // 处理响应头和中文编码问题
             response.getWriter().write(String.valueOf(false)); // 响应
         } else {          // 如果没有相应点赞记录，则添加该记录
             ClassLike classLike = new ClassLike();
@@ -121,6 +125,9 @@ public class ClassServlet extends BaseServlet {
             classLikeService.addClassLike(classLike);
             // 并且class_log 中点赞人数加一
             classLogService.increaseOneByCIdAndColumn(cId, "cl_like_num");
+            // 响应
+            response.setStatus(200);
+            response.setContentType("text/plaintext;charset=utf-8");  // 处理响应头和中文编码问题
             response.getWriter().write(String.valueOf(true));  // 响应
         }
     }
@@ -140,7 +147,10 @@ public class ClassServlet extends BaseServlet {
         ClassCollect cc1 = classCollectService.selectByCIdAndSId(cId, sId);
         if (cc1 != null) {  // 如果已有收藏记录，删除该记录
             classCollectService.deleteByCIdAndSId(cId, sId);
-            response.getWriter().write(String.valueOf(false));  // 响应
+            // 响应
+            response.setStatus(200);
+            response.setContentType("text/plaintext;charset=utf-8");  // 处理响应头和中文编码问题
+            response.getWriter().write(String.valueOf(false));
         } else {  // 如果没有该收藏记录，添加一条记录
             ClassCollect classCollect = new ClassCollect();
             classCollect.setcId(cId);
@@ -148,6 +158,10 @@ public class ClassServlet extends BaseServlet {
             classCollectService.addClassCollect(classCollect);
             // 并且class_log 中收藏人数加一
             classLogService.increaseOneByCIdAndColumn(cId, "cl_collect_num");
+            // 响应
+            response.setStatus(200);
+            response.setContentType("text/plaintext;charset=utf-8");  // 处理响应头和中文编码问题
+            response.getWriter().write(String.valueOf(true));
         }
     }
 
@@ -164,5 +178,9 @@ public class ClassServlet extends BaseServlet {
         ClassLog classLog = classLogService.selectByCId(cId);
         int newScore = classLogService.reAveScore(classLog.getScoreNum(), classLog.getScore(), score);
         classLogService.updateByCIdAndColumn(cId, "cl_score", newScore);
+        // 响应
+        response.setStatus(200);
+        response.setContentType("text/plaintext;charset=utf-8");  // 处理响应头和中文编码问题
+        response.getWriter().write(String.valueOf(true));
     }
 }
