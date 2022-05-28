@@ -49,7 +49,6 @@
               <div class="w-full font-bold text-xl text-gray-800 px-6">
                   {cDescription}
               </div>
-
             </a>
             <div class="mb-24 mt-4 px-6 text-black">
               <p class="text-black">浏览次数: 12</p>
@@ -393,14 +392,20 @@
         const container = $("#container");
         const btn = (id) => container.find(`button#${id}`);
 
-        const loginFirst = () => {
-          alert("请先登录");
+        const loginFirst = (callback) => (e) => {
+            cookieStore.get('stuId').then(res => {
+                if (!res) {
+                    alert("请先登录");
+                    window.location.href =
+                        "./login.html?enter_from=detail" + window.location.search;
+                } else {
+                    callback(e)
+                }
+            })
 
-          window.location.href =
-            "./login.html?enter_from=detail" + window.location.search;
         };
 
-        btn("like").click(() => {
+        btn("like").click(loginFirst(() => {
           const cId = getQueryVariable("cId");
           $.ajax({
             url: `/demo_war/class/like`,
@@ -409,10 +414,9 @@
           })
             .then(fetchDataSource)
             .done(updateView)
-            .fail(loginFirst);
-        });
+        }));
 
-        btn("collect").click(() => {
+        btn("collect").click(loginFirst(() => {
           const cId = getQueryVariable("cId");
           $.ajax({
             url: `/demo_war/class/collect`,
@@ -421,11 +425,12 @@
           })
             .then(fetchDataSource)
             .done(updateView)
-            .fail(loginFirst);
-        });
 
-        $(".score-star").click((e) => {
+        }));
+
+        $(".score-star").click(loginFirst((e) => {
           const { index } = e.target.dataset;
+          console.log(index)
           const cId = getQueryVariable("cId");
           $.ajax({
             url: `/demo_war/class/score`,
@@ -434,25 +439,18 @@
           })
             .then(fetchDataSource)
             .done(updateView)
-            .fail(loginFirst);
-        });
+
+        }));
       };
 
       const fetchDataSource = () => {
-        return Promise.resolve({
-          score: 3,
-          viewNum: 365,
-          like: true,
-          name: "java语言程序设计",
-          description: "java入门基础课程",
-          collect: true,
-        });
-        $.ajax({
+        return $.ajax({
           url: `/demo_war/class/log?cId=${getQueryVariable("cId")}`,
           method: "GET",
         });
       };
     </script>
+    <!-- Effect -->
     <script>
       fetchDataSource().then(updateView);
     </script>

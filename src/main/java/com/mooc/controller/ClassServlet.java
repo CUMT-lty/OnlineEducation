@@ -18,6 +18,7 @@ public class ClassServlet extends BaseServlet {
     ClassLogServiceImpl classLogService = new ClassLogServiceImpl();
     ClassLikeServiceImpl classLikeService = new ClassLikeServiceImpl();
     ClassCollectServiceImpl classCollectService = new ClassCollectServiceImpl();
+    ClassScoreServiceImpl classScoreService = new ClassScoreServiceImpl();
 
 
     public void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -98,6 +99,13 @@ public class ClassServlet extends BaseServlet {
         } else {
             jsonObject.put("collect", false);
         }
+        if (sId != -1) {
+            // 如果已登陆，该学生对该课程的当前打分
+            int stuClassScore = 0;
+            ClassScore[] classScores = classScoreService.selectBySIdAndCId(sId, cId);
+            if (classScores != null) stuClassScore = classScores[0].getScore();
+            jsonObject.put("stuClassScore", stuClassScore);
+        }
         // 将结果响应给前端
         response.setStatus(200);
         response.setContentType("text/json;charset=utf-8");  // 处理响应头和中文编码问题
@@ -108,7 +116,9 @@ public class ClassServlet extends BaseServlet {
      * 点赞
      */
     public void like(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int cId = Integer.valueOf(request.getParameter("cId"));      // 获取cId
+        String jsonStr = request.getReader().readLine();
+        JSONObject jsonObject = JSON.parseObject(jsonStr);
+        int cId = jsonObject.getInteger("cId");
         int sId = -1;     // 用户登录状态前端也会检查，避免冗余请求
         Cookie[] cookies = request.getCookies();
         if (cookies!=null && cookies.length!=0) {
@@ -142,7 +152,9 @@ public class ClassServlet extends BaseServlet {
      * 收藏
      */
     public void collect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int cId = Integer.valueOf(request.getParameter("cId"));
+        String jsonStr = request.getReader().readLine();
+        JSONObject jsonObject = JSON.parseObject(jsonStr);
+        int cId = jsonObject.getInteger("cId");
         int sId = -1;
         Cookie[] cookies = request.getCookies();
         if (cookies!=null && cookies.length!=0) {
@@ -178,14 +190,35 @@ public class ClassServlet extends BaseServlet {
      */
     public void score(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // get : score & cId
-        int score = Integer.valueOf(request.getParameter("score"));
-        int cId = Integer.valueOf(request.getParameter("cId"));
+        String jsonStr = request.getReader().readLine();
+        JSONObject jsonObject = JSON.parseObject(jsonStr);
+        int cId = jsonObject.getInteger("cId");
+        int sId = -1;
+        Cookie[] cookies = request.getCookies();
+        if (cookies!=null && cookies.length!=0) {
+            for (Cookie cookie : cookies) {
+                if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
+                break;
+            }
+        }
+        int score = jsonObject.getInteger("score");
         // class_log 中评分人数加一
         classLogService.increaseOneByCIdAndColumn(cId, "cl_score_num");
         // class_log 中的新的平均分更新
         ClassLog classLog = classLogService.selectByCId(cId);
         int newScore = classLogService.reAveScore(classLog.getScoreNum(), classLog.getScore(), score);
         classLogService.updateByCIdAndColumn(cId, "cl_score", newScore);
+        // ClassScore种某学生对某课程的打分更新
+        ClassScore[] classScores = classScoreService.selectBySIdAndCId(sId, cId);
+        if (classScores != null) {   // 已有评分记录，更新
+            classScoreService.updateScoreBySIdAndCId(sId, cId, newScore);
+        } else {  // 没有评分记录，添加
+            ClassScore classScore = new ClassScore();
+            classScore.setsId(sId);
+            classScore.setcId(cId);
+            classScore.setScore(newScore);
+            classScoreService.addClassScore(classScore);
+        }
         // 响应
         response.setStatus(200);
         response.setContentType("text/plaintext;charset=utf-8");  // 处理响应头和中文编码问题
