@@ -191,8 +191,10 @@ public class ClassServlet extends BaseServlet {
     public void score(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // get : score & cId
         String jsonStr = request.getReader().readLine();
+
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         int cId = jsonObject.getInteger("cId");
+        int score = jsonObject.getInteger("score");
         int sId = -1;
         Cookie[] cookies = request.getCookies();
         if (cookies!=null && cookies.length!=0) {
@@ -201,24 +203,27 @@ public class ClassServlet extends BaseServlet {
                 break;
             }
         }
-        int score = jsonObject.getInteger("score");
+
         // class_log 中评分人数加一
         classLogService.increaseOneByCIdAndColumn(cId, "cl_score_num");
-        // class_log 中的新的平均分更新
+        // class_log 中的新的平均分更新（10分制）
         ClassLog classLog = classLogService.selectByCId(cId);
-        int newScore = classLogService.reAveScore(classLog.getScoreNum(), classLog.getScore(), score);
-        classLogService.updateByCIdAndColumn(cId, "cl_score", newScore);
-        // ClassScore种某学生对某课程的打分更新
+        int newAveScore = classLogService.reAveScore(classLog.getScoreNum(), classLog.getScore(), score);
+        classLogService.updateByCIdAndColumn(cId, "cl_score", newAveScore);
+
+
+        // ClassScore中某学生对某课程的打分更新（5分制）
         ClassScore[] classScores = classScoreService.selectBySIdAndCId(sId, cId);
-        if (classScores != null) {   // 已有评分记录，更新
-            classScoreService.updateScoreBySIdAndCId(sId, cId, newScore);
-        } else {  // 没有评分记录，添加
+        if (classScores != null) {   // 如果已有打分记录，则更新
+            classScoreService.updateScoreBySIdAndCId(sId, cId, score);
+        } else {  // 如果没有评分记录，添加一条记录
             ClassScore classScore = new ClassScore();
             classScore.setsId(sId);
             classScore.setcId(cId);
-            classScore.setScore(newScore);
+            classScore.setScore(score);
             classScoreService.addClassScore(classScore);
         }
+
         // 响应
         response.setStatus(200);
         response.setContentType("text/plaintext;charset=utf-8");  // 处理响应头和中文编码问题

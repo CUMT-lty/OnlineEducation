@@ -5,17 +5,16 @@
 
 <mapper namespace="com.mooc.mapper.ClassScoreMapper" >
 
-
     <resultMap id="classScoreResultMap" type="com.mooc.pojo.ClassScore" >
         <id column="cs_id" property="id"></id>
-        <result column="cs_c_id" property="cId"></result>
         <result column="cs_s_id" property="sId"></result>
+        <result column="cs_c_id" property="cId"></result>
         <result column="cs_score" property="score"></result>
     </resultMap>
 
     <insert id="addClassScore" useGeneratedKeys="true" keyProperty="id">
         insert into class_score
-        values (null , #{sId, #{cId}, #{score})
+        values (null , #{sId}, #{cId}, #{score})
     </insert>
 
     <select id="selectBySIdAndCId" resultMap="classScoreResultMap">
@@ -28,8 +27,8 @@
     <update id="updateScoreBySIdAndCId">
         update class_score
         set cs_score = #{newScore}
-        where sc_s_id = #{sId}
-          and sc_c_id = #{cId}
+        where cs_s_id = #{sId}
+          and cs_c_id = #{cId}
     </update>
 
 

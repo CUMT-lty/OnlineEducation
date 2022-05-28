@@ -378,7 +378,7 @@
           .replace("{viewNum}", data.viewNum);
 
         for (let i = 1; i <= 5; i++) {
-          if (i <= data.score) {
+          if (i <= data.stuClassScore) {
             html = html.replace("{color}", "yellow");
           } else {
             html = html.replace("{color}", "gray");
@@ -435,7 +435,6 @@
         $(".score-star").click(
           loginFirst((e) => {
             const { index } = e.target.dataset;
-            console.log(index);
             const cId = getQueryVariable("cId");
             $.ajax({
               url: `/demo_war/class/score`,

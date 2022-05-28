@@ -11,9 +11,10 @@ import java.util.List;
 
 public class ClassScoreServiceImpl implements ClassScoreSercive {
 
+    SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
+
     @Override
     public void addClassScore(ClassScore classScore) {
-        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
         ClassScoreMapper mapper = sqlSession.getMapper(ClassScoreMapper.class);
         mapper.addClassScore(classScore);
@@ -23,7 +24,6 @@ public class ClassScoreServiceImpl implements ClassScoreSercive {
 
     @Override
     public ClassScore[] selectBySIdAndCId(int sId, int cId) {
-        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
         ClassScoreMapper mapper = sqlSession.getMapper(ClassScoreMapper.class);
         List<ClassScore> classScores= mapper.selectBySIdAndCId(sId, cId);
@@ -33,7 +33,6 @@ public class ClassScoreServiceImpl implements ClassScoreSercive {
 
     @Override
     public void updateScoreBySIdAndCId(int sId, int cId, int newScore) {
-        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
         ClassScoreMapper mapper = sqlSession.getMapper(ClassScoreMapper.class);
         mapper.updateScoreBySIdAndCId(sId, cId, newScore);

@@ -1,24 +1,18 @@
 package com.mooc.test;
-import com.alibaba.fastjson.JSON;
+
 import com.alibaba.fastjson.JSONObject;
-import com.mooc.mapper.ClassExamMapper;
-import com.mooc.pojo.ClassExam;
-import com.mooc.pojo.ClassLog;
-import com.mooc.service.impl.ClassLogServiceImpl;
-import com.mooc.util.SqlSessionFactoryUtils;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.mooc.service.impl.ClassScoreServiceImpl;
+
 import org.junit.Test;
 
-import java.util.Arrays;
 
 public class TryTest {
 
     @Test
     public void recommendTest(){
-        ClassLogServiceImpl classLogService = new ClassLogServiceImpl();
-        ClassLog[] classLogs = classLogService.recommendClassByStuId(1);
-        System.out.println(Arrays.toString(classLogs));
+        ClassScoreServiceImpl classScoreService = new ClassScoreServiceImpl();
+        classScoreService.updateScoreBySIdAndCId(1,2,10);
 
     }
 
