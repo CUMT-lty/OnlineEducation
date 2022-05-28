@@ -20,10 +20,19 @@ public class CookieDemo1 extends HttpServlet {
 //        value = URLEncoder.encode(value, "UTF-8");  // 将使用URL编码后的value重新赋回去
 //        Cookie cookie = new Cookie("username", value);  // 把URL编码后的value放进cookie中
 
-        Cookie cookie = new Cookie("userId", String.valueOf(1));
+//        Cookie cookie = new Cookie("userId", String.valueOf(1));
 
         // 1.2 发送cookie
-        response.addCookie(cookie);
+//        response.addCookie(cookie);
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie: cookies) {
+            if ("stuId".equals(cookie.getName())) {
+                System.out.println(cookie.getValue());
+                break;
+            }
+
+        }
     }
 
     @Override

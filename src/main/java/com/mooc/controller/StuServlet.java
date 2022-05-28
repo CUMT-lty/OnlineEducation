@@ -39,9 +39,13 @@ public class StuServlet extends BaseServlet {
 
         Stu stu = stuService.selectByUsernameAndPsw(username, password);
         if (stu!=null) {   // 登录信息正确
+            System.out.println("成功登录");
             // 设置cookie，在浏览器端保存用户stuId
-            Cookie cookie = new Cookie("stuId",  stu.getId() + "");
+            Cookie cookie = new Cookie("stuId", String.valueOf(stu.getId()));
+            cookie.setPath("/");    // 扩大cookie作用范围至整个项目
             response.addCookie(cookie);
+            System.out.println(cookie.getName());
+            System.out.println(cookie.getValue());
             response.setStatus(200);
         } else {  // 登录信息有误
             response.setStatus(500);
