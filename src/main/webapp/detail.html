@@ -400,39 +400,37 @@
             "./login.html?enter_from=detail" + window.location.search;
         };
 
-        btn("like").click(
-          () => {
-            const cId = getQueryVariable("cId");
-            $.ajax({
-              url: `/demo_war/class/like?cId=${cId}`,
-              method: "POST",
-            })
-              .then(fetchDataSource)
-              .done(updateView)
-              .fail(loginFirst);
-          }
-        );
+        btn("like").click(() => {
+          const cId = getQueryVariable("cId");
+          $.ajax({
+            url: `/demo_war/class/like`,
+            method: "POST",
+            data: JSON.stringify({ cId }),
+          })
+            .then(fetchDataSource)
+            .done(updateView)
+            .fail(loginFirst);
+        });
 
-        btn("collect").click(
-          () => {
-            const cId = getQueryVariable("cId");
-            $.ajax({
-              url: `/demo_war/class/collect?cId=${cId}`,
-              method: "POST",
-            })
-              .then(fetchDataSource)
-              .done(updateView)
-              .fail(loginFirst);
-          }
-        );
+        btn("collect").click(() => {
+          const cId = getQueryVariable("cId");
+          $.ajax({
+            url: `/demo_war/class/collect`,
+            method: "POST",
+            data: JSON.stringify({ cId }),
+          })
+            .then(fetchDataSource)
+            .done(updateView)
+            .fail(loginFirst);
+        });
 
         $(".score-star").click((e) => {
           const { index } = e.target.dataset;
           const cId = getQueryVariable("cId");
           $.ajax({
-            url: `/demo_war/class/score?cId=${cId}`,
+            url: `/demo_war/class/score`,
             method: "POST",
-            data: JSON.stringify({ index }),
+            data: JSON.stringify({ cId, score: index }),
           })
             .then(fetchDataSource)
             .done(updateView)
