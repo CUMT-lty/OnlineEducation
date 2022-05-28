@@ -16,9 +16,11 @@ public class CookieDemo1 extends HttpServlet {
         /* 上面一行代码会报错，cookie不支持中文，如果想要设置中文cookie，要进行转码，使用URL编码 */
 
         /* 额外：对中文cookie进行转码 */
-        String value = "李天宇";
-        value = URLEncoder.encode(value, "UTF-8");  // 将使用URL编码后的value重新赋回去
-        Cookie cookie = new Cookie("username", value);  // 把URL编码后的value放进cookie中
+//        String value = "李天宇";
+//        value = URLEncoder.encode(value, "UTF-8");  // 将使用URL编码后的value重新赋回去
+//        Cookie cookie = new Cookie("username", value);  // 把URL编码后的value放进cookie中
+
+        Cookie cookie = new Cookie("userId", String.valueOf(1));
 
         // 1.2 发送cookie
         response.addCookie(cookie);
