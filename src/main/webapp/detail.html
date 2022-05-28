@@ -393,19 +393,15 @@
         const container = $("#container");
         const btn = (id) => container.find(`button#${id}`);
 
-        const guard = (callback) => (e) =>
-          window.cookieStore.get("stuId").then((stuId) => {
-            if (!stuId) {
-              alert("请先登录");
-              window.location.href =
-                "./login.html?enter_from=detail" + window.location.search;
-            } else {
-              callback(e);
-            }
-          });
+        const loginFirst = () => {
+          alert("请先登录");
+
+          window.location.href =
+            "./login.html?enter_from=detail" + window.location.search;
+        };
 
         btn("like").click(
-          guard(() => {
+          () => {
             const cId = getQueryVariable("cId");
             $.ajax({
               url: `/demo_war/class/like?cId=${cId}`,
@@ -413,12 +409,12 @@
             })
               .then(fetchDataSource)
               .done(updateView)
-              .fail((err) => console.warn(err));
-          })
+              .fail(loginFirst);
+          }
         );
 
         btn("collect").click(
-          guard(() => {
+          () => {
             const cId = getQueryVariable("cId");
             $.ajax({
               url: `/demo_war/class/collect?cId=${cId}`,
@@ -426,25 +422,22 @@
             })
               .then(fetchDataSource)
               .done(updateView)
-              .fail((err) => console.warn(err));
-          })
+              .fail(loginFirst);
+          }
         );
 
-        $(".score-star").click(
-          ((e) => {
-            console.log(e.target.dataset)
-            const { index } = e.target.dataset;
-            const cId = getQueryVariable("cId");
-            $.ajax({
-              url: `/demo_war/class/score?cId=${cId}`,
-              method: "POST",
-              data: JSON.stringify({ index })
-            })
-              .then(fetchDataSource)
-              .done(updateView)
-              .fail((err) => console.warn(err));
+        $(".score-star").click((e) => {
+          const { index } = e.target.dataset;
+          const cId = getQueryVariable("cId");
+          $.ajax({
+            url: `/demo_war/class/score?cId=${cId}`,
+            method: "POST",
+            data: JSON.stringify({ index }),
           })
-        );
+            .then(fetchDataSource)
+            .done(updateView)
+            .fail(loginFirst);
+        });
       };
 
       const fetchDataSource = () => {
