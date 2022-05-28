@@ -57,11 +57,12 @@ public class ExamServlet extends BaseServlet {
         int cId = Integer.valueOf(request.getParameter("cId"));
         int sId = -1;
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie: cookies){    // 从cookie获取学生id
-            if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
-            break;
+        if (cookies!=null && cookies.length!=0) {
+            for (Cookie cookie : cookies) {    // 从cookie获取学生id
+                if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
+                break;
+            }
         }
-
         String s = request.getParameter("ansAndEIds");
         AnsBean ansBean = JSON.parseObject(s, AnsBean.class);  // 转成java对象
         int[] ids = ansBean.getIds();

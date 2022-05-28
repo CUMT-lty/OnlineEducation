@@ -43,9 +43,11 @@ public class ClassServlet extends BaseServlet {
     public void recommend(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
         int stuId = -1;
-        for (Cookie cookie: cookies){
-            if ("stuId".equals(cookie.getName())) stuId = Integer.valueOf(cookie.getValue());
-            break;
+        if (cookies!=null && cookies.length!=0) {
+            for (Cookie cookie : cookies) {
+                if ("stuId".equals(cookie.getName())) stuId = Integer.valueOf(cookie.getValue());
+                break;
+            }
         }
         ClassLog[] classLogs;
         // stuId都为正数，如果stuId为负，说没没获取到cookie，此时只为用户推荐高分课程
@@ -65,9 +67,11 @@ public class ClassServlet extends BaseServlet {
         int cId = Integer.valueOf(request.getParameter("cId"));   // 获取课程id
         int sId = -1;     // 用户登录状态前端也会检查
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie: cookies) {    // 从cookie中或缺stuId同时检查登陆状态
-            if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
-            break;
+        if (cookies!=null && cookies.length!=0) {
+            for (Cookie cookie : cookies) {    // 从cookie中或缺stuId同时检查登陆状态
+                if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
+                break;
+            }
         }
         // 获取课程相关信息
         ClassLog classLog = classLogService.selectByCId(cId);   // 获取课程动态信息
@@ -107,9 +111,11 @@ public class ClassServlet extends BaseServlet {
         int cId = Integer.valueOf(request.getParameter("cId"));      // 获取cId
         int sId = -1;     // 用户登录状态前端也会检查，避免冗余请求
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie: cookies) {    // 从cookie中或缺stuId同时检查登陆状态
-            if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
-            break;
+        if (cookies!=null && cookies.length!=0) {
+            for (Cookie cookie : cookies) {    // 从cookie中或缺stuId同时检查登陆状态
+                if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
+                break;
+            }
         }
         // 查询class_like中是否已有点赞记录
         ClassLike cl1 = classLikeService.selectByCIdAndSId(cId, sId);
@@ -139,9 +145,11 @@ public class ClassServlet extends BaseServlet {
         int cId = Integer.valueOf(request.getParameter("cId"));
         int sId = -1;
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie: cookies) {
-            if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
-            break;
+        if (cookies!=null && cookies.length!=0) {
+            for (Cookie cookie : cookies) {
+                if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
+                break;
+            }
         }
         // 查询class_collect中是否已有收藏记录
         ClassCollect cc1 = classCollectService.selectByCIdAndSId(cId, sId);

@@ -24,18 +24,6 @@ public class TryTest {
 
 
     @Test
-    public void classExamTest(){
-        int sId = 1;
-        int cId = 2;
-        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        ClassExamMapper mapper = sqlSession.getMapper(ClassExamMapper.class);
-        System.out.println(mapper.selectBySIdAndCId(sId, cId));
-
-    }
-
-
-    @Test
     public void tryDemo(){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", "java语言程序设计");
