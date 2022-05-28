@@ -69,32 +69,37 @@
 
               <!-- 点赞 -->
               <button
+                id="like"
                 class="mx-2 lg:mx-4 hover:underline text-black font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
               >
-                点赞
+                {like}
               </button>
 
               <!-- 收藏 -->
               <button
+                id="collect"
                 class="mx-2 lg:mx-4 hover:underline text-black font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
               >
-                收藏
+                {collect}
               </button>
 
               <!-- 评分 -->
               <button
+                id="score"
+                data-score="{score}"
                 class="mx-2 lg:mx-4 hover:underline text-black font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
               >
                 <!-- 评分列表 -->
                 <ul class="flex justify-center items-center">
                   <li class="mr-4">评分</li>
-                  <li>
+                  <li id="score-1" style="color: red">
                     <svg
                       aria-hidden="true"
                       focusable="false"
                       data-prefix="far"
                       data-icon="star"
-                      class="w-4 text-yellow-500 mr-1"
+                      data-index="1"
+                      class="w-4 text-{color}-500 mr-1 score-star"
                       role="img"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 576 512"
@@ -105,13 +110,14 @@
                       ></path>
                     </svg>
                   </li>
-                  <li>
+                  <li id="score-2">
                     <svg
                       aria-hidden="true"
                       focusable="false"
                       data-prefix="far"
+                      data-index="2"
                       data-icon="star"
-                      class="w-4 text-yellow-500 mr-1"
+                      class="w-4 text-{color}-500 mr-1 score-star"
                       role="img"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 576 512"
@@ -122,13 +128,14 @@
                       ></path>
                     </svg>
                   </li>
-                  <li>
+                  <li id="score-3">
                     <svg
                       aria-hidden="true"
                       focusable="false"
                       data-prefix="far"
                       data-icon="star"
-                      class="w-4 text-yellow-500 mr-1"
+                      data-index="3"
+                      class="w-4 text-{color}-500 mr-1 score-star"
                       role="img"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 576 512"
@@ -139,13 +146,14 @@
                       ></path>
                     </svg>
                   </li>
-                  <li>
+                  <li id="score-4">
                     <svg
                       aria-hidden="true"
                       focusable="false"
                       data-prefix="far"
                       data-icon="star"
-                      class="w-4 text-yellow-500 mr-1"
+                      data-index="4"
+                      class="w-4 text-{color}-500 mr-1 score-star"
                       role="img"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 576 512"
@@ -156,13 +164,14 @@
                       ></path>
                     </svg>
                   </li>
-                  <li>
+                  <li id="score-5">
                     <svg
                       aria-hidden="true"
                       focusable="false"
                       data-prefix="far"
                       data-icon="star"
-                      class="w-4 text-yellow-500"
+                      data-index="5"
+                      class="w-4 text-{color}-500 mr-1 score-star"
                       role="img"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 576 512"
@@ -356,58 +365,105 @@
         }
         return false;
       }
-      const template = $("#template")[0].innerHTML;
-      const container = $("#container")[0];
-      $.ajax({
-        url: `/demo_war/class/log?cId=${getQueryVariable("cId")}`,
-        method: "GET",
-        success(data) {
-          console.info(getQueryVariable("cId"));
 
-          const html = template
-            .replace("{cName}", data.name)
-            .replace("{cDescription}", data.description)
-            .replace("{score}", data.score);
-          container.innerHTML = html;
-        },
-      });
+      const updateView = (data) => {
+        const template = $("#template")[0].innerHTML;
+        const container = $("#container")[0];
+        let html = template
+          .replace("{cName}", data.name)
+          .replace("{cDescription}", data.description)
+          .replace("{score}", data.score)
+          .replace("{like}", data.like ? "已点赞" : "点赞")
+          .replace("{collect}", data.collect ? "已收藏" : "收藏");
+
+        for (let i = 1; i <= 5; i++) {
+          if (i <= data.score) {
+            html = html.replace("{color}", "yellow");
+          } else {
+            html = html.replace("{color}", "gray");
+          }
+        }
+
+        container.innerHTML = html;
+
+        mountEvents();
+      };
+
+      const mountEvents = () => {
+        const container = $("#container");
+        const btn = (id) => container.find(`button#${id}`);
+
+        const guard = (callback) => (e) =>
+          window.cookieStore.get("stuId").then((stuId) => {
+            if (!stuId) {
+              alert("请先登录");
+              window.location.href =
+                "./login.html?enter_from=detail" + window.location.search;
+            } else {
+              callback(e);
+            }
+          });
+
+        btn("like").click(
+          guard(() => {
+            const cId = getQueryVariable("cId");
+            $.ajax({
+              url: `/demo_war/class/like?cId=${cId}`,
+              method: "POST",
+            })
+              .then(fetchDataSource)
+              .done(updateView)
+              .fail((err) => console.warn(err));
+          })
+        );
+
+        btn("collect").click(
+          guard(() => {
+            const cId = getQueryVariable("cId");
+            $.ajax({
+              url: `/demo_war/class/collect?cId=${cId}`,
+              method: "POST",
+            })
+              .then(fetchDataSource)
+              .done(updateView)
+              .fail((err) => console.warn(err));
+          })
+        );
+
+        $(".score-star").click(
+          ((e) => {
+            console.log(e.target.dataset)
+            const { index } = e.target.dataset;
+            const cId = getQueryVariable("cId");
+            $.ajax({
+              url: `/demo_war/class/score?cId=${cId}`,
+              method: "POST",
+              data: JSON.stringify({ index })
+            })
+              .then(fetchDataSource)
+              .done(updateView)
+              .fail((err) => console.warn(err));
+          })
+        );
+      };
+
+      const fetchDataSource = () => {
+        return Promise.resolve({
+          score: 3,
+          viewNum: 365,
+          like: true,
+          name: "java语言程序设计",
+          description: "java入门基础课程",
+          collect: true,
+        });
+        $.ajax({
+          url: `/demo_war/class/log?cId=${getQueryVariable("cId")}`,
+          method: "GET",
+        });
+      };
     </script>
     <script>
-      /*Toggle dropdown list*/
-      /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
-
-      var navMenuDiv = document.getElementById("nav-content");
-      var navMenu = document.getElementById("nav-toggle");
-
-      document.onclick = check;
-      function check(e) {
-        var target = (e && e.target) || (event && event.srcElement);
-
-        //Nav Menu
-        if (!checkParent(target, navMenuDiv)) {
-          // click NOT on the menu
-          if (checkParent(target, navMenu)) {
-            // click on the link
-            if (navMenuDiv.classList.contains("hidden")) {
-              navMenuDiv.classList.remove("hidden");
-            } else {
-              navMenuDiv.classList.add("hidden");
-            }
-          } else {
-            // click both outside link and outside menu, hide menu
-            navMenuDiv.classList.add("hidden");
-          }
-        }
-      }
-      function checkParent(t, elm) {
-        while (t.parentNode) {
-          if (t == elm) {
-            return true;
-          }
-          t = t.parentNode;
-        }
-        return false;
-      }
+      fetchDataSource().then(updateView);
     </script>
   </body>
 </html>

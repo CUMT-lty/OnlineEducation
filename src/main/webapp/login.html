@@ -189,7 +189,11 @@
                         <span
                           class="pl-4 inline-block border-gray-900 border-solid border-2 rounded"
                         >
-                          <input class="outline-none" name="username" type="text" />
+                          <input
+                            class="outline-none"
+                            name="username"
+                            type="text"
+                          />
                         </span>
                       </div>
                     </li>
@@ -200,7 +204,11 @@
                         <span
                           class="pl-4 inline-block border-gray-900 border-solid border-2 rounded"
                         >
-                          <input class="outline-none" name="password"  type="password" />
+                          <input
+                            class="outline-none"
+                            name="password"
+                            type="password"
+                          />
                         </span>
                       </div>
                     </li>
@@ -214,7 +222,7 @@
               </div>
               <div class="text-center">
                 <button
-                id="submit"
+                  id="submit"
                   class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
                 >
                   登录
@@ -266,6 +274,19 @@
     <!--Footer-->
 
     <script src="./js/jquery.js"></script>
+    <script>
+      function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+          var pair = vars[i].split("=");
+          if (pair[0] == variable) {
+            return pair[1];
+          }
+        }
+        return false;
+      }
+    </script>
     <script>
       const rules = {
         username: {
@@ -327,12 +348,14 @@
           url: "/demo_war/stu/login" + "?" + form.serialize(),
           method: "GET",
           success: function () {
-
             $("#login-form").html(
               '<div class="bg-green-500 text-white p-4 rounded">Thank you for your interest! We will be in touch shortly.</div>'
             );
-              window.href.location = './index.html'
 
+            const page = getQueryVariable('enter_from')
+            if (page) {
+              window.href.location = page;
+            }
           },
           error: function () {
             $("#login-form").html(
