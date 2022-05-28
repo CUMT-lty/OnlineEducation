@@ -105,7 +105,8 @@ public class ClassLogServiceImpl implements ClassLogService {
 
     @Override
     public int reAveScore(int oldNum, int oldScore, int newScore) {
-        return (int) Math.ceil(((oldNum * oldScore) + newScore) / (oldNum+1));
+        // newScore是五分制的，oldScore是十分制的
+        return (int) Math.ceil(((oldNum * oldScore) + newScore*2 ) / (oldNum+1));
     }
 
 
