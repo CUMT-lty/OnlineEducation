@@ -327,12 +327,13 @@
           url: "/demo_war/stu/login" + "?" + form.serialize(),
           method: "GET",
           success: function () {
-
             $("#login-form").html(
               '<div class="bg-green-500 text-white p-4 rounded">Thank you for your interest! We will be in touch shortly.</div>'
             );
-              window.href.location = './index.html'
-
+            const page = getQueryVariable('enter_from')
+            if (page) {
+              window.href.location = page;
+            }
           },
           error: function () {
             $("#login-form").html(

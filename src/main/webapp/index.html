@@ -49,6 +49,17 @@
       </div>
     </div>
   </script>
+
+  <script type="template" id="user-template">
+    <div class="relative">
+      <a class="flex items-center" href="./profile.html">
+        <svg class="h-8 w-8 text-red-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+        </svg>
+        <!-- <span class="pl-2">{username}</span> -->
+      </a>
+    </div>
+  </script>
   <body
     class="leading-normal tracking-normal text-white gradient"
     style="font-family: 'Source Sans Pro', sans-serif"
@@ -138,9 +149,9 @@
             </li>
           </ul>
           <button
-            id="navAction"
+            id="action-btn"
             class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-            onclick="javascript:window.location.href='./login.html'"
+            onclick="javascript:window.location.href='./login.html?enter_from=index.html'"
           >
             Sign in
           </button>
@@ -271,7 +282,7 @@
 
     <script src="./js/jquery.js"></script>
 
-    <!-- fetch -->
+    <!-- fetch lessons-->
     <script>
       const template = $('#lesson-template')[0].innerHTML;
       const container = $('#lesson-container')[0];
@@ -289,9 +300,7 @@
               .replace("{cDescription}", lesson.cDescription)
 
             const dom = $(html)
-              console.log(dom, dom.find('button'))
                dom.find('button').click((e) => {
-                console.log(e);
                 const { cid } = e.target.dataset;
                 window.location.href = `detail.html?cId=${cid}`;
                })
@@ -301,7 +310,20 @@
         }
       })
     </script>
-    <!-- mount -->
+    <!-- fetch user if login -->
+    <script>
+      cookieStore.get('stuId').then(res => {
+        if (res) {
+          $.ajax({
+            url: 'class/stuLog',
+            method: 'GET',
+          }).then((res) => {
+            $('#action-btn')[0].innerHTML = $('#user-template')[0].innerHTML;
+          })
+        }
+      })
+    </script>
+    <!-- search -->
     <script>
       const handleSearch = () => {
         const value = $('#search').val().trim();
