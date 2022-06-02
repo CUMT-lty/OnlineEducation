@@ -1,9 +1,12 @@
 package com.mooc.test;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+import com.mooc.pojo.StuLog;
 import com.mooc.service.impl.ClassScoreServiceImpl;
 
+import com.mooc.service.impl.StuLogServiceImpl;
 import org.junit.Test;
 
 
@@ -11,8 +14,10 @@ public class TryTest {
 
     @Test
     public void recommendTest(){
-        ClassScoreServiceImpl classScoreService = new ClassScoreServiceImpl();
-        classScoreService.updateScoreBySIdAndCId(1,2,10);
+        StuLogServiceImpl stuLogService = new StuLogServiceImpl();
+        StuLog stuLog = stuLogService.selectBySId(1);
+        String s = JSON.toJSONString(stuLog);
+        System.out.println(s);
 
     }
 

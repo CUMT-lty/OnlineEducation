@@ -25,25 +25,13 @@ public class StuServiceImpl implements StuService {
 
 
     @Override
-    public boolean addStu(Stu stu) {
-        // 2. 获取sqlSession对象（SqlSession不需要单独抽出来，因为每次访问使用的是不同的session）
+    public int addStu(Stu stu) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        // 3. 获取UserMapper对象
         StuMapper mapper = sqlSession.getMapper(StuMapper.class);
-
-        // 不允许用户名重复，所以要判断该用户名是否已经存在
-        Stu s = mapper.selectByUsername(stu.getUsername());
-        if (s == null) {  // 如果查不到这个用户名，说明该用户不存在，可以注册
-            // 4. 调用 StuMapper 中的 addStu() 方法
-            mapper.addStu(stu);
-            // 5. 增删改操作需要提交事务
-            sqlSession.commit();
-        }
-        // 6. 关闭sqlSession，释放资源
+        int stuId = mapper.addStu(stu);
+        sqlSession.commit();
         sqlSession.close();
-
-        // 如果返回true说明正常注册，返回false说明用户名已存在，需要修改用户名
-        return s==null;
+        return stuId;
     }
 
     @Override

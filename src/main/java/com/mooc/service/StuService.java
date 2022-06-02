@@ -14,8 +14,9 @@ public interface StuService {
     /**
      * 添加一条新的学生记录
      * @param stu 一个Stu对象
+     * @return 返回该条记录的学生id
      */
-    boolean addStu(Stu stu);
+    int addStu(Stu stu);
 
 
     /**

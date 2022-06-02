@@ -6,22 +6,28 @@ public class StuLog {
 
     private int stuId;
 
-    private int studyNum;
+    private int studyNum = 0;
 
-    private int classNum;
+    private int classNum = 0;
 
-    private int studyTime;
+    private int studyTime = 0;
 
-    private int likeNum;
+    private int likeNum = 0;
 
-    private int collectNum;
+    private int collectNum = 0;
 
-    private int scoreNum;
+    private int scoreNum = 0;
 
-    private int examNum;
+    private int examNum = 0;
+
+
+    // 构造方法
+    public StuLog(int stuId) {
+        this.stuId = stuId;
+    }
+
 
     // set和get方法
-
 
     public int getId() {
         return id;
@@ -96,8 +102,7 @@ public class StuLog {
     }
 
 
-    // toString方法
-
+    // toString
 
     @Override
     public String toString() {

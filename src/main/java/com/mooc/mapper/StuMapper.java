@@ -29,7 +29,7 @@ public interface StuMapper {
      * 添加一条新的学生记录
      * @param stu 一个Stu对象
      */
-    void addStu(Stu stu);
+    int addStu(Stu stu);
 
 
     /**
