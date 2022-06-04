@@ -26,10 +26,11 @@ public class TryTest {
 
   @Test
   public void recommendTest() {
-    StuLogServiceImpl stuLogService = new StuLogServiceImpl();
-    StuLog stuLog = stuLogService.selectBySId(1);
-    String s = JSON.toJSONString(stuLog);
-    System.out.println(s);
+    ClassLogServiceImpl classLogService = new ClassLogServiceImpl();
+    ClassLog[] classLogs = classLogService.recommendClassByStuId(1);
+    for (ClassLog classLog : classLogs) {
+      System.out.println(classLog);
+    }
 
   }
 
@@ -81,5 +82,6 @@ public class TryTest {
       classLogService.addClassLog(classLog);
     }
   }
+
 
 }

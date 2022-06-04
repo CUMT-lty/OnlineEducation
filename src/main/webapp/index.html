@@ -315,7 +315,7 @@
       cookieStore.get('stuId').then(res => {
         if (res) {
           $.ajax({
-            url: 'class/stuLog',
+            url: 'http://localhost:8080/demo_war/stu/stuLog',
             method: 'GET',
           }).then((res) => {
             $('#action-btn')[0].innerHTML = $('#user-template')[0].innerHTML;

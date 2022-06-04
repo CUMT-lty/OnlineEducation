@@ -396,9 +396,12 @@
         url: "class/recommend",
         method: "GET",
         success(data) {
-          container.append($(`<h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">课程列表</h1>`)[0])
+          const container = $("#search-container")[0];
+          const template = $("#lesson-template")[0].innerHTML;
+          const lessons = data;
+          // const lessons = data.slice(0, 3);
+          container.append($(`<h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">个性化课程推荐</h1>`)[0])
 
-          const lessons = data.slice(0, 3);
           lessons.forEach((lesson) => {
             let html = template;
             html = html
@@ -407,11 +410,18 @@
               .replace("{cDescription}", lesson.cDescription);
 
             const dom = $(html);
-            dom.find("button").click((e) => {
+            const button = dom.find('button')[0]
+            button.addEventListener('click',e => {
               const { id } = e.target.dataset;
               window.location.href = `detail.html?cId=${id}`;
-            });
-            const ele = $(html)[0];
+            })
+            /*dom.find("button").click((e) => {
+              const { id } = e.target.dataset;
+              window.location.href = `detail.html?cId=${id}`;
+            });*/
+
+            const ele = dom[0];
+            // const ele = $(html)[0];
             container.append(ele);
           });
         },
@@ -427,7 +437,7 @@
           const container = $("#search-container")[0];
           const template = $("#lesson-template")[0].innerHTML;
           const lessons = data;
-          container.append($(`<h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">课程推荐</h1>`)[0])
+          container.append($(`<h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">课程列表</h1>`)[0])
 
           lessons.forEach((lesson) => {
             let html = template;
@@ -435,12 +445,12 @@
               .replace("{cId}", lesson.cId)
               .replace("{cName}", lesson.cName)
               .replace("{cDescription}", lesson.cDescription);
+
             const dom = $(html);
             const button = dom.find('button')[0]
             button.addEventListener('click',e => {
               const { id } = e.target.dataset;
               window.location.href = `detail.html?cId=${id}`;
-
             })
 
             const ele = dom[0];
