@@ -44,6 +44,14 @@ public interface KnowledgeMapper {
     String selectKnameById(@Param("id") int id);
 
 
+  /**
+   * 根据知识点的名称检索知识点id
+   * @param kname 知识点名字
+   * @return 知识点id
+   */
+  int selectKIdByKname(@Param("kname") String kname);
+
+
     /**
      * 根据知识点名称批量检索知识点记录
      * @param knames 知识点名称数组

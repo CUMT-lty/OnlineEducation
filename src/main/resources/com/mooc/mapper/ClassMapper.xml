@@ -7,7 +7,6 @@
 
     <resultMap id="classResultMap" type="com.mooc.pojo.Class" >
         <id column="c_id" property="id"></id>
-        <result column="c_t_id" property="tId"></result>
         <result column="c_name" property="name"></result>
         <result column="c_description" property="description"></result>
         <result column="c_k_id" property="kId"></result>
@@ -15,9 +14,9 @@
     </resultMap>
 
 
-    <insert id="addClass" useGeneratedKeys="true" keyProperty="id">
+    <insert id="addClass" useGeneratedKeys="true" keyProperty="id" keyColumn="c_id">
         insert into class
-        values(null, #{tId}, #{name}, #{description}, #{kId}, #{level})
+        values(null, #{name}, #{description}, #{kId}, #{level})
     </insert>
 
     <delete id="deleteById">

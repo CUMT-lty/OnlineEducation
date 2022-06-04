@@ -2,112 +2,123 @@ package com.mooc.pojo;
 
 public class ClassLog {
 
-	private int id;
+  private int id;
 
-	private int cId;           // 课程编号
+  private int cId;           // 课程编号
 
-    private String cName;
+  private String cName;
 
-    private String cDescription;
+  private String cDescription;
 
-    private int viewNum;       // 课程被观看次数
+  private int viewNum;       // 课程被观看次数
 
-    private int score;         // 课程资源得分
+  private int score;         // 课程资源得分
 
-    private int likeNum;       // 获点赞数
+  private int likeNum;       // 获点赞数
 
-    private int collectNum;    // 获收藏数
+  private int collectNum;    // 获收藏数
 
-    private int scoreNum;     // 被评分次数
+  private int scoreNum;     // 被评分次数
 
 
-    // set & get
+  /**
+   * 构造方法
+   * @param cId 课程id
+   * @param cName 课程名字
+   */
+  public ClassLog(int cId, String cName) {
+    this.cId = cId;
+    this.cName = cName;
+  }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  // set & get
 
-    public int getcId() {
-        return cId;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public void setcId(int cId) {
-        this.cId = cId;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public String getcName() {
-        return cName;
-    }
+  public int getcId() {
+    return cId;
+  }
 
-    public void setcName(String cName) {
-        this.cName = cName;
-    }
+  public void setcId(int cId) {
+    this.cId = cId;
+  }
 
-    public String getcDescription() {
-        return cDescription;
-    }
+  public String getcName() {
+    return cName;
+  }
 
-    public void setcDescription(String cDescription) {
-        this.cDescription = cDescription;
-    }
+  public void setcName(String cName) {
+    this.cName = cName;
+  }
 
-    public int getViewNum() {
-        return viewNum;
-    }
+  public String getcDescription() {
+    return cDescription;
+  }
 
-    public void setViewNum(int viewNum) {
-        this.viewNum = viewNum;
-    }
+  public void setcDescription(String cDescription) {
+    this.cDescription = cDescription;
+  }
 
-    public int getScore() {
-        return score;
-    }
+  public int getViewNum() {
+    return viewNum;
+  }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
+  public void setViewNum(int viewNum) {
+    this.viewNum = viewNum;
+  }
 
-    public int getLikeNum() {
-        return likeNum;
-    }
+  public int getScore() {
+    return score;
+  }
 
-    public void setLikeNum(int likeNum) {
-        this.likeNum = likeNum;
-    }
+  public void setScore(int score) {
+    this.score = score;
+  }
 
-    public int getCollectNum() {
-        return collectNum;
-    }
+  public int getLikeNum() {
+    return likeNum;
+  }
 
-    public void setCollectNum(int collectNum) {
-        this.collectNum = collectNum;
-    }
+  public void setLikeNum(int likeNum) {
+    this.likeNum = likeNum;
+  }
 
-    public int getScoreNum() {
-        return scoreNum;
-    }
+  public int getCollectNum() {
+    return collectNum;
+  }
 
-    public void setScoreNum(int scoreNum) {
-        this.scoreNum = scoreNum;
-    }
+  public void setCollectNum(int collectNum) {
+    this.collectNum = collectNum;
+  }
+
+  public int getScoreNum() {
+    return scoreNum;
+  }
+
+  public void setScoreNum(int scoreNum) {
+    this.scoreNum = scoreNum;
+  }
 
 // toString
 
 
-    @Override
-    public String toString() {
-        return "ClassLog{" +
-                "id=" + id +
-                ", cId=" + cId +
-                ", viewNum=" + viewNum +
-                ", score=" + score +
-                ", likeNum=" + likeNum +
-                ", collectNum=" + collectNum +
-                ", scoreNum=" + scoreNum +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "ClassLog{" +
+            "id=" + id +
+            ", cId=" + cId +
+            ", viewNum=" + viewNum +
+            ", score=" + score +
+            ", likeNum=" + likeNum +
+            ", collectNum=" + collectNum +
+            ", scoreNum=" + scoreNum +
+            '}';
+  }
 }

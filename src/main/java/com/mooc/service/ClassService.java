@@ -10,8 +10,9 @@ public interface ClassService {
     /**
      * 添加一条新的课程记录
      * @param c 一个Class对象
+     * @return 课程id
      */
-    void addClass(Class c);
+    int addClass(Class c);
 
 
     /**

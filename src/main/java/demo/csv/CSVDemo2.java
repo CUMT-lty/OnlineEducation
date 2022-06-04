@@ -1,27 +1,58 @@
 package demo.csv;
 
+import com.mooc.pojo.Class;
+import com.mooc.pojo.ClassLog;
+import com.mooc.service.impl.ClassLogServiceImpl;
+import com.mooc.service.impl.ClassServiceImpl;
+import com.mooc.service.impl.KnowledgeServiceImpl;
 import com.opencsv.CSVReader;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+
+/**
+ * 使用opencsv进行csv文件操作
+ */
 public class CSVDemo2 {
 
-  public static void main(String[] args) {
-    String csvPath = "C:\\Users\\86131\\Desktop\\python\\GraduationProject\\classes&kwords.csv";
-    String charset="utf-8";
-    String[] line;
-    try {
-      CSVReader csvReader = new CSVReader(new FileReader(csvPath));
-      while ((line = csvReader.readNext()) != null) {
-        System.out.println(line[0]+" "+line[1]+" "+line[2]);
+  public static KnowledgeServiceImpl knowledgeService = new KnowledgeServiceImpl();
+  public static ClassServiceImpl classService = new ClassServiceImpl();
+  public static ClassLogServiceImpl classLogService = new ClassLogServiceImpl();
+
+  static String csvPath = "C:\\Users\\86131\\Desktop\\python\\GraduationProject\\classes&kwords.csv";
+//  static String charset="utf-8";
+  static String[] line;
+
+
+  /**
+   * 从csv读取，写入数据库
+   * @throws IOException
+   */
+  public static void csvToDB() throws IOException {
+    CSVReader csvReader = new CSVReader(new FileReader(csvPath));
+    while ((line = csvReader.readNext()) != null) {
+      // line[0]是课程名字，line[1]是课程的知识点名字，line[2]是课程的等级
+      String cName = line[0];
+      int kId = knowledgeService.selectKIdByKname(line[1]);
+      int kLevel = Integer.parseInt(line[2]);
+      // 查看该课程是否已存在
+      if ( classService.selectByName(cName) == null) {  // 如果该课程不存在才添加新纪录，否则跳过
+        // class表中添加记录
+        Class c = new Class(cName, kId, kLevel);
+        int cId = classService.addClass(new Class(cName, kId, kLevel));
+        System.out.println(cId);
+        // classLog表中添加记录
+        classLogService.addClassLog(new ClassLog(cId, cName));
       }
-    } catch (FileNotFoundException e) {
-      System.out.println("没有找到指定文件！");
-    } catch (IOException e) {
-      System.out.println("文件读写出错了！");
     }
   }
 
+  public static void main(String[] args) {
+    try {
+      csvToDB();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }
