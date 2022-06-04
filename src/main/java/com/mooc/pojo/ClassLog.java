@@ -21,17 +21,6 @@ public class ClassLog {
   private int scoreNum;     // 被评分次数
 
 
-  /**
-   * 构造方法
-   * @param cId 课程id
-   * @param cName 课程名字
-   */
-  public ClassLog(int cId, String cName) {
-    this.cId = cId;
-    this.cName = cName;
-  }
-
-
   // set & get
 
   public int getId() {
@@ -108,12 +97,13 @@ public class ClassLog {
 
 // toString
 
-
   @Override
   public String toString() {
     return "ClassLog{" +
             "id=" + id +
             ", cId=" + cId +
+            ", cName='" + cName + '\'' +
+            ", cDescription='" + cDescription + '\'' +
             ", viewNum=" + viewNum +
             ", score=" + score +
             ", likeNum=" + likeNum +

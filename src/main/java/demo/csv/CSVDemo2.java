@@ -35,15 +35,20 @@ public class CSVDemo2 {
       // line[0]是课程名字，line[1]是课程的知识点名字，line[2]是课程的等级
       String cName = line[0];
       int kId = knowledgeService.selectKIdByKname(line[1]);
-      int kLevel = Integer.parseInt(line[2]);
+      int level = Integer.parseInt(line[2]);
       // 查看该课程是否已存在
       if ( classService.selectByName(cName) == null) {  // 如果该课程不存在才添加新纪录，否则跳过
         // class表中添加记录
-        Class c = new Class(cName, kId, kLevel);
-        int cId = classService.addClass(new Class(cName, kId, kLevel));
-        System.out.println(cId);
+        Class newClass = new Class();
+        newClass.setName(cName);
+        newClass.setkId(kId);
+        newClass.setLevel(level);
+        int cId = classService.addClass(newClass);
         // classLog表中添加记录
-        classLogService.addClassLog(new ClassLog(cId, cName));
+        ClassLog classLog = new ClassLog();
+        classLog.setcId(cId);
+        classLog.setcName(cName);
+        classLogService.addClassLog(classLog);
       }
     }
   }

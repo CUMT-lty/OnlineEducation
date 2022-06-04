@@ -53,10 +53,10 @@ public interface ClassMapper {
 
     /**
      * 根据课程名字检索一条课程记录
-     * @param name 课程名字
+     * @param cName 课程名字
      * @return 检索到的一条课程信息
      */
-    Class selectByName(@Param("name") String name);
+    Class selectByName(@Param("cName") String cName);
 
 
     /**
