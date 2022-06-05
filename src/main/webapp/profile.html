@@ -213,6 +213,7 @@
         </g>
       </g>
     </svg>
+    <script src="./js/jquery.js"></script>
 
     <script type="text/javascript">
       const colors = ["#ef475d", "#12aa9c", "#1772b4"];
@@ -265,7 +266,7 @@
     </script>
     <script>
       $.ajax({
-        url: "class/stuLog",
+        url: "stu/stuLog",
         method: "GET",
       })
         .then(createEchartsOption)
