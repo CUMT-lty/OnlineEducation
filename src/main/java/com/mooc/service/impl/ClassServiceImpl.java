@@ -69,6 +69,15 @@ public class ClassServiceImpl implements ClassService {
   }
 
   @Override
+  public Class[] selectClassesByCIds(int[] cIds) {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+    List<Class> classes = mapper.selectClassesByCIds(cIds);
+    sqlSession.close();
+    return classes.toArray(new Class[classes.size()]);
+  }
+
+  @Override
   public Class selectByName(String name) {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);

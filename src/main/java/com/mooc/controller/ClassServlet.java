@@ -107,7 +107,7 @@ public class ClassServlet extends BaseServlet {
       // 如果已登陆，该学生对该课程的当前打分
       int stuClassScore = 0;
       ClassScore[] classScores = classScoreService.selectBySIdAndCId(sId, cId);
-      if (classScores != null) stuClassScore = classScores[0].getScore();
+      if (classScores != null && classScores.length !=0 ) stuClassScore = classScores[0].getScore();
       jsonObject.put("stuClassScore", stuClassScore);
     }
     // 将结果响应给前端

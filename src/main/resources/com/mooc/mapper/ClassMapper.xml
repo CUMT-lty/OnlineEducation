@@ -105,5 +105,14 @@
           concat("%", #{name}, "%")
   </select>
 
+  <select id="selectClassesByCIds" resultMap="classResultMap">
+    select *
+    from class
+    where c_id in
+      <foreach collection="cIds" item="cId" separator="," open="(" close=")">
+        #{cId}
+      </foreach>
+  </select>
+
 
 </mapper>

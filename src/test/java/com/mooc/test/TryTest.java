@@ -25,26 +25,32 @@ public class TryTest {
 
   @Test
   public void recommendTest() {
-    ClassLogServiceImpl classLogService = new ClassLogServiceImpl();
-    ClassLog[] classLogs = classLogService.recommendClassByStuId(1);
-    for (ClassLog classLog : classLogs) {
-      System.out.println(classLog);
-    }
+
+    StuCognitionServiceImpl stuCognitionService = new StuCognitionServiceImpl();
+    StuCognition[] stuCognitions = stuCognitionService.selectStuCognitionsBySId(11);
+    System.out.println(stuCognitions.length);
 
   }
 
 
   @Test
   public void tryDemo() {
-    JSONObject jsonObject = new JSONObject();
-    jsonObject.put("name", "java语言程序设计");
-    jsonObject.put("description", "java入门基础课程");
-    jsonObject.put("viewNum", 365);
-    jsonObject.put("score", 7);
-    jsonObject.put("like", true);
-    jsonObject.put("collect", true);
-    String s = jsonObject.toJSONString();
-    System.out.println(s);
+
+    ExamServiceImpl examService = new ExamServiceImpl();
+    Exam exam = new Exam();
+    exam.setcId(147);
+    exam.settId(1);
+    exam.setA("a选项");
+    exam.setB("b选项");
+    exam.setC("c选项");
+    exam.setD("d选项");
+    exam.setAnswer(1);
+    for (int i = 4; i <= 12; i++){
+      exam.setDescription(i + "python爬虫高级开发工程师课程");
+      examService.addExam(exam);
+    }
+
+
   }
 
   @Test
@@ -100,6 +106,8 @@ public class TryTest {
 
 
   }
+
+
 
 
 }
