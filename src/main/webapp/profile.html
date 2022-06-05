@@ -276,12 +276,11 @@
         method: "GET",
       })
         .then(res => {
-          const template = $('profile-template')[0].innerHTML;
-          const container = $('profile-container');
+          const template = $('#profile-template')[0].innerHTML;
+          const container = $('#profile-container')[0];
 
           const { studyNum, collectNum, likeNum, studyTime, scoreNum, examNum, classNum } = res;
-          container.append(
-            template
+          const html  =  template
               .replace('{studyNum}', studyNum)
               .replace('{likeNum}', likeNum)
               .replace('{collectNum}', collectNum)
@@ -289,8 +288,8 @@
               .replace('{scoreNum}', scoreNum)
               .replace('{examNum}', examNum)
               .replace('{classNum}', classNum)
-
-          );
+          console.log(html, container)
+          container.innerHTML = html;
           return res;
         })
         .then(createEchartsOption)
