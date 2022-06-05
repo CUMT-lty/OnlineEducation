@@ -8,15 +8,10 @@ import com.mooc.bean.AnsBean;
 import com.mooc.mapper.ClassLikeMapper;
 import com.mooc.mapper.ClassLogMapper;
 import com.mooc.mapper.ClassMapper;
+import com.mooc.pojo.*;
 import com.mooc.pojo.Class;
-import com.mooc.pojo.ClassLike;
-import com.mooc.pojo.ClassLog;
-import com.mooc.pojo.StuLog;
-import com.mooc.service.impl.ClassLogServiceImpl;
-import com.mooc.service.impl.ClassScoreServiceImpl;
+import com.mooc.service.impl.*;
 
-import com.mooc.service.impl.ClassServiceImpl;
-import com.mooc.service.impl.StuLogServiceImpl;
 import com.mooc.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -89,12 +84,20 @@ public class TryTest {
 
 
   @Test
-  public void jsonTest(){
+  public void StuServiceImplTest(){
 
-    String s = "{\"ids\":[7,2,5,1,10,12,14,11,13],\"checkedAnswers\":[3,2,3,2,3,3,2,3,3],\"cId\":\"1\"}";
-    AnsBean ansBean = JSON.parseObject(s, AnsBean.class);
+    Stu stu = new Stu();
+    stu.setUsername("333");
+    stu.setPassword("333");
+    stu.setName("333");
+    stu.setSchool("333");
+    stu.setProfession("333");
 
-    System.out.println(ansBean);
+    StuServiceImpl stuService = new StuServiceImpl();
+    int i = stuService.addStu(stu);
+
+    System.out.println(i);
+
 
   }
 

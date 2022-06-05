@@ -28,10 +28,10 @@ public class StuServiceImpl implements StuService {
     public int addStu(Stu stu) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         StuMapper mapper = sqlSession.getMapper(StuMapper.class);
-        int stuId = mapper.addStu(stu);
+        mapper.addStu(stu);
         sqlSession.commit();
         sqlSession.close();
-        return stuId;
+        return stu.getId();
     }
 
     @Override

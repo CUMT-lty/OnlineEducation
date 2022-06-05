@@ -21,12 +21,6 @@ public class StuLog {
     private int examNum = 0;
 
 
-    // 构造方法
-    public StuLog(int stuId) {
-        this.stuId = stuId;
-    }
-
-
     // set和get方法
 
     public int getId() {
