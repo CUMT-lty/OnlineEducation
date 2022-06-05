@@ -5,15 +5,16 @@ import java.util.Arrays;
 
 public class AnsBean {
 
-  int cId;
-  int[] checkedAnswers;
   int[] ids;
+  int[] checkedAnswers;
+  String cId;
 
-  public int getcId() {
+
+  public String getcId() {
     return cId;
   }
 
-  public void setcId(int cId) {
+  public void setcId(String cId) {
     this.cId = cId;
   }
 

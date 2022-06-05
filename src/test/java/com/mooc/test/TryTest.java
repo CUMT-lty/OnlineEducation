@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import com.mooc.bean.AnsBean;
 import com.mooc.mapper.ClassLikeMapper;
 import com.mooc.mapper.ClassLogMapper;
 import com.mooc.mapper.ClassMapper;
@@ -89,15 +90,11 @@ public class TryTest {
 
   @Test
   public void jsonTest(){
-    JSONObject jsonObject = new JSONObject();
-    int[] arr = {1,2,3,4,5};
-    jsonObject.put("arr", arr);
 
-    JSONArray arr1 = jsonObject.getJSONArray("arr");
-    for (Object o : arr1) {
-      int tmp = (int) o;
-      System.out.println(tmp);
-    }
+    String s = "{\"ids\":[7,2,5,1,10,12,14,11,13],\"checkedAnswers\":[3,2,3,2,3,3,2,3,3],\"cId\":\"1\"}";
+    AnsBean ansBean = JSON.parseObject(s, AnsBean.class);
+
+    System.out.println(ansBean);
 
   }
 

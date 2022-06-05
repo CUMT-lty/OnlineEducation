@@ -55,10 +55,9 @@ public class ExamServlet extends BaseServlet {
   public void ans(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setCharacterEncoding("utf-8");   // 设置编码方式,处理POST请求中文乱码问题
 
-    System.out.println(request.getReader().readLine());
-
     // 获取json字符串
     String reqJsonStr = request.getReader().readLine();
+    System.out.println("字符串："+reqJsonStr);
 
     // 从cookie获取课程学生id
     int sId = -1;
@@ -76,14 +75,16 @@ public class ExamServlet extends BaseServlet {
 
     // 转为javabean
     AnsBean ansBean = JSON.parseObject(reqJsonStr, AnsBean.class);
+    System.out.println("javabean："+ansBean);
+
     // 获取数据
-    int cId = ansBean.getcId();
+    int cId = Integer.parseInt(ansBean.getcId());
     int[] ids = ansBean.getIds();
     int[] checkedAnswers = ansBean.getCheckedAnswers();
 
-    System.out.println("cId: " + cId);
-    System.out.println("ids:" + Arrays.toString(ids));
-    System.out.println("checkedAnswers: " + Arrays.toString(checkedAnswers));
+//    System.out.println("cId: " + cId);
+//    System.out.println("ids:" + Arrays.toString(ids));
+//    System.out.println("checkedAnswers: " + Arrays.toString(checkedAnswers));
 
     int[] ansList = examService.selectAnswersByIds(ids);
     int newScore = ExamUtils.examScoreResult(checkedAnswers, ansList);   // 计算分数
