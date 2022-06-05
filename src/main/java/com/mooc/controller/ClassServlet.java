@@ -72,8 +72,10 @@ public class ClassServlet extends BaseServlet {
     Cookie[] cookies = request.getCookies();
     if (cookies != null && cookies.length != 0) {
       for (Cookie cookie : cookies) {    // 从cookie中或缺stuId同时检查登陆状态
-        if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
-        break;
+        if ("stuId".equals(cookie.getName())) {
+          sId = Integer.valueOf(cookie.getValue());
+          break;
+        }
       }
     }
     // 获取课程相关信息
@@ -119,14 +121,18 @@ public class ClassServlet extends BaseServlet {
    */
   public void like(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String jsonStr = request.getReader().readLine();
+    System.out.println("like: " + jsonStr);
+
     JSONObject jsonObject = JSON.parseObject(jsonStr);
     int cId = jsonObject.getInteger("cId");
     int sId = -1;     // 用户登录状态前端也会检查，避免冗余请求
     Cookie[] cookies = request.getCookies();
     if (cookies != null && cookies.length != 0) {
       for (Cookie cookie : cookies) {    // 从cookie中或缺stuId同时检查登陆状态
-        if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
-        break;
+        if ("stuId".equals(cookie.getName())) {
+          sId = Integer.valueOf(cookie.getValue());
+          break;
+        }
       }
     }
     // 查询class_like中是否已有点赞记录
@@ -155,14 +161,18 @@ public class ClassServlet extends BaseServlet {
    */
   public void collect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String jsonStr = request.getReader().readLine();
+    System.out.println("collect: " + jsonStr);
+
     JSONObject jsonObject = JSON.parseObject(jsonStr);
     int cId = jsonObject.getInteger("cId");
     int sId = -1;
     Cookie[] cookies = request.getCookies();
     if (cookies != null && cookies.length != 0) {
       for (Cookie cookie : cookies) {
-        if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
-        break;
+        if ("stuId".equals(cookie.getName())) {
+          sId = Integer.valueOf(cookie.getValue());
+          break;
+        }
       }
     }
     // 查询class_collect中是否已有收藏记录
@@ -193,6 +203,7 @@ public class ClassServlet extends BaseServlet {
   public void score(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // get : score & cId
     String jsonStr = request.getReader().readLine();
+    System.out.println("score: " + jsonStr);
 
     JSONObject jsonObject = JSON.parseObject(jsonStr);
     int cId = jsonObject.getInteger("cId");
@@ -201,8 +212,10 @@ public class ClassServlet extends BaseServlet {
     Cookie[] cookies = request.getCookies();
     if (cookies != null && cookies.length != 0) {
       for (Cookie cookie : cookies) {
-        if ("stuId".equals(cookie.getName())) sId = Integer.valueOf(cookie.getValue());
-        break;
+        if ("stuId".equals(cookie.getName())) {
+          sId = Integer.valueOf(cookie.getValue());
+          break;
+        }
       }
     }
 

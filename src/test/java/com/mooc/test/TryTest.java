@@ -1,11 +1,14 @@
 package com.mooc.test;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import com.mooc.mapper.ClassLikeMapper;
 import com.mooc.mapper.ClassLogMapper;
 import com.mooc.mapper.ClassMapper;
 import com.mooc.pojo.Class;
+import com.mooc.pojo.ClassLike;
 import com.mooc.pojo.ClassLog;
 import com.mooc.pojo.StuLog;
 import com.mooc.service.impl.ClassLogServiceImpl;
@@ -81,6 +84,21 @@ public class TryTest {
       classLog.setcName(aClass.getName());
       classLogService.addClassLog(classLog);
     }
+  }
+
+
+  @Test
+  public void jsonTest(){
+    JSONObject jsonObject = new JSONObject();
+    int[] arr = {1,2,3,4,5};
+    jsonObject.put("arr", arr);
+
+    JSONArray arr1 = jsonObject.getJSONArray("arr");
+    for (Object o : arr1) {
+      int tmp = (int) o;
+      System.out.println(tmp);
+    }
+
   }
 
 

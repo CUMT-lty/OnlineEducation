@@ -4,30 +4,42 @@ package com.mooc.bean;
 import java.util.Arrays;
 
 public class AnsBean {
-    int[] checkedAnswers;
-    int[] ids;
 
-    public int[] getCheckedAnswers() {
-        return checkedAnswers;
-    }
+  int cId;
+  int[] checkedAnswers;
+  int[] ids;
 
-    public void setCheckedAnswers(int[] checkedAnswers) {
-        this.checkedAnswers = checkedAnswers;
-    }
+  public int getcId() {
+    return cId;
+  }
 
-    public int[] getIds() {
-        return ids;
-    }
+  public void setcId(int cId) {
+    this.cId = cId;
+  }
 
-    public void setIds(int[] ids) {
-        this.ids = ids;
-    }
+  public int[] getCheckedAnswers() {
+    return checkedAnswers;
+  }
 
-    @Override
-    public String toString() {
-        return "AnsBean{" +
-                "checkedAnswers=" + Arrays.toString(checkedAnswers) +
-                ", ids=" + Arrays.toString(ids) +
-                '}';
-    }
+  public void setCheckedAnswers(int[] checkedAnswers) {
+    this.checkedAnswers = checkedAnswers;
+  }
+
+  public int[] getIds() {
+    return ids;
+  }
+
+  public void setIds(int[] ids) {
+    this.ids = ids;
+  }
+
+
+  @Override
+  public String toString() {
+    return "AnsBean{" +
+            "cId=" + cId +
+            ", checkedAnswers=" + Arrays.toString(checkedAnswers) +
+            ", ids=" + Arrays.toString(ids) +
+            '}';
+  }
 }
