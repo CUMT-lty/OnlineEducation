@@ -8,6 +8,7 @@ import com.mooc.bean.AnsBean;
 import com.mooc.mapper.ClassLikeMapper;
 import com.mooc.mapper.ClassLogMapper;
 import com.mooc.mapper.ClassMapper;
+import com.mooc.mapper.StuMapper;
 import com.mooc.pojo.*;
 import com.mooc.pojo.Class;
 import com.mooc.service.impl.*;
@@ -18,6 +19,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 
 import javax.xml.transform.sax.SAXResult;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 
@@ -108,6 +113,28 @@ public class TryTest {
   }
 
 
+  @Test
+  public void encodeTest() throws NoSuchAlgorithmException {
+    SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    StuMapper mapper = sqlSession.getMapper(StuMapper.class);
+
+    Stu stu = new Stu();
+    stu.setUsername("111");
+    String password = "111";
+
+    MessageDigest md5 = MessageDigest.getInstance("MD5");
+    md5.update(password.getBytes(StandardCharsets.UTF_8));
+    String s = new BigInteger(1, md5.digest()).toString(16);
+    System.out.println(s);
+
+    stu.setPassword(s);
+    stu.setName("111");
+    stu.setSchool("111");
+    stu.setProfession("111");
+
+    mapper.addStu(stu);
+  }
 
 
 }

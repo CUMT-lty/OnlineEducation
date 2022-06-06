@@ -226,6 +226,11 @@ public class ClassLogServiceImpl implements ClassLogService {
     int[] resCIds = resCIdList.stream().mapToInt(Integer::valueOf).toArray();
     // 最终要返回的是ClassLog[]
     ClassLog[] recClassLogs = classLogService.selectClassLogByCIds(resCIds);
+
+    for (ClassLog recClassLog : recClassLogs) {
+      System.out.println(recClassLog.getcName());
+    }
+
     return recClassLogs;
   }
 
